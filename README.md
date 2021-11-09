@@ -42,6 +42,7 @@
 
 
 ### 测试代码
+<div>
 <textarea disabled cols = 110 rows = 60>
 
 #include <glad/glad.h>
@@ -104,3 +105,4 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 
 </textarea>
+</div>
