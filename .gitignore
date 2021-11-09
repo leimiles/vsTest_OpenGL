@@ -34,3 +34,5 @@ Makefile
 include
 .vscode
 include/glad
+include/glad
+include/glad/glad.h
