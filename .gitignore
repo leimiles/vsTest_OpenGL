@@ -29,6 +29,5 @@
 *.out
 *.app
 include/glad
-include/glad
 include/glad/glad.h
 lib/libglad.a
