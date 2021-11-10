@@ -30,4 +30,6 @@
 *.app
 include/glad
 include/glad/glad.h
+include/KHR
+include/KHR/khrplatform.h
 lib/libglad.a
