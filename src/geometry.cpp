@@ -9,6 +9,8 @@ int fun1()
     cout << "wazzup" << endl;
 }
 
+
+
 // a kind compute shader example
 void fun2() {
 
@@ -65,4 +67,8 @@ void fun2() {
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
     // now array_sum is fully done
+}
+
+void fun3() {
+
 }
