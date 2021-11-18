@@ -1,15 +1,7 @@
 #include "users/geometry.h"
-#include "glad/glad.h"
 
 const int array_Size = 200;
 GLuint compute_ShaderID;
-
-int fun1()
-{
-    cout << "wazzup" << endl;
-}
-
-
 
 // a kind compute shader example
 void fun2() {
@@ -69,6 +61,22 @@ void fun2() {
     // now array_sum is fully done
 }
 
+// triangle vertices test, in order to skip vertex transform, we could use NDC coords directly
+
+float triangle_Example[] = {
+    -0.5f, -0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    0.0f, 0.5f, 0.0f
+};
+
+
+
 void fun3() {
+    std::cout << "fun3" << std::endl;
+}
+
+void get_ExampleTriangle() {
+    std::cout << sizeof(triangle_Example) << std::endl;
+    //std::cout << "get_ExampleTriangle" << std::endl;
 
 }

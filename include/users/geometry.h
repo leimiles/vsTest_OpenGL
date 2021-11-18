@@ -1,5 +1,7 @@
 #pragma once
-#include<iostream>
-using namespace std;
+#include <iostream>
+#include <glad/glad.h>
 
-int fun1();
+void get_ExampleTriangle();
+
+void fun3();

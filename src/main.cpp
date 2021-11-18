@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
+#include "users/mrp.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -13,13 +13,14 @@ int main()
 	// init glfw 
 	glfwInit();
 	// init some settings for glfw window, note there are a lot of options...
+	glfwWindowHint(GLFW_RESIZABLE, 0);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);		// here we set opengl version 3.3
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);		// core profile won't have backwords-compatible feature
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		// needed when on Mac OS
 
 	// create glfw window object with given parameters
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL and Miles", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "慧渊's Model Reviewer By Miles", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -38,13 +39,25 @@ int main()
 		return -1;
 	}
 
+	// init render pipeline
+	mrp _mrp;
+
+	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
 	{
+		// to orgnize our input control
 		processInput(window);
+		// glwf will swap the 2D color buffer for everytime 
+
+		//... here our drawing commands are
+		_mrp.clearColorBuffer();
+
 		glfwSwapBuffers(window);
+		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
 		glfwPollEvents();
 	}
 
+	// if the while loop stopped, glfw will stop too, the whole app is over
 	glfwTerminate();
 	return 0;
 }
