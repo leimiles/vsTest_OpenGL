@@ -40,7 +40,7 @@ int main()
 	}
 
 	// init render pipeline
-	mrp _mrp;
+	mrp miles_RenderingPipeline;
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -50,8 +50,8 @@ int main()
 		// glwf will swap the 2D color buffer for everytime 
 
 		//... here our drawing commands are
-		_mrp.clear_ColorBuffer();
-		_mrp.draw_TestTriangle();
+		miles_RenderingPipeline.clear_ColorBuffer();
+		miles_RenderingPipeline.draw_TestTriangle();
 
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.

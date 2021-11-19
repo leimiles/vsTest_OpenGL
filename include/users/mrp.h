@@ -1,6 +1,7 @@
 #pragma once
 #include <glad/glad.h>
 #include <users/geometry.h>
+#include <users/shader.h>
 
 // this is the render pipeline
 class mrp
@@ -11,4 +12,5 @@ public:
     ~mrp();
     void clear_ColorBuffer();
     void draw_TestTriangle();
+    void check_ShaderCompileInfo(unsigned int shaderID);
 };
