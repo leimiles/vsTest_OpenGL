@@ -13,4 +13,5 @@ public:
     void clear_ColorBuffer();
     void draw_TestTriangle();
     void check_ShaderCompileInfo(unsigned int shaderID);
+    void check_ShaderLinkInfo(unsigned int shaderID);
 };

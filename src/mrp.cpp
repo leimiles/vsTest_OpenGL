@@ -44,7 +44,7 @@ void mrp::draw_TestTriangle()
     glShaderSource(FSO, 1, &shader::test_FragmentShader, NULL);
     glCompileShader(FSO);
     // check compilation error if needed
-    //check_ShaderCompileInfo(VFO);
+    //check_ShaderCompileInfo(FSO);
 
     // create shader program
     unsigned int shader_Program;
@@ -53,6 +53,26 @@ void mrp::draw_TestTriangle()
     glAttachShader(shader_Program, VSO);
     glAttachShader(shader_Program, FSO);
     glLinkProgram(shader_Program);
+    // check if shader program linking error
+    check_ShaderLinkInfo(shader_Program);
+}
+
+
+void mrp::check_ShaderLinkInfo(unsigned int programID)
+{
+    int success;
+    char infoLog[512];
+    glGetProgramiv(programID, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(programID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::LINK::ERROR\n" << infoLog << std::endl;
+    }
+    else
+    {
+        std::cout << "PROGRAM::STATUS::LOOKS::GREAT!\n" << std::endl;
+    }
+
 }
 
 
@@ -64,10 +84,10 @@ void mrp::check_ShaderCompileInfo(unsigned int shaderID)
     if (!success)
     {
         glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::COMPILATION::ERROR\n" << infoLog << std::endl;
     }
     else
     {
-        std::cout << "SHADER COMPILATION SUCCESSED!" << std::endl;
+        std::cout << "SHADER::STATUS::LOOKS::GREAT!\n" << std::endl;
     }
 }
