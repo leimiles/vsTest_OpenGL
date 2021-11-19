@@ -9,5 +9,6 @@ private:
 public:
     mrp(/* args */);
     ~mrp();
-    void clearColorBuffer();
+    void clear_ColorBuffer();
+    void draw_TestTriangle();
 };

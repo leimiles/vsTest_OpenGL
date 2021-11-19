@@ -50,7 +50,8 @@ int main()
 		// glwf will swap the 2D color buffer for everytime 
 
 		//... here our drawing commands are
-		_mrp.clearColorBuffer();
+		_mrp.clear_ColorBuffer();
+		_mrp.draw_TestTriangle();
 
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.

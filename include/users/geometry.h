@@ -1,7 +1,14 @@
 #pragma once
 #include <iostream>
-#include <glad/glad.h>
 
-void get_ExampleTriangle();
+class geometry
+{
+private:
+    /* data */
+public:
+    static float triangle_Example[9];
+    geometry(/* args */);
+    ~geometry();
+};
 
-void fun3();
+

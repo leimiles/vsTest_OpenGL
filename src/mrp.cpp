@@ -8,16 +8,16 @@ mrp::~mrp()
 {
 }
 
-
-
-// set(clear) color buffer with red
-void mrp::clearColorBuffer()
+// set(clear) color buffer with specified color
+void mrp::clear_ColorBuffer()
 {
-    // set color buffer value
-    glClearColor(0.2f, 0.6f, 0.6f, 1.0f);
+    // set clear color  value
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     // clear color buffer with the set of clear color
     glClear(GL_COLOR_BUFFER_BIT);
-    //std::cout << sizeof(vertices) << std::endl;
-    //float* vertices;
-    get_ExampleTriangle();
+}
+
+void mrp::draw_TestTriangle()
+{
+    std::cout << sizeof(geometry::triangle_Example) << std::endl;
 }
