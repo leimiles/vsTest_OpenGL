@@ -54,7 +54,23 @@ void mrp::draw_TestTriangle()
     glAttachShader(shader_Program, FSO);
     glLinkProgram(shader_Program);
     // check if shader program linking error
-    check_ShaderLinkInfo(shader_Program);
+    //check_ShaderLinkInfo(shader_Program);
+    glUseProgram(shader_Program);
+
+    // delete shader after linking
+    glDeleteShader(VSO);
+    glDeleteShader(FSO);
+
+    // use attribute pointer to tell gl how to read vbo
+    // 0, means where we want to pass the data to in vertex shader, shader said (location = 0), so ...
+    // 3, size of this attribute, 3 means 3 values
+    // gl_float, type of the value
+    // gl_false, meanse we don't need normalized value for now
+    // how long between each vertex attribute, 0 mean let opengl decide, only works when tighly packed
+    // where vbo starts
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+    // 0 means 
+    glEnableVertexAttribArray(0);
 }
 
 
@@ -70,7 +86,7 @@ void mrp::check_ShaderLinkInfo(unsigned int programID)
     }
     else
     {
-        std::cout << "PROGRAM::STATUS::LOOKS::GREAT!\n" << std::endl;
+        std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
     }
 
 }
