@@ -7,10 +7,10 @@
 class mrp
 {
 private:
-    static unsigned int current_VSO;
-    static unsigned int current_FSO;
-    static unsigned int current_Program;
-    unsigned int current_VAO;
+    static unsigned int current_VSO;        // vertex shader object
+    static unsigned int current_FSO;        // fragment shader object
+    static unsigned int current_Program;        // shader program object
+    unsigned int current_VAO;       // vertex attribute object
 public:
     mrp(/* args */);
     ~mrp();
