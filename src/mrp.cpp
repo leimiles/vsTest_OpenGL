@@ -35,10 +35,9 @@ void mrp::set_TestTriangleData() {
     // set attribute pointer
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
     glEnableVertexAttribArray(0);
-
 }
 
-void mrp::set_TestTriangleShader(bool isChecked)
+void mrp::set_TestShader(bool isChecked)
 {
     // prepare vertex shader
     mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);

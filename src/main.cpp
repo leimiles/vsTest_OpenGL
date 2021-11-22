@@ -44,7 +44,7 @@ int main()
 	// use mrp's test triangle
 	miles_RenderingPipeline.set_TestTriangleData();
 	// use shader's test shader
-	miles_RenderingPipeline.set_TestTriangleShader(false);
+	miles_RenderingPipeline.set_TestShader(false);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))

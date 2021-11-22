@@ -17,7 +17,7 @@ public:
     void test();
     void clear_ColorBuffer();
     void set_TestTriangleData();
-    void set_TestTriangleShader(bool isChecked);
+    void set_TestShader(bool isChecked);
     void draw_TestTriangle();
     void check_ShaderCompileInfo(unsigned int shaderID);
     void check_ShaderLinkInfo(unsigned int shaderID);
