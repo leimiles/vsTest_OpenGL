@@ -74,10 +74,8 @@ void mrp::draw_TestTriangle()
     glUseProgram(mrp::current_Program);
     glBindVertexArray(current_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDeleteShader(current_VSO);
-    glDeleteShader(current_FSO);
-    //std::cout << mrp::current_Program << std::endl;
-    //check_ShaderLinkInfo(*mrp::current_Program);
+    glDeleteShader(mrp::current_VSO);
+    glDeleteShader(mrp::current_FSO);
 }
 
 // just a test
