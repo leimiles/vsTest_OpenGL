@@ -41,6 +41,10 @@ int main()
 
 	// init render pipeline
 	mrp miles_RenderingPipeline;
+	// use mrp's test triangle
+	miles_RenderingPipeline.set_TestTriangleData();
+	// use shader's test shader
+	miles_RenderingPipeline.set_TestTriangleShader(false);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -53,6 +57,7 @@ int main()
 		miles_RenderingPipeline.clear_ColorBuffer();
 		miles_RenderingPipeline.draw_TestTriangle();
 
+		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
 		glfwPollEvents();
