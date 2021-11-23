@@ -25,7 +25,7 @@ float geometry::rectangle_Example_Unique[] = {
 };
 
 // not clock-wise ???
-float geometry::rectangle_Example_Indices[] = {
+unsigned int geometry::rectangle_Example_Indices[] = {
     // 1st triangle
     0, 1, 3,
     // 2nd triangle

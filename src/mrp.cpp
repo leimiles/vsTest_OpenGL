@@ -1,8 +1,12 @@
 #include "users/mrp.h"
 
+// init static members
 unsigned int mrp::current_VSO = 0;
 unsigned int mrp::current_FSO = 0;
 unsigned int mrp::current_Program = 0;
+unsigned int mrp::current_VAO = 0;
+unsigned int mrp::current_VBO = 0;
+unsigned int mrp::current_EBO = 0;
 
 mrp::mrp(/* args */)
 {
@@ -21,26 +25,9 @@ void mrp::clear_ColorBuffer()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void mrp::set_TestTriangleData2()
-{
-    // prepare vbo
-    //unsigned int VBO;
-    glGenBuffers(1, &current_VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, current_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::triangle_Example_Colored), geometry::triangle_Example_Colored, GL_STATIC_DRAW);
-    // prepare vao
-    glGenVertexArrays(1, &current_VAO);
-    glBindVertexArray(current_VAO);
-    // activate vertex attribute
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    // configure vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)0);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)12);
-}
-
 // test tirangle would not be changed frequently, so we can bind vao before the render loop
-void mrp::set_TestTriangleData() {
+void mrp::set_TestTriangleData()
+{
     // prepare vbo
     unsigned int VBO;
     glGenBuffers(1, &VBO);
@@ -55,6 +42,49 @@ void mrp::set_TestTriangleData() {
     glEnableVertexAttribArray(0);
 }
 
+// this shape use 2 vertex attributes
+void mrp::set_TestTriangleData2()
+{
+    // prepare vbo
+    glGenBuffers(1, &mrp::current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::triangle_Example_Colored), geometry::triangle_Example_Colored, GL_STATIC_DRAW);
+    // prepare vao
+    glGenVertexArrays(1, &mrp::current_VAO);
+    glBindVertexArray(mrp::current_VAO);
+    // activate vertex attribute
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    // configure vertex attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)12);
+}
+
+// this shape is rectangle with element index
+void mrp::set_TestRectangleData()
+{
+    // bind vao first
+    glGenVertexArrays(1, &mrp::current_VAO);
+    glBindVertexArray(mrp::current_VAO);
+
+    // bind vbo
+    glGenBuffers(1, &mrp::current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::rectangle_Example_Unique), geometry::rectangle_Example_Unique, GL_STATIC_DRAW);
+
+    // configure attributes
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+    glEnableVertexAttribArray(0);
+    // array buffer is not needed to be bound because attribute configures are set
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // use ebo
+    glGenBuffers(1, &mrp::current_EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mrp::current_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::rectangle_Example_Indices), geometry::rectangle_Example_Indices, GL_STATIC_DRAW);
+}
+
+// create, source, attach, link, check shaders
 void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shader, bool isChecked)
 {
     mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);
@@ -83,58 +113,64 @@ void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shad
     }
 }
 
+// delete shader after link
 void mrp::delete_Shaders()
 {
     glDeleteShader(mrp::current_VSO);
     glDeleteShader(mrp::current_FSO);
 }
 
-void mrp::set_TestShader(bool isChecked)
-{
-    // prepare vertex shader
-    mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(mrp::current_VSO, 1, &shader::test_VertexShader, NULL);
-    glCompileShader(mrp::current_VSO);
-    if (isChecked)
-    {
-        check_ShaderCompileInfo(mrp::current_VSO);
-    }
-
-    // prepare fragment shader
-    mrp::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(mrp::current_FSO, 1, &shader::test_FragmentShader, NULL);
-    glCompileShader(mrp::current_FSO);
-    if (isChecked)
-    {
-        check_ShaderCompileInfo(mrp::current_FSO);
-    }
-
-    // prepare and link shader
-    mrp::current_Program = glCreateProgram();
-    glAttachShader(mrp::current_Program, mrp::current_VSO);
-    glAttachShader(mrp::current_Program, mrp::current_FSO);
-    glLinkProgram(mrp::current_Program);
-    if (isChecked)
-    {
-        check_ShaderLinkInfo(mrp::current_Program);
-    }
-}
-
+// draw array via GL_TRIANGLES
 void mrp::draw_TrianglesArray(unsigned int start_Index, unsigned int vertices_Count)
 {
     glUseProgram(mrp::current_Program);
-    glBindVertexArray(current_VAO);
+    glBindVertexArray(mrp::current_VAO);
     glDrawArrays(GL_TRIANGLES, start_Index, vertices_Count);
-    mrp::delete_Shaders();
+    //mrp::delete_Shaders();
 }
 
-void mrp::draw_TestTriangle()
+// release everything
+void mrp::release_Resource()
 {
-    glUseProgram(mrp::current_Program);
-    glBindVertexArray(current_VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDeleteShader(mrp::current_VSO);
-    glDeleteShader(mrp::current_FSO);
+    glDeleteVertexArrays(1, &mrp::current_VAO);
+    glDeleteBuffers(1, &mrp::current_VBO);
+    glDeleteBuffers(1, &mrp::current_EBO);
+    glDeleteProgram(mrp::current_Program);
+}
+
+// check link status
+void mrp::check_ShaderLinkInfo(unsigned int programID)
+{
+    int success;
+    char infoLog[512];
+    glGetProgramiv(programID, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(programID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::LINK::ERROR\n" << infoLog << std::endl;
+    }
+    else
+    {
+        std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
+    }
+
+}
+
+// check compile status
+void mrp::check_ShaderCompileInfo(unsigned int shaderID)
+{
+    int success;
+    char infoLog[512];
+    glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::COMPILATION::ERROR\n" << infoLog << std::endl;
+    }
+    else
+    {
+        std::cout << "SHADER::STATUS::LOOKS::GREAT!\n" << std::endl;
+    }
 }
 
 // just a test
@@ -201,37 +237,53 @@ void mrp::test()
 
 }
 
-
-void mrp::check_ShaderLinkInfo(unsigned int programID)
+// just a test
+void mrp::set_TestShader(bool isChecked)
 {
-    int success;
-    char infoLog[512];
-    glGetProgramiv(programID, GL_LINK_STATUS, &success);
-    if (!success)
+    // prepare vertex shader
+    mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(mrp::current_VSO, 1, &shader::test_VertexShader, NULL);
+    glCompileShader(mrp::current_VSO);
+    if (isChecked)
     {
-        glGetProgramInfoLog(programID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::LINK::ERROR\n" << infoLog << std::endl;
-    }
-    else
-    {
-        std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
+        check_ShaderCompileInfo(mrp::current_VSO);
     }
 
+    // prepare fragment shader
+    mrp::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(mrp::current_FSO, 1, &shader::test_FragmentShader, NULL);
+    glCompileShader(mrp::current_FSO);
+    if (isChecked)
+    {
+        check_ShaderCompileInfo(mrp::current_FSO);
+    }
+
+    // prepare and link shader
+    mrp::current_Program = glCreateProgram();
+    glAttachShader(mrp::current_Program, mrp::current_VSO);
+    glAttachShader(mrp::current_Program, mrp::current_FSO);
+    glLinkProgram(mrp::current_Program);
+    if (isChecked)
+    {
+        check_ShaderLinkInfo(mrp::current_Program);
+    }
 }
 
-
-void mrp::check_ShaderCompileInfo(unsigned int shaderID)
+// just a test
+void mrp::draw_TestRectangle()
 {
-    int success;
-    char infoLog[512];
-    glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::COMPILATION::ERROR\n" << infoLog << std::endl;
-    }
-    else
-    {
-        std::cout << "SHADER::STATUS::LOOKS::GREAT!\n" << std::endl;
-    }
+    glUseProgram(mrp::current_Program);
+    glBindVertexArray(mrp::current_VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //delete_Shaders();
+}
+
+// just a test
+void mrp::draw_TestTriangle()
+{
+    glUseProgram(mrp::current_Program);
+    glBindVertexArray(current_VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDeleteShader(mrp::current_VSO);
+    glDeleteShader(mrp::current_FSO);
 }
