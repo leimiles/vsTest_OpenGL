@@ -42,9 +42,9 @@ int main()
 	// init render pipeline
 	mrp miles_RenderingPipeline;
 	// use mrp's test triangle
-	miles_RenderingPipeline.set_TestTriangleData();
+	miles_RenderingPipeline.set_TestTriangleData2();
 	// use shader's test shader
-	miles_RenderingPipeline.set_TestShader(false);
+	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -55,7 +55,7 @@ int main()
 
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
-		miles_RenderingPipeline.draw_TestTriangle();
+		miles_RenderingPipeline.draw_TrianglesArray(0, 3);
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

@@ -3,9 +3,18 @@
 
 // triangle vertices test, in order to skip vertex transform, we could use NDC coords directly
 float geometry::triangle_Example[] = {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f, 0.5f, 0.0f
+    -0.5f, -0.5f, 0.0f,     // position
+    0.5f, -0.5f, 0.0f,      // position
+    0.0f, 0.5f, 0.0f        // position
+};
+
+float geometry::triangle_Example_Colored[] = {
+    -0.5f, -0.5f, 0.0f,     // position
+    1.0f, 0.0f, 0.0f, 1.0f,         // color
+    0.5f, -0.5f, 0.0f,      // position
+    0.0f, 1.0f, 0.0f, 1.0f,         // color
+    0.0f, 0.5f, 0.0f,       // position
+    0.0f, 0.0f, 1.0f, 1.0f          // color
 };
 
 float geometry::rectangle_Example_Unique[] = {

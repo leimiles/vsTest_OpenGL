@@ -21,6 +21,24 @@ void mrp::clear_ColorBuffer()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void mrp::set_TestTriangleData2()
+{
+    // prepare vbo
+    //unsigned int VBO;
+    glGenBuffers(1, &current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, current_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::triangle_Example_Colored), geometry::triangle_Example_Colored, GL_STATIC_DRAW);
+    // prepare vao
+    glGenVertexArrays(1, &current_VAO);
+    glBindVertexArray(current_VAO);
+    // activate vertex attribute
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    // configure vertex attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)12);
+}
+
 // test tirangle would not be changed frequently, so we can bind vao before the render loop
 void mrp::set_TestTriangleData() {
     // prepare vbo
@@ -35,6 +53,40 @@ void mrp::set_TestTriangleData() {
     // set attribute pointer
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
     glEnableVertexAttribArray(0);
+}
+
+void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shader, bool isChecked)
+{
+    mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(mrp::current_VSO, 1, &vertex_Shader, NULL);
+    glCompileShader(mrp::current_VSO);
+    if (isChecked)
+    {
+        mrp::check_ShaderCompileInfo(mrp::current_VSO);
+    }
+
+    mrp::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(mrp::current_FSO, 1, &fragment_Shader, NULL);
+    glCompileShader(mrp::current_FSO);
+    if (isChecked)
+    {
+        check_ShaderCompileInfo(mrp::current_FSO);
+    }
+
+    mrp::current_Program = glCreateProgram();
+    glAttachShader(mrp::current_Program, mrp::current_VSO);
+    glAttachShader(mrp::current_Program, mrp::current_FSO);
+    glLinkProgram(mrp::current_Program);
+    if (isChecked)
+    {
+        check_ShaderLinkInfo(mrp::current_Program);
+    }
+}
+
+void mrp::delete_Shaders()
+{
+    glDeleteShader(mrp::current_VSO);
+    glDeleteShader(mrp::current_FSO);
 }
 
 void mrp::set_TestShader(bool isChecked)
@@ -66,6 +118,14 @@ void mrp::set_TestShader(bool isChecked)
     {
         check_ShaderLinkInfo(mrp::current_Program);
     }
+}
+
+void mrp::draw_TrianglesArray(unsigned int start_Index, unsigned int vertices_Count)
+{
+    glUseProgram(mrp::current_Program);
+    glBindVertexArray(current_VAO);
+    glDrawArrays(GL_TRIANGLES, start_Index, vertices_Count);
+    mrp::delete_Shaders();
 }
 
 void mrp::draw_TestTriangle()
