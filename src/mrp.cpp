@@ -84,6 +84,27 @@ void mrp::set_TestRectangleData()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::rectangle_Example_Indices), geometry::rectangle_Example_Indices, GL_STATIC_DRAW);
 }
 
+void mrp::set_TestRectangleData2()
+{
+    glGenVertexArrays(1, &mrp::current_VAO);
+    glBindVertexArray(mrp::current_VAO);
+
+    glGenBuffers(1, &mrp::current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::rectangle_Example_Colored), geometry::rectangle_Example_Colored, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)12);
+    glEnableVertexAttribArray(1);
+
+    glGenBuffers(1, &mrp::current_EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mrp::current_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::rectangle_Example_Indices), geometry::rectangle_Example_Indices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 // create, source, attach, link, check shaders
 void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shader, bool isChecked)
 {
@@ -136,6 +157,12 @@ void mrp::release_Resource()
     glDeleteBuffers(1, &mrp::current_VBO);
     glDeleteBuffers(1, &mrp::current_EBO);
     glDeleteProgram(mrp::current_Program);
+}
+
+// set draw mode
+void mrp::set_DrawMode(GLenum draw_Mode)
+{
+    glPolygonMode(GL_FRONT_AND_BACK, draw_Mode);
 }
 
 // check link status

@@ -42,9 +42,11 @@ int main()
 	// init render pipeline
 	mrp miles_RenderingPipeline;
 	// use mrp's test triangle
-	miles_RenderingPipeline.set_TestRectangleData();
+	miles_RenderingPipeline.set_TestRectangleData2();
 	// use shader's test shader
-	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader, shader::test_FragmentShader, false);
+	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
+	// use line mode to draw if needed
+	//miles_RenderingPipeline.set_DrawMode(GL_LINE);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))

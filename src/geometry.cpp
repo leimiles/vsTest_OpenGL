@@ -24,6 +24,17 @@ float geometry::rectangle_Example_Unique[] = {
     -0.5f, 0.5f, 0.0f       // top left
 };
 
+float geometry::rectangle_Example_Colored[] = {
+    0.5f, 0.5f, 0.0f,       // top right
+    1.0f, 1.0f, 0.0f, 1.0f, // color
+    0.5f, -0.5f, 0.0f,      // bottom right
+    1.0f, 0.0f, 0.0f, 1.0f, // color
+    -0.5f, -0.5f, 0.0f,     // bottom left
+    0.0f, 0.0f, 0.0f, 1.0f, // color
+    -0.5f, 0.5f, 0.0f,      // top left
+    0.0f, 1.0f, 0.0f, 1.0f  // color
+};
+
 // not clock-wise ???
 unsigned int geometry::rectangle_Example_Indices[] = {
     // 1st triangle

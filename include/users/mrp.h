@@ -21,8 +21,10 @@ public:
     void set_TestTriangleData();
     void set_TestTriangleData2();
     void set_TestRectangleData();
+    void set_TestRectangleData2();
     void set_TestShader(bool isChecked);
     void set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shader, bool isChecked);
+    void set_DrawMode(GLenum draw_Mode);
     void delete_Shaders();
     void draw_TestTriangle();
     void draw_TestRectangle();
