@@ -312,6 +312,23 @@ void mrp::draw_TestRectangle()
     //delete_Shaders();
 }
 
+// just a test via time
+void mrp::draw_TestRectangle_Time(float time)
+{
+    // shader program must be activated first
+    glUseProgram(mrp::current_Program);
+    // transform time to a color value
+    float colorValueFromTime = sin(time) * 0.5f + 0.5f;
+    // get uniform color location from shader program
+    int myColor_Location = glGetUniformLocation(mrp::current_Program, "myColor");
+    // set uniform value by location
+    glUniform4f(myColor_Location, 0.0, colorValueFromTime, 0.0, 1.0f);
+    // same as usual
+    glBindVertexArray(mrp::current_VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //delete_Shaders();
+}
+
 // just a test
 void mrp::draw_TestTriangle()
 {

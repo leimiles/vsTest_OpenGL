@@ -10,9 +10,10 @@ const char* shader::test_VertexShader = "#version 330\n"
 
 const char* shader::test_FragmentShader = "#version 330\n"
 "out vec4 final_Color;\n"
+"uniform vec4 myColor;"
 "void main()\n"
 "{\n"
-"final_Color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"final_Color = vec4(1.0f, myColor.g, 0.2f, 1.0f);\n"
 "}\n";
 
 const char* shader::test_VertexShader2 = "#version 330\n"

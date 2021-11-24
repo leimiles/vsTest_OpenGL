@@ -42,9 +42,9 @@ int main()
 	// init render pipeline
 	mrp miles_RenderingPipeline;
 	// use mrp's test triangle
-	miles_RenderingPipeline.set_TestRectangleData2();
+	miles_RenderingPipeline.set_TestRectangleData();
 	// use shader's test shader
-	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
+	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader, shader::test_FragmentShader, false);
 	// use line mode to draw if needed
 	//miles_RenderingPipeline.set_DrawMode(GL_LINE);
 	//std::cout << miles_RenderingPipeline.get_MaxVertex_Attributes() << std::endl;
@@ -58,7 +58,7 @@ int main()
 
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
-		miles_RenderingPipeline.draw_TestRectangle();
+		miles_RenderingPipeline.draw_TestRectangle_Time(glfwGetTime());
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <users/geometry.h>
 #include <users/shader.h>
+#include <cmath>
 
 // this is the render pipeline
 class mrp
@@ -33,4 +34,5 @@ public:
     void check_ShaderLinkInfo(unsigned int shaderID);
     void release_Resource();
     int get_MaxVertex_Attributes();
+    void draw_TestRectangle_Time(float time);
 };
