@@ -1,7 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "users/mrp.h"
-#include "users/test.txt"
 
 #include <fstream>
 #include <iostream>

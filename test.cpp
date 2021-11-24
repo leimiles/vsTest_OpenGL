@@ -9,7 +9,7 @@ int main()
 {
     std::ifstream file;
     file.exceptions(std::fstream::badbit | std::fstream::failbit);
-    file.open("test11.txt");
+    file.open("test1.txt");
     if (file.is_open())
     {
         std::cout << "working!" << std::endl;
