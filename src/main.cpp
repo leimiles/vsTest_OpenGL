@@ -1,6 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "users/mrp.h"
+#include "users/test.txt"
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -44,11 +50,25 @@ int main()
 	// use mrp's test triangle
 	miles_RenderingPipeline.set_TestRectangleData2();
 	// use shader's test shader
-	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
+	// miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
+	// use shader's test shader
+
+	std::ifstream file;
+	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	file.open("test.txt");
+	if (file.is_open())
+	{
+		std::cout << "working" << std::endl;
+	}
+	else
+	{
+		std::cout << "nope" << std::endl;
+	}
+	file.close();
+
 	// use line mode to draw if needed
 	//miles_RenderingPipeline.set_DrawMode(GL_LINE);
 	//std::cout << miles_RenderingPipeline.get_MaxVertex_Attributes() << std::endl;
-
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
 	{
@@ -58,7 +78,7 @@ int main()
 
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
-		miles_RenderingPipeline.draw_TestRectangle();
+		//miles_RenderingPipeline.draw_TestRectangle();
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
