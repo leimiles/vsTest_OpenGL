@@ -32,4 +32,5 @@ public:
     void check_ShaderCompileInfo(unsigned int shaderID);
     void check_ShaderLinkInfo(unsigned int shaderID);
     void release_Resource();
+    int get_MaxVertex_Attributes();
 };

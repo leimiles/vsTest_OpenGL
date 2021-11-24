@@ -200,6 +200,13 @@ void mrp::check_ShaderCompileInfo(unsigned int shaderID)
     }
 }
 
+int mrp::get_MaxVertex_Attributes()
+{
+    int numberOfAttributes;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &numberOfAttributes);
+    return numberOfAttributes;
+}
+
 // just a test
 void mrp::test()
 {

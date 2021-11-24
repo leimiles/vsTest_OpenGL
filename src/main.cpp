@@ -47,6 +47,7 @@ int main()
 	miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
 	// use line mode to draw if needed
 	//miles_RenderingPipeline.set_DrawMode(GL_LINE);
+	//std::cout << miles_RenderingPipeline.get_MaxVertex_Attributes() << std::endl;
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
