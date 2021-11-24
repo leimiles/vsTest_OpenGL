@@ -95,7 +95,7 @@ void mrp::set_TestRectangleData2()
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)12);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)(sizeof(float) * 3));
     glEnableVertexAttribArray(1);
 
     glGenBuffers(1, &mrp::current_EBO);
@@ -313,16 +313,16 @@ void mrp::draw_TestRectangle()
 }
 
 // just a test via time
-void mrp::draw_TestRectangle_Time(float time)
+void mrp::draw_TestRectangle_Time(float time, float time_Scale)
 {
+    // transform time to a color value
+    float colorG_FromTime = sin(time * time_Scale) * 0.5f + 0.5f;
     // shader program must be activated first
     glUseProgram(mrp::current_Program);
-    // transform time to a color value
-    float colorValueFromTime = sin(time) * 0.5f + 0.5f;
     // get uniform color location from shader program
     int myColor_Location = glGetUniformLocation(mrp::current_Program, "myColor");
     // set uniform value by location
-    glUniform4f(myColor_Location, 0.0, colorValueFromTime, 0.0, 1.0f);
+    glUniform4f(myColor_Location, 0.0f, colorG_FromTime, 0.0f, 1.0f);
     // same as usual
     glBindVertexArray(mrp::current_VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

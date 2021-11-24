@@ -34,5 +34,5 @@ public:
     void check_ShaderLinkInfo(unsigned int shaderID);
     void release_Resource();
     int get_MaxVertex_Attributes();
-    void draw_TestRectangle_Time(float time);
+    void draw_TestRectangle_Time(float time, float time_Scale);
 };
