@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MRP_H
+#define MRP_H
 #include <glad/glad.h>
 #include <users/geometry.h>
 #include <users/shader.h>
@@ -36,3 +37,5 @@ public:
     int get_MaxVertex_Attributes();
     void draw_TestRectangle_Time(float time, float time_Scale);
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
 #include <iostream>
 
 class geometry
@@ -15,4 +16,4 @@ public:
     ~geometry();
 };
 
-
+#endif
