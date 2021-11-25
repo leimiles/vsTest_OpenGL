@@ -35,32 +35,23 @@ const char* shader::test_FragmentShader2 = "#version 330\n"
 "}\n";
 
 
-
-
-shader::shader(const char* vertexShader_Path, const char* fragmentShader_Path, bool isChecked)
+shader::shader(/* args */)
 {
-    std::string vertexShader_Code;
+}
+
+shader::shader(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
+{
     std::ifstream vertexShader_File;
-    //vertexShader_File.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    vertexShader_File.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try
     {
-        std::cout << vertexShader_Path << std::endl;
-        vertexShader_File.open("test.txt");
-        if (!vertexShader_File.good())
-        {
-            std::cout << "not working" << std::endl;
-        }
-        else
-        {
-            std::cout << "working, fool!" << std::endl;
-        }
+
     }
     catch (std::ifstream::failure& e)
     {
         std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
     // this is needed for shader source
-    const char* vertexShader_Pointer = vertexShader_Code.c_str();
 }
 
 shader::~shader()

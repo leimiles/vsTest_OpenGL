@@ -2,11 +2,6 @@
 #include <GLFW/glfw3.h>
 #include "users/mrp.h"
 
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -46,28 +41,11 @@ int main()
 
 	// init render pipeline
 	mrp miles_RenderingPipeline;
-	// use mrp's test triangle
+	// use mrp's test rectangle from geometry class
 	miles_RenderingPipeline.set_TestRectangleData2();
-	// use shader's test shader
-	// miles_RenderingPipeline.set_ShaderProgram(shader::test_VertexShader2, shader::test_FragmentShader2, false);
-	// use shader's test shader
+	// user shader files, check compile, check files
+	miles_RenderingPipeline.set_ShaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
 
-	std::ifstream file;
-	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	file.open("test.txt");
-	if (file.is_open())
-	{
-		std::cout << "working" << std::endl;
-	}
-	else
-	{
-		std::cout << "nope" << std::endl;
-	}
-	file.close();
-
-	// use line mode to draw if needed
-	//miles_RenderingPipeline.set_DrawMode(GL_LINE);
-	//std::cout << miles_RenderingPipeline.get_MaxVertex_Attributes() << std::endl;
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
 	{

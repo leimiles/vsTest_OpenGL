@@ -7,6 +7,7 @@ unsigned int mrp::current_Program = 0;
 unsigned int mrp::current_VAO = 0;
 unsigned int mrp::current_VBO = 0;
 unsigned int mrp::current_EBO = 0;
+shader mrp::_shader_Program;
 
 mrp::mrp(/* args */)
 {
@@ -132,6 +133,10 @@ void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shad
     {
         check_ShaderLinkInfo(mrp::current_Program);
     }
+}
+
+void mrp::set_ShaderProgram(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated) {
+    mrp::_shader_Program = shader(vertex_Shader_FileName, fragment_Shader_FileName, isChecked, isValidated);
 }
 
 // delete shader after link
