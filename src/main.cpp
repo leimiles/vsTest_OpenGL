@@ -41,22 +41,17 @@ int main()
 
 	// init render pipeline
 	mrp miles_RenderingPipeline;
-	// use mrp's test rectangle from geometry class
-	miles_RenderingPipeline.set_TestRectangleData2();
 	// user shader files, check compile, check files
-	miles_RenderingPipeline.set_ShaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
+	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
 	{
 		// to orgnize our input control
 		processInput(window);
-		// glwf will swap the 2D color buffer for everytime 
 
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
-		//miles_RenderingPipeline.draw_TestRectangle();
-
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.

@@ -1,6 +1,8 @@
 #include "users\shader.h"
 
+unsigned int shader::current_Program = 0;
 unsigned int shader::current_VSO = 0;
+unsigned int shader::current_FSO = 0;
 
 // this is test shader
 const char* shader::test_VertexShader = "#version 330\n"
@@ -43,34 +45,36 @@ shader::shader(/* args */)
 
 shader::shader(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
 {
+    // read and compile vertex shader
     std::string vertex_Shader_String = shader::shader_FileReader(vertex_Shader_FileName, isValidated);
     const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
-
-
-    /*
-    std::string vertex_Shader_Path = vertex_Shader_FileName;
-    std::ifstream vertex_Shader_File;
-    vertex_Shader_File.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    vertex_Shader_File.open(SHADER_PATH_ROOT + vertex_Shader_Path);
-    if (isValidated)
+    shader::current_VSO = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(shader::current_VSO, 1, &vertex_Shader_Pointer, NULL);
+    glCompileShader(shader::current_VSO);
+    if (isChecked)
     {
-        if (!vertex_Shader_File.is_open() || !vertex_Shader_File.good())
-        {
-            std::cout << "ERROR::VERTEX_SHADER::READ::FAILED" << std::endl;
-            return;
-        }
-        else
-        {
-            std::cout << "VERTEX_SHADER::READ::DONE" << std::endl;
-        }
+        shader::check_ShaderCompileInfo(shader::current_VSO);
     }
-    std::stringstream vertex_Shader_Stream;
-    vertex_Shader_Stream << vertex_Shader_File.rdbuf();
-    vertex_Shader_File.close();
-    std::string vertex_Shader_Code = vertex_Shader_Stream.str();
-    const char* vertex_Shader_Pointer = vertex_Shader_Code.c_str();
-    std::cout << vertex_Shader_Pointer << std::endl;
-    */
+
+    // read and compile fragment shader
+    std::string fragment_Shader_String = shader::shader_FileReader(fragment_Shader_FileName, isValidated);
+    const char* fragment_Shader_Pointer = fragment_Shader_String.c_str();
+    shader::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(shader::current_FSO, 1, &fragment_Shader_Pointer, NULL);
+    glCompileShader(shader::current_FSO);
+    if (isChecked)
+    {
+        shader::check_ShaderCompileInfo(shader::current_FSO);
+    }
+
+    // link shaders
+    shader::current_Program = glCreateProgram();
+    glAttachShader(shader::current_Program, shader::current_VSO);
+    glAttachShader(shader::current_Program, shader::current_FSO);
+    glLinkProgram(shader::current_Program);
+    if (isChecked) {
+        shader::check_ShaderLinkInfo(shader::current_Program);
+    }
 
 }
 
@@ -84,12 +88,12 @@ std::string shader::shader_FileReader(const char* file_Name, bool isValidate)
     {
         if (!file_Stream.good() || !file_Stream.is_open())
         {
-            std::cout << "ERROR::VERTEX_SHADER::READ::FAILED" << std::endl;
+            std::cout << file_Name << "::ERROR::VERTEX_SHADER::READ::FAILED" << std::endl;
             return NULL;
         }
         else
         {
-            std::cout << "VERTEX_SHADER::READ::DONE" << std::endl;
+            std::cout << file_Name << "::SHADER_FILE::READ::SUCCESFULLY" << std::endl;
         }
     }
     std::stringstream file_String_Stream;
@@ -114,6 +118,30 @@ void shader::check_ShaderCompileInfo(unsigned int shaderID)
     }
     else
     {
-        std::cout << "SHADER::STATUS::LOOKS::GREAT!\n" << std::endl;
+        std::cout << "SHADER::COMPILATION::LOOKS::GREAT\n" << std::endl;
     }
+}
+
+void shader::check_ShaderLinkInfo(unsigned int programID)
+{
+    int success;
+    char infoLog[512];
+    glGetProgramiv(programID, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(programID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::LINK::ERROR\n" << infoLog << std::endl;
+    }
+    else
+    {
+        std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
+    }
+
+}
+
+void shader::delete_Program()
+{
+    glDeleteShader(shader::current_VSO);
+    glDeleteShader(shader::current_FSO);
+    glDeleteProgram(shader::current_Program);
 }
