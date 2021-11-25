@@ -33,3 +33,4 @@ include/glad/glad.h
 include/KHR
 include/KHR/khrplatform.h
 lib/libglad.a
+.vscode/c_cpp_properties.json
