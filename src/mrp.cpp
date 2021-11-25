@@ -114,7 +114,6 @@ void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shad
     glCompileShader(mrp::current_VSO);
     if (isChecked)
     {
-        mrp::check_ShaderCompileInfo(mrp::current_VSO);
     }
 
     mrp::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
@@ -122,7 +121,6 @@ void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shad
     glCompileShader(mrp::current_FSO);
     if (isChecked)
     {
-        check_ShaderCompileInfo(mrp::current_FSO);
     }
 
     mrp::current_Program = glCreateProgram();
@@ -131,7 +129,6 @@ void mrp::set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shad
     glLinkProgram(mrp::current_Program);
     if (isChecked)
     {
-        check_ShaderLinkInfo(mrp::current_Program);
     }
 }
 
@@ -186,23 +183,6 @@ void mrp::check_ShaderLinkInfo(unsigned int programID)
         std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
     }
 
-}
-
-// check compile status
-void mrp::check_ShaderCompileInfo(unsigned int shaderID)
-{
-    int success;
-    char infoLog[512];
-    glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::COMPILATION::ERROR\n" << infoLog << std::endl;
-    }
-    else
-    {
-        std::cout << "SHADER::STATUS::LOOKS::GREAT!\n" << std::endl;
-    }
 }
 
 int mrp::get_MaxVertex_Attributes()
@@ -274,38 +254,6 @@ void mrp::test()
     glDeleteShader(FSO);
 
 
-}
-
-// just a test
-void mrp::set_TestShader(bool isChecked)
-{
-    // prepare vertex shader
-    mrp::current_VSO = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(mrp::current_VSO, 1, &shader::test_VertexShader, NULL);
-    glCompileShader(mrp::current_VSO);
-    if (isChecked)
-    {
-        check_ShaderCompileInfo(mrp::current_VSO);
-    }
-
-    // prepare fragment shader
-    mrp::current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(mrp::current_FSO, 1, &shader::test_FragmentShader, NULL);
-    glCompileShader(mrp::current_FSO);
-    if (isChecked)
-    {
-        check_ShaderCompileInfo(mrp::current_FSO);
-    }
-
-    // prepare and link shader
-    mrp::current_Program = glCreateProgram();
-    glAttachShader(mrp::current_Program, mrp::current_VSO);
-    glAttachShader(mrp::current_Program, mrp::current_FSO);
-    glLinkProgram(mrp::current_Program);
-    if (isChecked)
-    {
-        check_ShaderLinkInfo(mrp::current_Program);
-    }
 }
 
 // just a test

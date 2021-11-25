@@ -25,12 +25,10 @@ public:
     void set_TestTriangleData2();
     void set_TestRectangleData();
     void set_TestRectangleData2();
-    void set_TestShader(bool isChecked);
     void set_ShaderProgram(const char* vertex_Shader, const char* fragment_Shader, bool isChecked);
     void set_ShaderProgram(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated);
     void set_DrawMode(GLenum draw_Mode);
     void delete_Shaders();
-    void check_ShaderCompileInfo(unsigned int shaderID);
     void check_ShaderLinkInfo(unsigned int shaderID);
     void release_Resource();
     int get_MaxVertex_Attributes();
