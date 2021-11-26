@@ -19,7 +19,8 @@ public:
     void release_Resource();
     void set_DrawMode(GLenum draw_Mode);
     int get_MaxVertex_Attributes();
-    void draw_Shape();
+    void draw_Geometry_Elements();
+    void set_RenderingData();
 };
 
 #endif

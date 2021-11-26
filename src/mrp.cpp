@@ -1,9 +1,9 @@
 #include "users/mrp.h"
 
 // init static members
-unsigned int mrp::current_VAO;
-unsigned int mrp::current_VBO;
-unsigned int mrp::current_EBO;
+unsigned int mrp::current_VAO = 0;
+unsigned int mrp::current_VBO = 0;
+unsigned int mrp::current_EBO = 0;
 
 mrp::mrp(/* args */)
 {
@@ -45,7 +45,35 @@ int mrp::get_MaxVertex_Attributes()
     return numberOfAttributes;
 }
 
-void mrp::draw_Shape()
+void mrp::set_RenderingData()
 {
+    // bind vao
+    glGenVertexArrays(1, &mrp::current_VAO);
+    glBindVertexArray(mrp::current_VAO);
 
+    // bind vbo
+    glGenBuffers(1, &mrp::current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::quad_Example_Attributes), geometry::quad_Example_Attributes, GL_STATIC_DRAW);
+
+    // bind ebo
+    glGenBuffers(1, &mrp::current_EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mrp::current_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::quad_Example_Indices), geometry::quad_Example_Indices, GL_STATIC_DRAW);
+
+    // configure vao
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 3));
+    glEnableVertexAttribArray(1);
+
+    // vao bound is no longer needed
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
+void mrp::draw_Geometry_Elements()
+{
+    glBindVertexArray(mrp::current_VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

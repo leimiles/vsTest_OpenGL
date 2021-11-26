@@ -1,6 +1,6 @@
 #include "users/geometry.h"
 
-float geometry::quad_Example[] = {
+float geometry::quad_Example_Attributes[] = {
     0.5f, 0.5f, 0.0f,       // top right
     1.0f, 1.0f, 0.0f,       // color
     0.5f, -0.5f, 0.0f,      // bottom right
@@ -17,8 +17,9 @@ unsigned int geometry::quad_Example_Indices[] = {
     1, 2, 3     // 2nd triangle
 };
 
-geometry::geometry(/* args */)
+geometry::geometry()
 {
+
 }
 
 geometry::~geometry()

@@ -41,6 +41,8 @@ int main()
 
 	// init render pipeline
 	mrp miles_RenderingPipeline;
+	// set rendering data
+	miles_RenderingPipeline.set_RenderingData();
 	// user shader files, check compile, check files
 	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
 
@@ -49,9 +51,12 @@ int main()
 	{
 		// to orgnize our input control
 		processInput(window);
-
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
+
+		shader::use_Program();
+		miles_RenderingPipeline.draw_Geometry_Elements();
+
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
