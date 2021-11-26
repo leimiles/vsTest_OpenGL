@@ -38,11 +38,6 @@ const char* shader::test_FragmentShader2 = "#version 330\n"
 "final_Color = vec4(vertex_Color.r, vertex_Color.g, vertex_Color.b, vertex_Color.a);\n"
 "}\n";
 
-
-shader::shader(/* args */)
-{
-}
-
 shader::shader(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
 {
     // read and compile vertex shader
