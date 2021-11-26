@@ -1,6 +1,7 @@
 # vsTest_OpenGL
 ## 二，开发日志 2021/11/26
 ### 1, 完成代码重构，主要代码文件说明
+>* 源文件都在 ./src 目录下，头文件都在 ./include/users 目录下，shader 文件都在 ./src/shaders 目录下
 >* geometry 类，几何体计算，预设几何体数据
 >* mrp 类，渲染管线类，包括绘制，剔除，清除，设置渲染数据
 >* shader 类，读取 shader 文件，编译，链接，调用 
