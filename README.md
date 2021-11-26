@@ -1,4 +1,24 @@
 # vsTest_OpenGL
+## 二，开发日志 2021/11/26
+### 1, 完成代码重构，主要代码文件说明
+>* geometry 类，几何体计算，预设几何体数据
+>* mrp 类，渲染管线类，包括绘制，剔除，清除，设置渲染数据
+>* shader 类，读取 shader 文件，编译，链接，调用 
+>* main.cpp，主程序入口
+>* make run，终端运行命令
+### 2, 当前开发状态
+>* 完成默认 VBO 渲染
+>* 完成 shader 类
+>* 完成 mrp 类
+>* 完成 geometry 类
+### 3，待开发
+>* 摄影机参数
+>* 几何体模型加载
+>* 第一版光照模型
+>* 窗体交互逻辑
+
+---
+
 ## 一，配置开发环境
 1，配置 vscode 的 c++ 开发环境，首先需要配置 gcc 和 g++ 的编译器，可以在 [https://sourceforge.net/projects/mingw-w64/files/] 下载自己系统对应的版本(往列表下面看)，我是 [win10_X64] 下载的是 *x86_64_win32-seh* (47.8 MB)。
 <div align = center>

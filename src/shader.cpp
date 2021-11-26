@@ -95,7 +95,7 @@ void shader::check_ShaderLinkInfo(unsigned int programID)
     }
     else
     {
-        std::cout << "PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
+        std::cout << "SHADER::PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
     }
 
 }

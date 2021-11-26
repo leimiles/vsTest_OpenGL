@@ -1,9 +1,9 @@
 #include "users/mrp.h"
 
 // init static members
-unsigned int mrp::current_VAO = 0;
-unsigned int mrp::current_VBO = 0;
-unsigned int mrp::current_EBO = 0;
+unsigned int mrp::current_VAO;
+unsigned int mrp::current_VBO;
+unsigned int mrp::current_EBO;
 
 mrp::mrp(/* args */)
 {
