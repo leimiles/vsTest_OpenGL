@@ -75,5 +75,5 @@ void mrp::set_RenderingData()
 void mrp::draw_Geometry_Elements()
 {
     glBindVertexArray(mrp::current_VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, sizeof(geometry::quad_Example_Indices) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
 }
