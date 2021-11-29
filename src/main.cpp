@@ -1,5 +1,5 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 #include "users/mrp.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -43,8 +43,10 @@ int main()
 	mrp miles_RenderingPipeline;
 	// set rendering data
 	miles_RenderingPipeline.set_RenderingData();
+	// set texture data
+	texture texture("google.png", 11);
 	// user shader files, check compile, check files
-	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
+	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", false, false);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))

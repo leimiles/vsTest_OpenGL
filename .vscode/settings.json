@@ -56,7 +56,10 @@
         "memory_resource": "cpp",
         "optional": "cpp",
         "string_view": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "ratio": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

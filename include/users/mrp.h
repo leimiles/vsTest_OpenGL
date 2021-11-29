@@ -1,9 +1,10 @@
 #ifndef MRP_H
 #define MRP_H
-#include <glad/glad.h>
-#include <users/geometry.h>
-#include <users/shader.h>
 #include <cmath>
+#include "users/geometry.h"
+#include "users/shader.h"
+#include "users/texture.h"
+#include "glad/glad.h"
 
 // this is the render pipeline
 class mrp
