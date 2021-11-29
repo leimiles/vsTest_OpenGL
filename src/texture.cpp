@@ -5,7 +5,7 @@ static unsigned int texture02;
 static unsigned int texture03;
 static unsigned int texture04;
 
-texture::texture(const char* texture_FileName, unsigned int texture_Channel)
+texture::texture(const char* texture_FileName, unsigned int texture_Channel, bool isChecked)
 {
     switch (texture_Channel)
     {

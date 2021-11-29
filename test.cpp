@@ -1,17 +1,20 @@
 #include <iostream>
 using namespace std;
+#include <stdarg.h>
 
 
+void fun(int count, ...)
+{
+    va_list elements_Pointer;
+    va_start(elements_Pointer, count);
+    const char* arg1 = va_arg(elements_Pointer, const char*);
+    const char* arg2 = va_arg(elements_Pointer, const char*);
+    std::cout << arg1 << std::endl;
+    std::cout << arg2 << std::endl;
+}
 int main()
 {
-
-    int i[] = { 1, 3, 4 };
-    int* p = i;
-    cout << i[2] << endl;
-    cout << p[2] << endl;
-
-    cout << "-- OpenGL and Miles --" << endl;
-    return 0;
+    fun(4, "kobe", "ned", "king", "miles");
 }
 
 
