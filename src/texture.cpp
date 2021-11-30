@@ -1,7 +1,7 @@
 #include "users/texture.h"
+#include "users/stb_image.h"
 
 unsigned int texture::count = 0;
-
 
 texture::texture(const char* texture_FileName, bool isChecked)
 {
