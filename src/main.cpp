@@ -44,6 +44,7 @@ int main()
 	// set rendering data
 	miles_RenderingPipeline.set_RenderingData();
 	// set texture data
+	texture tex01("google.png", true);
 	//texture texture("google.png");
 	// user shader files, check compile, check files
 	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", false, false);
