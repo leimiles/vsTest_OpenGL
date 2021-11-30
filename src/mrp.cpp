@@ -62,10 +62,12 @@ void mrp::set_RenderingData()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::quad_Example_Indices), geometry::quad_Example_Indices, GL_STATIC_DRAW);
 
     // configure vao
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 3));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 3));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 6));
+    glEnableVertexAttribArray(2);
 
     // vao bound is no longer needed
     glBindBuffer(GL_ARRAY_BUFFER, 0);

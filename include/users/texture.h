@@ -13,10 +13,11 @@ private:
     int width;
     int height;
     int number_OfChannels;
-    unsigned int TXO;
 public:
-    texture(const char* texture_FileName, bool isChecked);
+    unsigned int TXO;
+    texture(const char* texture_FileName, bool isChecked, bool isMipmap);
     ~texture();
+    void set_TextureMode();
 };
 
 #endif
