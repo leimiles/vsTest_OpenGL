@@ -18,10 +18,11 @@ public:
     ~mrp();
     void clear_ColorBuffer();
     void release_Resource();
-    void set_DrawMode(GLenum draw_Mode);
     int get_MaxVertex_Attributes();
-    void draw_Geometry_Elements();
+    void set_DrawMode(GLenum draw_Mode);
     void set_RenderingData();
+    void draw_Geometry_Elements();
+    void draw_Geometry_Elements(texture& tex);
 };
 
 #endif

@@ -24,6 +24,8 @@ public:
     static void check_ShaderLinkInfo(unsigned int programID);
     static void delete_Program();
     static void use_Program();
+    static void set_Float(int parameter_Location, float value);
+    static int get_ParameterLocation(const char* parameter_Name);
 };
 
 #endif

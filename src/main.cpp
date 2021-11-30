@@ -45,8 +45,10 @@ int main()
 	miles_RenderingPipeline.set_RenderingData();
 	// set texture data
 	texture tex01("super_Mario.png", false, true);
+	texture tex02("quiet.jpg", false, true);
 	// user shader files, check compile, check files
 	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", false, false);
+	int loc01 = shader::get_ParameterLocation("color_Intensity");
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -57,7 +59,8 @@ int main()
 		miles_RenderingPipeline.clear_ColorBuffer();
 
 		shader::use_Program();
-		miles_RenderingPipeline.draw_Geometry_Elements();
+		shader::set_Float(loc01, sin(glfwGetTime()));
+		miles_RenderingPipeline.draw_Geometry_Elements(tex01);
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

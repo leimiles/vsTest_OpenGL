@@ -111,3 +111,13 @@ void shader::use_Program()
 {
     glUseProgram(shader::current_Program);
 }
+
+void shader::set_Float(int parameter_Location, float value)
+{
+    glUniform1f(parameter_Location, value);
+}
+
+int shader::get_ParameterLocation(const char* parameter_Name)
+{
+    return glGetUniformLocation(shader::current_Program, parameter_Name);
+}

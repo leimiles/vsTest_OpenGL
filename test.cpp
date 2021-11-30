@@ -3,7 +3,7 @@ using namespace std;
 #include <stdarg.h>
 
 
-void fun(int count, ...)
+void fun01(int count, ...)
 {
     va_list elements_Pointer;
     va_start(elements_Pointer, count);
@@ -12,9 +12,11 @@ void fun(int count, ...)
     std::cout << arg1 << std::endl;
     std::cout << arg2 << std::endl;
 }
+
+
 int main()
 {
-    fun(4, "kobe", "ned", "king", "miles");
+
 }
 
 
