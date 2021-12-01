@@ -49,7 +49,7 @@ std::string shader::shader_FileReader(const char* file_Name, bool isValidate)
     {
         if (!file_Stream.good() || !file_Stream.is_open())
         {
-            std::cout << file_Name << "::ERROR::VERTEX_SHADER::READ::FAILED" << std::endl;
+            std::cout << file_Name << "::ERROR::VERTEX_SHADER::READ::FAILED !!!\n" << std::endl;
             return NULL;
         }
         else
@@ -75,7 +75,7 @@ void shader::check_ShaderCompileInfo(unsigned int shaderID)
     if (!success)
     {
         glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::COMPILATION::ERROR\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::COMPILATION::FAILED !!!\n" << infoLog << std::endl;
     }
     else
     {
@@ -91,11 +91,11 @@ void shader::check_ShaderLinkInfo(unsigned int programID)
     if (!success)
     {
         glGetProgramInfoLog(programID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::LINK::ERROR\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::LINK::FAILED !!!\n" << infoLog << std::endl;
     }
     else
     {
-        std::cout << "SHADER::PROGRAM::LINK::LOOKS::GREAT!\n" << std::endl;
+        std::cout << "SHADER::PROGRAM::LINK::LOOKS::GREAT\n" << std::endl;
     }
 
 }

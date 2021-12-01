@@ -12,12 +12,12 @@ texture::texture(const char* texture_FileName, bool isChecked, bool isMipmap)
     {
         if (!texture_Data)
         {
-            std::cout << "TEXTURE::" << texture_FileName_String << "::LOAD::FAILED" << std::endl;
+            std::cout << "TEXTURE::" << texture_FileName_String << "::LOAD::FAILED !!!\n" << std::endl;
             return;
         }
         else
         {
-            std::cout << "TEXTURE::" << texture_FileName_String << "::LOAD::SUCCESFULLY" << std::endl;
+            std::cout << "TEXTURE::" << texture_FileName_String << "::LOAD::SUCCESFULLY\n" << std::endl;
         }
     }
     glGenTextures(1, &TXO);
