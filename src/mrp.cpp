@@ -80,9 +80,12 @@ void mrp::draw_Geometry_Elements()
     glDrawElements(GL_TRIANGLES, sizeof(geometry::quad_Example_Indices) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
 }
 
+/*
 void mrp::draw_Geometry_Elements(texture& tex)
 {
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, tex.TXO);
     glBindVertexArray(mrp::current_VAO);
     glDrawElements(GL_TRIANGLES, sizeof(geometry::quad_Example_Indices) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
 }
+*/

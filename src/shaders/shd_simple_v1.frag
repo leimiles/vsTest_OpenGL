@@ -7,13 +7,12 @@ in vec2 out_Uv;
 uniform sampler2D example1_Texture;
 uniform sampler2D example2_Texture;
 uniform sampler2D example3_Texture;
-uniform sampler2D example4_Texture;
-
 
 void main()
 {
-    final_Color = vec4(out_Color.r, out_Color.g, out_Color.b, 1.0f);
-    //final_Color.rgb *= texture(example1_Texture, out_Uv).rgb;
-    final_Color.rgb *= texture(example1_Texture, out_Uv).rgb;
-    final_Color.rgb *= texture(example2_Texture, out_Uv).rgb;
+    vec4 example1_Color = texture(example1_Texture, out_Uv);
+    vec4 example2_Color = texture(example2_Texture, out_Uv);
+    vec4 example3_Color = texture(example3_Texture, out_Uv);
+    //final_Color = mix(vec4(out_Color, 1.0f), vec4(example1_Color.rgb, 1.0f), example1_Color.a);
+    final_Color = example1_Color * example1_Color.a;
 }

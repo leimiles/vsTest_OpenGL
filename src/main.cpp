@@ -43,11 +43,15 @@ int main()
 	mrp miles_RenderingPipeline;
 	// set rendering data
 	miles_RenderingPipeline.set_RenderingData();
-	// set texture data
-	texture tex01("super_Mario.png", true, true);
-	texture tex02("quiet.jpg", true, true);
+
 	// user shader files, check compile, check files
 	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
+
+	// set texture data
+	texture tex01("super_Mario_A.png", GL_RGBA, true, true);
+	texture tex02("batman.jpg", GL_RGB, true, true);
+	texture tex03("miaoYu.jpg", GL_RGB, true, true);
+	texture::set_BoundTextures_2D(tex01, tex02, tex03);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -57,7 +61,7 @@ int main()
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
 		shader::use_Program();
-		miles_RenderingPipeline.draw_Geometry_Elements(tex01);
+		miles_RenderingPipeline.draw_Geometry_Elements();
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

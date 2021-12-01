@@ -22,7 +22,7 @@ public:
     void set_DrawMode(GLenum draw_Mode);
     void set_RenderingData();
     void draw_Geometry_Elements();
-    void draw_Geometry_Elements(texture& tex);
+    //void draw_Geometry_Elements(texture& tex);
 };
 
 #endif

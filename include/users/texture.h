@@ -4,20 +4,22 @@
 #include "glad/glad.h"
 #include <string>
 #include <iostream>
+#include <cstdarg>
 #define STB_IMAGE_IMPLEMENTATION
 
 class texture
 {
 private:
-    static unsigned int count;
+    static int count;
     int width;
     int height;
     int number_OfChannels;
-public:
     unsigned int TXO;
-    texture(const char* texture_FileName, bool isChecked, bool isMipmap);
+public:
+    texture(const char* texture_FileName, GLenum color_Mode, bool isChecked, bool isMipmap);
     ~texture();
-    void set_TextureMode();
+    void set_TextureMode_2D();
+    static void set_BoundTextures_2D(texture& tex, ...);
 };
 
 #endif
