@@ -63,9 +63,9 @@ int main()
 		shader::use_Program();
 
 		// set uniform buffer
-		shader::set_Int("example1_Texture", 1);
-		shader::set_Int("example2_Texture", 0);
-		shader::set_Int("example3_Texture", 2);
+		shader::set_Int("example1_Texture", 0);		// gl_texture0
+		shader::set_Int("example2_Texture", 1);		// gl_texture1
+		shader::set_Int("example3_Texture", 2);		// gl_texture2
 
 		miles_RenderingPipeline.draw_Geometry_Elements();
 
