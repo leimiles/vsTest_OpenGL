@@ -1,7 +1,7 @@
 #pragma once
 
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
+#include "./glm/glm.hpp"
+#include "./glm/gtc/matrix_transform.hpp"
 
 class camera
 {
@@ -10,21 +10,21 @@ public:
 	camera(glm::vec3 position, float pitch, float yaw, glm::vec3 worldup);
 	~camera();
 
-	glm::vec3 position;							// Ïà»úÎ»ÖÃ
-	glm::vec3 forward;							// Ïà»úµÄÈý¸öÖá
+	glm::vec3 position;							// ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	glm::vec3 forward;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	glm::vec3 right;
 	glm::vec3 up;
-	glm::vec3 worldUp;							// ÊÀ½ç¿Õ¼äYÖá
+	glm::vec3 worldUp;							// ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Yï¿½ï¿½
 	//glm::vec3 cameraTrans;
-	float pitch;								// ´¹Ö±Ðý×ª
-	float yaw;									// Ë®Æ½Ðý×ª
-	float senseX	= 0.001f;					// Êó±êË®Æ½Ãô¸Ð¶È
-	float senseY	= 0.001f;					// Êó±ê´¹Ö±Ãô¸Ð¶È
-	float maxPitch	= glm::radians(89.0f);		// ´¹Ö±Ðý×ªãÐÖµ
-	float minPitch	= glm::radians(-89.0f);
+	float pitch;								// ï¿½ï¿½Ö±ï¿½ï¿½×ª
+	float yaw;									// Ë®Æ½ï¿½ï¿½×ª
+	float senseX = 0.001f;					// ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½Ð¶ï¿½
+	float senseY = 0.001f;					// ï¿½ï¿½ê´¹Ö±ï¿½ï¿½ï¿½Ð¶ï¿½
+	float maxPitch = glm::radians(89.0f);		// ï¿½ï¿½Ö±ï¿½ï¿½×ªï¿½ï¿½Öµ
+	float minPitch = glm::radians(-89.0f);
 	//float cameraRotate = 0;
-	float zoom		= -3;						// Ïà»úÉî¶È
-	float speedZ	= 0;						// Ïà»ú¾°ÉîÃô¸Ð¶È
+	float zoom = -3;						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float speedZ = 0;						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 
 	glm::mat4 get_ViewMatrix();
 	void process_MouseMovement(float deltaX, float deltaY);
