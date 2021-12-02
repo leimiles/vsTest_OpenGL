@@ -58,8 +58,9 @@ int main()
 	{
 		// to orgnize our input control
 		processInput(window);
-		//... here our drawing commands are
+		// clear target
 		miles_RenderingPipeline.clear_ColorBuffer();
+		// active current shader
 		shader::use_Program();
 
 		// set uniform buffer
@@ -67,6 +68,7 @@ int main()
 		shader::set_Int("example2_Texture", 1);		// gl_texture1
 		shader::set_Int("example3_Texture", 2);		// gl_texture2
 
+		// draw data
 		miles_RenderingPipeline.draw_Geometry_Elements();
 
 		// double buffer avoiding the tearing

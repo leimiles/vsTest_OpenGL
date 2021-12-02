@@ -23,19 +23,16 @@ void fun02(const char* name01, ...)
     va_end(elements_Pointer);
 }
 
+template<typename T>
+void fun03(T t)
+{
+    std::cout << t << std::endl;
+
+}
+
 int main()
 {
-    fun02("wawa", "kobe", "deko");
-    int i = 10;
-    int b = 11;
-    std::cout << (i = 0) << std::endl;
-
-    /*
-        while (0)
-        {
-            std::cout << "wazz" << std::endl;
-        }
-        */
+    fun03("wawa");
 }
 
 
