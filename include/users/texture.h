@@ -19,7 +19,7 @@ public:
     texture(const char* texture_FileName, GLenum color_Mode, bool isChecked, bool isMipmap);
     ~texture();
     void set_TextureMode_2D();
-    static void set_BoundTextures_2D(texture& tex, ...);
+    static void set_BoundTextures_2D(int count, ...);
 };
 
 #endif

@@ -51,7 +51,7 @@ int main()
 	texture tex01("super_Mario_A.png", GL_RGBA, true, true);
 	texture tex02("batman.jpg", GL_RGB, true, true);
 	texture tex03("miaoYu.jpg", GL_RGB, true, true);
-	texture::set_BoundTextures_2D(tex01, tex02, tex03);
+	texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -61,6 +61,12 @@ int main()
 		//... here our drawing commands are
 		miles_RenderingPipeline.clear_ColorBuffer();
 		shader::use_Program();
+
+		// set uniform buffer
+		shader::set_Int("example1_Texture", 1);
+		shader::set_Int("example2_Texture", 0);
+		shader::set_Int("example3_Texture", 2);
+
 		miles_RenderingPipeline.draw_Geometry_Elements();
 
 		// double buffer avoiding the tearing

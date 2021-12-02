@@ -44,32 +44,14 @@ void texture::set_TextureMode_2D()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void texture::set_BoundTextures_2D(texture& tex, ...)
+void texture::set_BoundTextures_2D(int count, ...)
 {
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex.TXO);
-    if (--texture::count <= 0)
-    {
-        std::cout << "nothing" << std::endl;
-        return;
-    }
     va_list texture_Pointer;
-    va_start(texture_Pointer, tex);
-
-    while (texture::count)
-    {
-        //std::cout << texture::count << std::endl;
-        texture::count--;
+    va_start(texture_Pointer, count);
+    for (int i = 0; i < count; i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, va_arg(texture_Pointer, texture).TXO);
     }
-    /*
-    std::cout << "binding texture" << std::endl;
-    std::cout << &(tex.TXO) << std::endl;
-    std::cout << &(va_arg(texture_Pointer, texture).TXO) << std::endl;
-    std::cout << &(va_arg(texture_Pointer, texture).TXO) << std::endl;
-    std::cout << &(va_arg(texture_Pointer, texture).TXO) << std::endl;
-    std::cout << &(va_arg(texture_Pointer, texture).TXO) << std::endl;
-    */
-
     va_end(texture_Pointer);
 }
 
