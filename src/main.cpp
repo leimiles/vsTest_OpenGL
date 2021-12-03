@@ -1,6 +1,6 @@
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-#include "users/mrp.h"
+#include "./glad/glad.h"
+#include "./GLFW/glfw3.h"
+#include "./users/mrp.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);

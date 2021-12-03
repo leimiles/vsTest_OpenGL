@@ -49,12 +49,12 @@ std::string shader::shader_FileReader(const char* file_Name, bool isValidate)
     {
         if (!file_Stream.good() || !file_Stream.is_open())
         {
-            std::cout << file_Name << "::ERROR::VERTEX_SHADER::READ::FAILED !!!\n" << std::endl;
+            std::cout << "SHADER_FILE::" << file_Name << "::READ::FAILED !!!\n" << std::endl;
             return NULL;
         }
         else
         {
-            std::cout << file_Name << "::SHADER_FILE::READ::SUCCESFULLY" << std::endl;
+            std::cout << "SHADER_FILE::" << file_Name << "::READ::SUCCESFULLY" << std::endl;
         }
     }
     std::stringstream file_String_Stream;
