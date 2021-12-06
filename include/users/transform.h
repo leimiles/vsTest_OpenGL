@@ -8,11 +8,13 @@
 class transform
 {
 private:
-    static glm::mat4 mat_Identify;
 public:
     transform();
     ~transform();
-    static glm::vec4 object_ToWorld_Position(glm::vec3 translate_World, glm::vec3 position_Object);
+    static const glm::mat4 mat_Identity;
+    static const glm::vec3 basis_X;
+    static const glm::vec3 basis_Y;
+    static const glm::vec3 basis_Z;
     static void print_glmVector(glm::vec4 vector);
     static void print_glmVector(glm::vec3 vector);
     static void print_glmVector(glm::vec2 vector);

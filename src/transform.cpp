@@ -1,6 +1,9 @@
 #include "users/transform.h"
 
-glm::mat4 transform::mat_Identify = glm::mat4(1.0f);
+const glm::mat4 transform::mat_Identity = glm::mat4(1.0f);
+const glm::vec3 transform::basis_X = glm::vec3(1.0f, 0.0f, 0.0f);
+const glm::vec3 transform::basis_Y = glm::vec3(0.0f, 1.0f, 0.0f);
+const glm::vec3 transform::basis_Z = glm::vec3(0.0f, 0.0f, 1.0f);
 
 transform::transform()
 {

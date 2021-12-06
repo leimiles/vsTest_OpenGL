@@ -2,7 +2,8 @@
 #define SHADER_H
 #define SHADER_PATH_ROOT "./src/shaders/"
 
-#include <glad/glad.h>
+#include "./glad/glad.h"
+#include "./users/transform.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -26,6 +27,7 @@ public:
     static void use_Program();
     static void set_Float(const char* parameter_Name, float value);
     static void set_Int(const char* parameter_Name, int value);
+    static void set_Matrix(const char* paramter_Name, glm::mat4 mat);
     static int get_ParameterLocation(const char* parameter_Name);
 };
 

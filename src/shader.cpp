@@ -122,6 +122,11 @@ void shader::set_Int(const char* parameter_Name, int value)
     glUniform1i(get_ParameterLocation(parameter_Name), value);
 }
 
+void shader::set_Matrix(const char* parameter_Name, glm::mat4 mat)
+{
+    glUniformMatrix4fv(get_ParameterLocation(parameter_Name), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
 int shader::get_ParameterLocation(const char* parameter_Name)
 {
     return glGetUniformLocation(shader::current_Program, parameter_Name);

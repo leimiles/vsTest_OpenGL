@@ -7,8 +7,10 @@ layout (location = 2) in vec2 vertex_Uv;
 out vec3 out_Color;
 out vec2 out_Uv;
 
+uniform mat4 identified;
+
 void main() {
     out_Color = vertex_Color;
     out_Uv = vertex_Uv;
-    gl_Position = vec4(vertex_pos_NDC.x, vertex_pos_NDC.y, vertex_pos_NDC.z, 1.0);
+    gl_Position = identified * vec4(vertex_pos_NDC, 1.0f);
 }
