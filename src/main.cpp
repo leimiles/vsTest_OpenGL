@@ -53,6 +53,15 @@ int main()
 	texture tex03("miaoYu.jpg", GL_RGB, true, true);
 	texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
+	shader::use_Program();		// always active shader before setting uniform buffer
+	// set uniform buffer, this buffer won't be changed every frame
+	shader::set_Int("example1_Texture", 0);		// gl_texture0
+	shader::set_Int("example2_Texture", 1);		// gl_texture1
+	shader::set_Int("example3_Texture", 2);		// gl_texture2
+
+	transform trans;
+	glm::quat p(0.0f, 1.0f, 0.0f, 1.0f);
+	transform::print_glmQuaternion(p);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -63,14 +72,7 @@ int main()
 		miles_RenderingPipeline.clear_ColorBuffer();
 		// active current shader
 		shader::use_Program();
-
-		// set uniform buffer
-		shader::set_Int("example1_Texture", 0);		// gl_texture0
-		shader::set_Int("example2_Texture", 1);		// gl_texture1
-		shader::set_Int("example3_Texture", 2);		// gl_texture2
 		// use default id mat4 from transform class
-		glm::mat4 mat = glm::rotate(transform::mat_Identity, glm::radians((float)glfwGetTime() * 50.0f), transform::basis_Z);
-		shader::set_Matrix("identified", mat);
 
 		// draw data
 		miles_RenderingPipeline.draw_Geometry_Elements();

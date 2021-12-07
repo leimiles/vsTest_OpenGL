@@ -30,9 +30,14 @@ void fun03(T t)
 
 }
 
+void fun04(int i = 10)
+{
+    std::cout << i << std::endl;
+}
+
 int main()
 {
-    fun03("wawa");
+    fun04(12);
 }
 
 

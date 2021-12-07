@@ -7,10 +7,34 @@ const glm::vec3 transform::basis_Z = glm::vec3(0.0f, 0.0f, 1.0f);
 
 transform::transform()
 {
+    translate = glm::vec3(0.0f, 0.0f, 0.0f);
+    rotateRad = glm::vec3(0.0f, 0.0f, 0.0f);
+    scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
 transform::~transform()
 {
+}
+
+void transform::set_Translate(float x, float y, float z)
+{
+    translate.x = x;
+    translate.y = y;
+    translate.z = z;
+}
+// set roate value, degrees, xyz
+void transform::set_Rotate(float x, float y, float z)
+{
+    rotateRad.x = glm::radians(x);
+    rotateRad.y = glm::radians(y);
+    rotateRad.z = glm::radians(z);
+}
+// set scale value 
+void transform::set_Scale(float x, float y, float z)
+{
+    scale.x = x;
+    scale.y = y;
+    scale.z = z;
 }
 
 void transform::print_glmVector(glm::vec4 vector)
@@ -49,3 +73,7 @@ void transform::print_glmMatrix(glm::mat2 matrix)
     std::cout << matrix[1][0] << "\t" << matrix[1][1] << std::endl;
 }
 
+void transform::print_glmQuaternion(glm::quat quat)
+{
+    std::cout << quat.w << "\t" << quat.x << "\t" << quat.y << "\t" << quat.z << std::endl;
+}

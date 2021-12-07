@@ -1,3 +1,4 @@
+#pragma once
 #ifndef MRP_H
 #define MRP_H
 #include <cmath>
