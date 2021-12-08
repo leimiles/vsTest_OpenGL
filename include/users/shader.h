@@ -1,14 +1,13 @@
 #pragma once
 #ifndef SHADER_H
 #define SHADER_H
-#define SHADER_PATH_ROOT "./src/shaders/"
-
-#include "./glad/glad.h"
-#include "./users/transform.h"
+#define SHADER_PATH_ROOT "src/shaders/"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "glad/glad.h"
+#include "users/transform.h"
 
 class shader
 {

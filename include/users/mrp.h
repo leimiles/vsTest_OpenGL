@@ -5,6 +5,7 @@
 #include "users/geometry.h"
 #include "users/shader.h"
 #include "users/texture.h"
+#include "users/cam.h"
 #include "glad/glad.h"
 
 // this is the render pipeline

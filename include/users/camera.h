@@ -1,15 +1,18 @@
 #pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
-#include "./glm/glm.hpp"
-#include "./glm/gtc/matrix_transform.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 class camera
 {
+private:
+	void update_CameraVectors();
 public:
 	camera(glm::vec3 position, glm::vec3 target, glm::vec3 worldup);
 	camera(glm::vec3 position, float pitch, float yaw, glm::vec3 worldup);
 	~camera();
-
 	glm::vec3 position;							// ���λ��
 	glm::vec3 forward;							// �����������
 	glm::vec3 right;
@@ -29,8 +32,7 @@ public:
 	glm::mat4 get_ViewMatrix();
 	void process_MouseMovement(float deltaX, float deltaY);
 	void update_CameraPosition();
-
-private:
-	void update_CameraVectors();
 };
+
+#endif
 

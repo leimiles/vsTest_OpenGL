@@ -1,6 +1,6 @@
-#include "./glad/glad.h"
-#include "./GLFW/glfw3.h"
-#include "./users/mrp.h"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include "users/mrp.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -53,15 +53,24 @@ int main()
 	texture tex03("miaoYu.jpg", GL_RGB, true, true);
 	texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
-	shader::use_Program();		// always active shader before setting uniform buffer
+	// always active shader before setting uniform buffer
+	shader::use_Program();
 	// set uniform buffer, this buffer won't be changed every frame
 	shader::set_Int("example1_Texture", 0);		// gl_texture0
 	shader::set_Int("example2_Texture", 1);		// gl_texture1
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
-	transform trans;
-	glm::quat p(0.0f, 1.0f, 0.0f, 1.0f);
-	transform::print_glmQuaternion(p);
+	// scene object settings
+	transform object_Transform;
+	// scene camera settings
+	transform camera_Transform;
+	cam ca(camera_Transform);
+	ca.self_Transform.set_Translate(0.0f, 0.0f, 2.0f);
+
+	glm::mat4 model_Mat = object_Transform.get_Matrix_LocalToWorld();
+	glm::mat4 view_Mat = ca.self_Transform.get_Matrix_WorldToLocal();
+	glm::mat4 projection_Mat = ca.get_Matrix_PerspectiveProjection();
+	glm::mat4 mvp = projection_Mat * view_Mat * model_Mat;
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -73,7 +82,7 @@ int main()
 		// active current shader
 		shader::use_Program();
 		// use default id mat4 from transform class
-
+		shader::set_Matrix("mvp", mvp);
 		// draw data
 		miles_RenderingPipeline.draw_Geometry_Elements();
 

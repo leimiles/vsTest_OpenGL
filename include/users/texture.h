@@ -2,10 +2,10 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 #define TEXTURE_PATH_ROOT "./textures/"
-#include "glad/glad.h"
 #include <string>
 #include <iostream>
 #include <cstdarg>
+#include "glad/glad.h"
 #define STB_IMAGE_IMPLEMENTATION
 
 class texture

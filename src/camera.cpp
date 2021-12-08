@@ -1,4 +1,4 @@
-#include "./users/camera.h"
+#include "users/camera.h"
 
 camera::camera(glm::vec3 position, glm::vec3 target, glm::vec3 worldup)
 {
