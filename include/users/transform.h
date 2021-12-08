@@ -17,6 +17,8 @@ private:
     void set_Rotate(float x, float y, float z);
     // scale value, default 1.0
     glm::vec3 scale;
+    // model matrix
+    glm::mat4 model_Matrix;
 public:
     transform();
     ~transform();

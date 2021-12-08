@@ -66,10 +66,11 @@ int main()
 	transform camera_Transform;
 	cam ca(camera_Transform);
 	ca.self_Transform.set_Translate(0.0f, 0.0f, 2.0f);
-
+	// get matrices
 	glm::mat4 model_Mat = object_Transform.get_Matrix_LocalToWorld();
 	glm::mat4 view_Mat = ca.self_Transform.get_Matrix_WorldToLocal();
 	glm::mat4 projection_Mat = ca.get_Matrix_PerspectiveProjection();
+	// mvp means m first, then v, last p
 	glm::mat4 mvp = projection_Mat * view_Mat * model_Mat;
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
