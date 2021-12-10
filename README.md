@@ -1,4 +1,17 @@
 # vsTest_OpenGL
+## 三，开发日志 2021/12/10
+### 1，已完成
+>* camera 类, 摄影机参数，摄影机矩阵等
+>* transform 类，Debug， 空间变换等
+>* texture 类，纹理文件的读取，纹理模式，mipmap 等
+>* geometry 当前坐标均为模型空间下
+>* vertex shader 需要包含 mvp 矩阵才能正常渲染
+### 2，下版本目标
+>* 窗体交互
+>* 模型加载
+
+---
+
 ## 二，开发日志 2021/11/26
 ### 1, 完成代码重构，主要代码文件说明
 >* 源文件都在 ./src 目录下，头文件都在 ./include/users 目录下，shader 文件都在 ./src/shaders 目录下
