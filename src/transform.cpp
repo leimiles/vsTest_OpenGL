@@ -8,7 +8,8 @@ const glm::vec3 transform::basis_Z = glm::vec3(0.0f, 0.0f, 1.0f);
 transform::transform()
 {
     translate = glm::vec3(0.0f, 0.0f, 0.0f);
-    rotateRad = glm::vec3(0.0f, 0.0f, 0.0f);
+    rotate_degrees = 0.0f;
+    rotate_Axis = glm::vec3(0.0f, 0.0f, 1.0f);
     scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
@@ -22,18 +23,14 @@ void transform::set_Translate(float x, float y, float z)
     translate.y = y;
     translate.z = z;
 }
-
-glm::vec3 transform::get_Translate()
-{
-    return translate;
-}
-
 // set roate value, degrees, xyz
-void transform::set_Rotate(float x, float y, float z)
+void transform::set_Rotate(float degrees, float x, float y, float z)
 {
-    rotateRad.x = glm::radians(x);
-    rotateRad.y = glm::radians(y);
-    rotateRad.z = glm::radians(z);
+    rotate_degrees = degrees;
+    rotate_Axis.x = x;
+    rotate_Axis.y = y;
+    rotate_Axis.z = z;
+    rotate_Axis = glm::normalize(rotate_Axis);
 }
 // set scale value 
 void transform::set_Scale(float x, float y, float z)
@@ -45,15 +42,20 @@ void transform::set_Scale(float x, float y, float z)
 
 glm::mat4 transform::get_Matrix_LocalToWorld()
 {
-    glm::mat4 mat = glm::translate(transform::mat_Identity, translate);
-    return glm::scale(mat, scale);
+    model_Matrix = transform::mat_Identity;
+    model_Matrix = glm::translate(transform::mat_Identity, translate);
+    model_Matrix = glm::rotate(model_Matrix, glm::radians(rotate_degrees), rotate_Axis);
+    model_Matrix = glm::scale(model_Matrix, scale);
+    return model_Matrix;
 }
 
 glm::mat4 transform::get_Matrix_WorldToLocal()
 {
-    glm::mat4 mat = glm::translate(transform::mat_Identity, translate);
-    mat = glm::scale(mat, scale);
-    return glm::inverse(mat);
+    model_Matrix = transform::mat_Identity;
+    model_Matrix = glm::translate(transform::mat_Identity, translate);
+    model_Matrix = glm::rotate(model_Matrix, glm::radians(rotate_degrees), rotate_Axis);
+    model_Matrix = glm::scale(model_Matrix, scale);
+    return glm::inverse(model_Matrix);
 }
 
 void transform::print_glmVector(glm::vec4 vector)

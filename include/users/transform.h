@@ -11,10 +11,10 @@ class transform
 private:
     // world transform, default 0
     glm::vec3 translate;
-    // radians value, default 0, auto convert
-    glm::vec3 rotateRad;
-    // set roate value, degrees, xyz
-    void set_Rotate(float x, float y, float z);
+    // rotate degrees
+    float rotate_degrees;
+    // rotate axis
+    glm::vec3 rotate_Axis;
     // scale value, default 1.0
     glm::vec3 scale;
     // model matrix
@@ -37,7 +37,8 @@ public:
     static void print_glmQuaternion(glm::quat quat);
     // set translate value, xyz
     void set_Translate(float x, float y, float z);
-    glm::vec3 get_Translate();
+    // set roate value, degrees, xyz
+    void set_Rotate(float degrees, float x, float y, float z);
     // set scale value 
     void set_Scale(float x, float y, float z);
     // get model matrix, skip rotation
