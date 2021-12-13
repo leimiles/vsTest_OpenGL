@@ -45,7 +45,7 @@ int mrp::get_MaxVertex_Attributes()
     return numberOfAttributes;
 }
 
-void mrp::set_RenderingData()
+void mrp::set_RenderingData_Element()
 {
     // bind vao
     glGenVertexArrays(1, &mrp::current_VAO);
@@ -54,12 +54,12 @@ void mrp::set_RenderingData()
     // bind vbo
     glGenBuffers(1, &mrp::current_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(geometry::quad_Example_Attributes), geometry::quad_Example_Attributes, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(data::quad_Example_Attributes), data::quad_Example_Attributes, GL_STATIC_DRAW);
 
     // bind ebo
     glGenBuffers(1, &mrp::current_EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mrp::current_EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(geometry::quad_Example_Indices), geometry::quad_Example_Indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(data::quad_Example_Indices), data::quad_Example_Indices, GL_STATIC_DRAW);
 
     // configure vao
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
@@ -77,5 +77,42 @@ void mrp::set_RenderingData()
 void mrp::draw_Geometry_Elements()
 {
     glBindVertexArray(mrp::current_VAO);
-    glDrawElements(GL_TRIANGLES, sizeof(geometry::quad_Example_Indices) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, sizeof(data::quad_Example_Indices) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
+}
+
+// 3 floats for position, 3 floats for color, 2 floats for texcoord
+void mrp::set_VAO_Pos3_Col3_Texcoord2()
+{
+    mrp::current_VAO = 0;
+    glGenVertexArrays(1, &mrp::current_VAO);
+    glBindVertexArray(mrp::current_VAO);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 3));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FLOAT, sizeof(float) * 8, (void*)(sizeof(float) * 6));
+    glEnableVertexAttribArray(2);
+
+}
+
+void mrp::set_RenderingData_Element(vao_Mode mode, const geometry& geo)
+{
+    switch (mode)
+    {
+    case vao_Pos3:
+        std::cout << "vao_Pos3" << std::endl;
+        break;
+    case vao_Pos3_Col3_Texcoord2:
+        mrp::set_VAO_Pos3_Col3_Texcoord2();
+        break;
+    default:
+        break;
+    }
+
+    mrp::current_VBO = 0;
+    glGenBuffers(1, &mrp::current_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mrp::current_VBO);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(float) * geo.VERTEX_ATTRIBUTES_SIZE, )
+    std::cout << sizeof(geo.attribute_Data) << std::endl;
 }

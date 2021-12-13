@@ -59,7 +59,9 @@
         "cinttypes": "cpp",
         "chrono": "cpp",
         "codecvt": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "functional": "cpp",
+        "iomanip": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

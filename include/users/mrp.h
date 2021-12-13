@@ -6,7 +6,13 @@
 #include "users/shader.h"
 #include "users/texture.h"
 #include "users/cam.h"
+#include "users/data.h"
 #include "glad/glad.h"
+
+enum vao_Mode {
+    vao_Pos3,
+    vao_Pos3_Col3_Texcoord2
+};
 
 // this is the render pipeline
 class mrp
@@ -22,8 +28,10 @@ public:
     void release_Resource();
     int get_MaxVertex_Attributes();
     void set_DrawMode(GLenum draw_Mode);
-    void set_RenderingData();
+    void set_RenderingData_Element();
+    void set_RenderingData_Element(vao_Mode mode, const geometry& geo);
     void draw_Geometry_Elements();
+    static void set_VAO_Pos3_Col3_Texcoord2();
 };
 
 #endif

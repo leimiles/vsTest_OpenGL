@@ -1,31 +1,12 @@
 #include "users/geometry.h"
 
-float geometry::quad_Example_Attributes[] = {
-    0.5f, 0.5f, 0.0f,       // top right
-    1.0f, 1.0f, 0.0f,       // color
-    1.0f, 1.0f,             // uv
-    0.5f, -0.5f, 0.0f,      // bottom right
-    1.0f, 0.0f, 0.0f,       // color
-    1.0f, 0.0f,             // uv
-    -0.5f, -0.5f, 0.0f,     // bottom left
-    0.0f, 0.0f, 0.0f,       // color
-    0.0f, 0.0f,             // uv
-    -0.5f, 0.5f, 0.0f,      // top left
-    0.0f, 1.0f, 0.0f,       // color
-    0.0f, 1.0f              // uv
-};
-
-// not clock-wise ???
-unsigned int geometry::quad_Example_Indices[] = {
-    0, 1, 3,    // 1st triangle
-    1, 2, 3     // 2nd triangle
-};
-
-geometry::geometry()
+geometry::geometry(unsigned int attributes_Size, float* attributes, unsigned int elements_Size, unsigned int* elements)
+    : VERTEX_ATTRIBUTES_SIZE(attributes_Size), VERTEX_ATTRIBUTES(attributes), VERTE_ELEMENTS_SIZE(elements_Size), VERTEX_ELEMENTS(elements)
 {
-
+    geometry_Type = GL_TRIANGLES;
 }
 
 geometry::~geometry()
 {
+    delete[] attribute_Data;
 }

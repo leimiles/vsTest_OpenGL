@@ -39,10 +39,12 @@ int main()
 		return -1;
 	}
 
+	// init geometry 
+	geometry geo(32, data::quad_Example_Attributes, 6, data::quad_Example_Indices);
 	// init render pipeline
 	mrp miles_RenderingPipeline;
 	// set rendering data
-	miles_RenderingPipeline.set_RenderingData();
+	miles_RenderingPipeline.set_RenderingData_Element(vao_Pos3_Col3_Texcoord2, geo);
 
 	// user shader files, check compile, check files
 	shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
@@ -83,7 +85,7 @@ int main()
 		// use default id mat4 from transform class
 		shader::set_Matrix("mvp", mvp);
 		// draw data
-		miles_RenderingPipeline.draw_Geometry_Elements();
+		//miles_RenderingPipeline.draw_Geometry_Elements();
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
