@@ -65,15 +65,11 @@ int main()
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
 	// scene object settings
-	transform object_Transform;
+	transform obj_Transform;
 	// scene camera settings
 	transform camera_Transform;
 	cam ca(camera_Transform);
 	ca.self_Transform.set_Translate(0.0f, 0.0f, 3.0f);
-
-	object_Transform.set_Rotate(45.0f, 1.0f, 1.0f, 0.0f);
-	glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.self_Transform.get_Matrix_WorldToLocal() * object_Transform.get_Matrix_LocalToWorld();
-
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -84,10 +80,19 @@ int main()
 		miles_RenderingPipeline.clear_Buffer();
 		// active current shader
 		shader::use_Program();
-		// use default id mat4 from transform class
-		shader::set_Matrix("mvp", mvp);
-		// draw data
-		miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+
+		//draw cube 10 time at certain positions
+		for (int i = 0; i < 10; i++) {
+			obj_Transform.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
+			obj_Transform.set_Rotate((i - 9) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
+			obj_Transform.set_Scale(1.0f, 0.7f, 1.0f);
+
+			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.self_Transform.get_Matrix_WorldToLocal() * obj_Transform.get_Matrix_LocalToWorld();
+			shader::set_Matrix("mvp", mvp);
+			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+		}
+
+
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
