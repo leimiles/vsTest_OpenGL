@@ -26,6 +26,11 @@ void transform::set_Translate(float x, float y, float z)
 // set roate value, degrees, xyz
 void transform::set_Rotate(float degrees, float x, float y, float z)
 {
+    if ((x + y + z) == 0.0f)
+    {
+        x = 1.0f;
+        degrees = 0.0f;
+    }
     rotate_degrees = degrees;
     rotate_Axis.x = x;
     rotate_Axis.y = y;
