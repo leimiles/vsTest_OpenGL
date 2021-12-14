@@ -1,9 +1,7 @@
 #include "users/cam.h"
 
-cam::cam(transform& trans) : object(trans)
+cam::cam()
 {
-    // object member
-    self_Transform = trans;
     // self member
     cam_near_Plane = 1.0f;
     cam_far_Plane = 100.0f;

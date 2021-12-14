@@ -16,7 +16,7 @@ private:
     int cam_height;
 
 public:
-    cam(transform& trans);
+    cam();
     ~cam();
     void set_Fov(float fov);
     void set_NearPlane(float nearPlane);

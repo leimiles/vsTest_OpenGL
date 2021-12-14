@@ -64,9 +64,7 @@ int main()
 	shader::set_Int("example2_Texture", 1);		// gl_texture1
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
-	// scene camera settings
-	transform camera_Transform;
-	cam ca(camera_Transform);
+	cam ca;
 	ca.self_Transform.set_Translate(0.0f, 0.0f, 3.0f);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
