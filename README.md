@@ -1,8 +1,20 @@
 # vsTest_OpenGL
+## 四，环境配置说明 2021/12/15
+### 如果是切到最新提交记录，请按照如下步骤配置环境
+>* 在 [https://sourceforge.net/projects/mingw-w64/files/] 下载自己系统对应的版本(往列表下面看)，我是 [win10_X64] 下载的是 *x86_64_win32-seh* (47.8 MB)，下载后解压
+>* 在 windows 系统环境变量中，添加 Path 项，指定到 mingw-w64 的 .../bin 位置 ，/bin 目录中还有一个 *mingw32-make.exe* 文件，复制它，重命名为 *make.exe*，后面会用到 MakeFile 中
+>* 生成 glad 静态库文件，在这个链接 [https://glad.dav1d.de/] 下生成 *glad.zip* 文件，Language(c/c++)，Specification(OpenGL)，API(最高版本)，Profile(Core) 需要设置，勾选 *Generate a loader* 生成，生成后下载 glad.zip 文件解压
+>* **gcc ./src/glad.c -c -I ./include/** //在终端执行这个命令，会在当前目录下生成 *glad.o* 文件
+>* **ar -rc libglad.a glad.o** //在终端执行这个命令，会在当前目录下生成 *libglad.a* 文件，将这个文件也放入工程目录的 \lib 文件夹下
+>* 将 glad 解压包中的 \include 文件夹下的内容，也全都放到工程目录的 \include 文件夹下
+>* 打开 vs code 的 Terminal， 输入 make run 测试程序
+
+---
+
 ## 三，开发日志 2021/12/10
 ### 1，已完成
->* camera 类, 摄影机参数，摄影机矩阵等
->* transform 类，Debug， 空间变换等
+>* camera 类，摄影机参数，摄影机矩阵等
+>* transform 类，Debug，空间变换等
 >* texture 类，纹理文件的读取，纹理模式，mipmap 等
 >* geometry 当前坐标均为模型空间下
 >* vertex shader 需要包含 mvp 矩阵才能正常渲染
@@ -13,14 +25,14 @@
 ---
 
 ## 二，开发日志 2021/11/26
-### 1, 完成代码重构，主要代码文件说明
+### 1，完成代码重构，主要代码文件说明
 >* 源文件都在 ./src 目录下，头文件都在 ./include/users 目录下，shader 文件都在 ./src/shaders 目录下
 >* geometry 类，几何体计算，预设几何体数据
 >* mrp 类，渲染管线类，包括绘制，剔除，清除，设置渲染数据
 >* shader 类，读取 shader 文件，编译，链接，调用 
 >* main.cpp，主程序入口
 >* make run，终端运行命令
-### 2, 当前开发状态
+### 2，当前开发状态
 >* 完成默认 VBO 渲染
 >* 完成 shader 类
 >* 完成 mrp 类
@@ -42,7 +54,7 @@
 ___
 
 
-2，下载完成后解到固定目录，注意文件夹中有一个 \bin 目录，将这个 \bin 目录的完整路径添加到系统变量的 Path 中，打开 [git bash] 或者 [window powershell]，输入 **gcc --version**，**g++ --version** 和 **gdb --version** 命令，如果配置成功会显示编译器信息，注意 \bin 目录中还有一个 *mingw32-make.exe* 文件，复制它，重命名为 *make.exe*，后面会用到
+2，下载完成后解到固定目录，注意文件夹中有一个 /bin 目录，将这个 /bin 目录的完整路径添加到系统变量的 Path 中，打开 [git bash] 或者 [window powershell]，输入 **gcc --version**，**g++ --version** 和 **gdb --version** 命令，如果配置成功会显示编译器信息，注意 /bin 目录中还有一个 *mingw32-make.exe* 文件，复制它，重命名为 *make.exe*，后面会用到
 <div align = center>
 <img src="./Pics/pic02.png" width = 50%>
 </div>
