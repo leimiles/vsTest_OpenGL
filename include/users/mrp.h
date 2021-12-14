@@ -31,6 +31,7 @@ public:
     void set_RenderingData_Element();
     void set_RenderingData_Element(vao_Mode mode, const geometry& geo);
     void draw_Geometry_Elements();
+    void draw_Geometry_Elements(const geometry& geo);
     static void set_VAO_Pos3_Col3_Texcoord2();
 };
 

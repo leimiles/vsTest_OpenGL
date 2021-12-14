@@ -85,7 +85,7 @@ int main()
 		// use default id mat4 from transform class
 		shader::set_Matrix("mvp", mvp);
 		// draw data
-		//miles_RenderingPipeline.draw_Geometry_Elements();
+		miles_RenderingPipeline.draw_Geometry_Elements(geo);
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

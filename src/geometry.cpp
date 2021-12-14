@@ -8,5 +8,4 @@ geometry::geometry(unsigned int attributes_Size, float* attributes, unsigned int
 
 geometry::~geometry()
 {
-    delete[] attribute_Data;
 }
