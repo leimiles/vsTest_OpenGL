@@ -17,7 +17,7 @@ mrp::~mrp()
 void mrp::clear_Buffer()
 {
     // set clear color  value
-    glClearColor(0.12f, 0.35f, 0.3f, 1.0f);
+    glClearColor(0.2f, 0.15f, 0.15f, 1.0f);
     // clear color buffer with the set of clear color
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

@@ -10,6 +10,7 @@ public:
     transform self_Transform;
 public:
     object(transform& trans);
+    object();
     ~object();
 };
 

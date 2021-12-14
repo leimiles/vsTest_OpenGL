@@ -40,7 +40,7 @@ int main()
 	}
 
 	// init geometry quad
-	geometry geo_Quad(8, 32, data::quad_Example_Attributes, 6, data::quad_Example_Indices);
+	//geometry geo_Quad(8, 32, data::quad_Example_Attributes, 6, data::quad_Example_Indices);
 	// init geometry cube
 	geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 	// init render pipeline
@@ -64,8 +64,6 @@ int main()
 	shader::set_Int("example2_Texture", 1);		// gl_texture1
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
-	// scene object settings
-	transform obj_Transform;
 	// scene camera settings
 	transform camera_Transform;
 	cam ca(camera_Transform);
@@ -83,15 +81,13 @@ int main()
 
 		//draw cube 10 time at certain positions
 		for (int i = 0; i < 10; i++) {
-			obj_Transform.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
-			obj_Transform.set_Rotate((i - 9) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
-			obj_Transform.set_Scale(1.0f, 0.7f, 1.0f);
-
-			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.self_Transform.get_Matrix_WorldToLocal() * obj_Transform.get_Matrix_LocalToWorld();
+			geo_Cube.self_Transform.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
+			geo_Cube.self_Transform.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
+			geo_Cube.self_Transform.set_Scale(1.0f, 0.7f, 1.0f);
+			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.self_Transform.get_Matrix_WorldToLocal() * geo_Cube.self_Transform.get_Matrix_LocalToWorld();
 			shader::set_Matrix("mvp", mvp);
 			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 		}
-
 
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

@@ -2,9 +2,10 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 #include "glad/glad.h"
+#include "users/object.h"
 #include <iostream>
 
-class geometry
+class geometry : public object
 {
 private:
 public:
