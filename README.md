@@ -1,6 +1,7 @@
 # vsTest_OpenGL
-## 四，环境配置说明 2021/12/15
-### 如果是切到最新提交记录，请按照如下步骤配置环境
+
+## 四，开发日志 2021/12/15
+### 1，环境配置说明，如果是切到最新提交记录，请按照如下步骤配置环境
 >* 在 [https://sourceforge.net/projects/mingw-w64/files/] 下载自己系统对应的版本(往列表下面看)，我是 [win10_X64] 下载的是 *x86_64_win32-seh* (47.8 MB)，下载后解压
 >* 在 windows 系统环境变量中，添加 Path 项，指定到 mingw-w64 的 .../bin 位置 ，/bin 目录中还有一个 *mingw32-make.exe* 文件，复制它，重命名为 *make.exe*，后面会用到 MakeFile 中
 >* 生成 glad 静态库文件，在这个链接 [https://glad.dav1d.de/] 下生成 *glad.zip* 文件，Language(c/c++)，Specification(OpenGL)，API(最高版本)，Profile(Core) 需要设置，勾选 *Generate a loader* 生成，生成后下载 glad.zip 文件解压
@@ -8,6 +9,9 @@
 >* **ar -rc libglad.a glad.o** //在终端执行这个命令，会在当前目录下生成 *libglad.a* 文件，将这个文件也放入工程目录的 \lib 文件夹下
 >* 将 glad 解压包中的 \include 文件夹下的内容，也全都放到工程目录的 \include 文件夹下
 >* 打开 vs code 的 Terminal， 输入 make run 测试程序
+### 2，开发状态
+>* 重构 geometry 与 cam 的构造函数，二者均继承 object 类
+>* object 类提供默认的 transform 成员
 
 ---
 
