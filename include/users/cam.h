@@ -18,6 +18,7 @@ private:
     glm::vec3 cam_Forward;
     glm::vec3 cam_Right;
     glm::vec3 cam_Up;
+    void set_Forward(glm::vec3 from_Position, glm::vec3 to_Position);
 public:
     cam();
     ~cam();
@@ -27,10 +28,12 @@ public:
     void set_Width(int width);
     void set_Height(int height);
     void set_Translate(float x, float y, float z);
+    void set_Target(float x, float y, float z);
     void set_Rotate(float degrees, float x, float y, float z);
     glm::mat4 get_Matrix_PerspectiveProjection();
     glm::mat4 get_Matrix_WorldToView();
     glm::mat4 get_Matrix_ViewToWorld();
+    glm::mat4 get_Matrix_LookingAt();
     void print_CamInfo();
 };
 

@@ -10,6 +10,9 @@ cam::cam()
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
     cam_Target_Postion = glm::vec3(0.0f);
+    cam_Forward = transform::basis_Z * -1.0f;
+    cam_Up = transform::basis_Y;
+    cam_Right = transform::basis_X * -1.0f;
 }
 
 cam::~cam()
@@ -19,6 +22,23 @@ cam::~cam()
 void cam::set_Translate(float x, float y, float z)
 {
     self_Transform.set_Translate(x, y, z);
+    set_Forward(self_Transform.get_Translate(), cam_Target_Postion);
+}
+
+void cam::set_Target(float x, float y, float z)
+{
+    cam_Target_Postion.x = x;
+    cam_Target_Postion.y = y;
+    cam_Target_Postion.z = z;
+    set_Forward(self_Transform.get_Translate(), cam_Target_Postion);
+}
+
+// cam direction pointing at 0, 0, -1 by default
+void cam::set_Forward(glm::vec3 from_Position, glm::vec3 to_Position)
+{
+    if (from_Position != to_Position) {
+        cam_Forward = glm::normalize(from_Position - to_Position);
+    }
 }
 
 void cam::set_Rotate(float degrees, float x, float y, float z)
@@ -39,6 +59,11 @@ glm::mat4 cam::get_Matrix_WorldToView()
 glm::mat4 cam::get_Matrix_ViewToWorld()
 {
     return self_Transform.get_Matrix_LocalToWorld();
+}
+
+glm::mat4 cam::get_Matrix_LookingAt()
+{
+
 }
 
 void cam::set_Fov(float fov)
