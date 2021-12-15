@@ -36,6 +36,11 @@ glm::mat4 cam::get_Matrix_WorldToView()
     return self_Transform.get_Matrix_WorldToLocal();
 }
 
+glm::mat4 cam::get_Matrix_ViewToWorld()
+{
+    return self_Transform.get_Matrix_LocalToWorld();
+}
+
 void cam::set_Fov(float fov)
 {
     cam_Ratio = fov;

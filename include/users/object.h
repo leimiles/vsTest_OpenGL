@@ -11,6 +11,8 @@ protected:
 public:
     object();
     ~object();
+    virtual void set_Translate(float x, float y, float z) = 0;
+    virtual void set_Rotate(float degrees, float x, float y, float z) = 0;
 };
 
 #endif

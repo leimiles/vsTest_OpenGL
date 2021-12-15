@@ -30,6 +30,7 @@ public:
     void set_Rotate(float degrees, float x, float y, float z);
     glm::mat4 get_Matrix_PerspectiveProjection();
     glm::mat4 get_Matrix_WorldToView();
+    glm::mat4 get_Matrix_ViewToWorld();
     void print_CamInfo();
 };
 
