@@ -4,17 +4,20 @@
 #include "users/object.h"
 
 
-class cam : public object
+class cam : protected object
 {
 private:
-    float cam_near_Plane;
-    float cam_far_Plane;
+    float cam_Near_Plane;
+    float cam_Far_Plane;
     // fov degree;
-    float cam_fov;
-    float cam_ratio;
-    int cam_width;
-    int cam_height;
-
+    float cam_Fov;
+    float cam_Ratio;
+    int cam_Width;
+    int cam_Height;
+    glm::vec3 cam_Target_Postion;
+    glm::vec3 cam_Forward;
+    glm::vec3 cam_Right;
+    glm::vec3 cam_Up;
 public:
     cam();
     ~cam();
@@ -23,7 +26,10 @@ public:
     void set_FarPlane(float farPlane);
     void set_Width(int width);
     void set_Height(int height);
+    void set_Translate(float x, float y, float z);
+    void set_Rotate(float degrees, float x, float y, float z);
     glm::mat4 get_Matrix_PerspectiveProjection();
+    glm::mat4 get_Matrix_WorldToView();
     void print_CamInfo();
 };
 

@@ -23,6 +23,12 @@ void transform::set_Translate(float x, float y, float z)
     translate.y = y;
     translate.z = z;
 }
+
+glm::vec3 transform::get_Translate()
+{
+    return translate;
+}
+
 // set roate value, degrees, xyz
 void transform::set_Rotate(float degrees, float x, float y, float z)
 {

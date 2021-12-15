@@ -37,6 +37,7 @@ public:
     static void print_glmQuaternion(glm::quat quat);
     // set translate value, xyz
     void set_Translate(float x, float y, float z);
+    glm::vec3 get_Translate();
     // set roate value, degrees, xyz
     void set_Rotate(float degrees, float x, float y, float z);
     // set scale value 

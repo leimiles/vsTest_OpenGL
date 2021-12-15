@@ -6,13 +6,11 @@
 
 class object
 {
-public:
+protected:
     transform self_Transform;
 public:
-    object(transform& trans);
     object();
     ~object();
 };
-
 
 #endif

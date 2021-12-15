@@ -35,9 +35,12 @@ void fun04(int i = 10)
     std::cout << i << std::endl;
 }
 
+void (*pointer)(int);
+
 int main()
 {
-    fun04(12);
+    pointer = fun04;
+    pointer(12);
 }
 
 
