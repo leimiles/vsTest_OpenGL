@@ -87,6 +87,12 @@ int main()
 			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 		}
 
+		/*
+			// simple draw
+			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_LookingAt() * geo_Cube.get_Matrix_LocalToWorld();
+			shader::set_Matrix("mvp", mvp);
+			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+		*/
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.

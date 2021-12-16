@@ -18,7 +18,10 @@ private:
     glm::vec3 cam_Forward;
     glm::vec3 cam_Right;
     glm::vec3 cam_Up;
-    void set_Forward(glm::vec3 from_Position, glm::vec3 to_Position);
+    void set_Directions();
+    void set_Forward();
+    void set_Rightward();
+    void set_Upward();
 public:
     cam();
     ~cam();
