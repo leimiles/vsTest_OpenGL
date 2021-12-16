@@ -65,7 +65,7 @@ int main()
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
 	cam ca;
-	ca.set_Translate(0.0f, 0.0f, 3.0f);
+	ca.set_Translate(0, 0, 3.0f);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -88,10 +88,10 @@ int main()
 		}
 
 		/*
-			// simple draw
-			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_LookingAt() * geo_Cube.get_Matrix_LocalToWorld();
-			shader::set_Matrix("mvp", mvp);
-			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+		// simple draw
+		glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_LookingAt() * geo_Cube.get_Matrix_LocalToWorld();
+		shader::set_Matrix("mvp", mvp);
+		miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 		*/
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);

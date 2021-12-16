@@ -18,6 +18,7 @@ private:
     glm::vec3 cam_Forward;
     glm::vec3 cam_Right;
     glm::vec3 cam_Up;
+    glm::mat4 eye_Matrix;
     void set_Directions();
     void set_Forward();
     void set_Rightward();

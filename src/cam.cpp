@@ -9,10 +9,11 @@ cam::cam()
     cam_Width = 640;
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
-    cam_Target_Postion = transform::basis_Z * -1.0f;
+    cam_Target_Postion = self_Transform.get_Translate() - transform::basis_Z;
     cam_Forward = transform::basis_Z * -1.0f;
     cam_Up = transform::basis_Y;
     cam_Right = transform::basis_X;
+    eye_Matrix = transform::mat_Identity;
 }
 
 cam::~cam()
@@ -56,9 +57,11 @@ glm::mat4 cam::get_Matrix_ViewToWorld()
 // by world
 glm::mat4 cam::get_Matrix_LookingAt()
 {
-    glm::mat4 lookingAt;
-    lookingAt = glm::lookAt(self_Transform.get_Translate(), cam_Target_Postion, transform::basis_Y);
-    return lookingAt;
+    if (self_Transform.get_Translate() != cam_Target_Postion)
+    {
+        eye_Matrix = glm::lookAt(self_Transform.get_Translate(), cam_Target_Postion, transform::basis_Y);
+    }
+    return eye_Matrix;
 }
 
 void cam::set_Directions()
