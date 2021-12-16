@@ -9,7 +9,7 @@ cam::cam()
     cam_Width = 640;
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
-    cam_Target_Postion = glm::vec3(0.0f);
+    cam_Target_Postion = transform::basis_Z * -1.0f;
     cam_Forward = transform::basis_Z * -1.0f;
     cam_Up = transform::basis_Y;
     cam_Right = transform::basis_X;

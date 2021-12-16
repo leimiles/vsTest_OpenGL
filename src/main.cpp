@@ -82,7 +82,7 @@ int main()
 			geo_Cube.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
 			geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
 			geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
-			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_WorldToView() * geo_Cube.get_Matrix_LocalToWorld();
+			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_LookingAt() * geo_Cube.get_Matrix_LocalToWorld();
 			shader::set_Matrix("mvp", mvp);
 			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 		}
