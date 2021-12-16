@@ -10,8 +10,8 @@ cam::cam()
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
     cam_Target_Postion = glm::vec3(0.0f);
-    eye_Matrix = get_Matrix_Eye();
     set_Translate(0.0f, 0.0f, 3.0f);
+    eye_Matrix = get_Matrix_Eye();
 }
 
 cam::~cam()
