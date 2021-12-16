@@ -9,11 +9,9 @@ cam::cam()
     cam_Width = 640;
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
-    cam_Target_Postion = self_Transform.get_Translate() - transform::basis_Z;
-    cam_Forward = transform::basis_Z * -1.0f;
-    cam_Up = transform::basis_Y;
-    cam_Right = transform::basis_X;
-    eye_Matrix = transform::mat_Identity;
+    cam_Target_Postion = glm::vec3(0.0f);
+    eye_Matrix = get_Matrix_Eye();
+    set_Translate(0.0f, 0.0f, 3.0f);
 }
 
 cam::~cam()
@@ -22,12 +20,20 @@ cam::~cam()
 
 void cam::set_Translate(float x, float y, float z)
 {
+    if (x == cam_Target_Postion.x && y == cam_Target_Postion.y && z == cam_Target_Postion.z)
+    {
+        return;
+    }
     self_Transform.set_Translate(x, y, z);
     set_Directions();
 }
 
 void cam::set_Target(float x, float y, float z)
 {
+    glm::vec3 position = self_Transform.get_Translate();
+    if (x == position.x && y == position.y && z == position.z) {
+        return;
+    }
     cam_Target_Postion.x = x;
     cam_Target_Postion.y = y;
     cam_Target_Postion.z = z;
@@ -55,7 +61,7 @@ glm::mat4 cam::get_Matrix_ViewToWorld()
 }
 
 // by world
-glm::mat4 cam::get_Matrix_LookingAt()
+glm::mat4 cam::get_Matrix_Eye()
 {
     if (self_Transform.get_Translate() != cam_Target_Postion)
     {

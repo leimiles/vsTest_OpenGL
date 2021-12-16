@@ -37,7 +37,7 @@ public:
     glm::mat4 get_Matrix_PerspectiveProjection();
     glm::mat4 get_Matrix_WorldToView();
     glm::mat4 get_Matrix_ViewToWorld();
-    glm::mat4 get_Matrix_LookingAt();
+    glm::mat4 get_Matrix_Eye();
     void print_CamInfo();
 };
 
