@@ -75,6 +75,12 @@ void cam::set_Directions()
     set_Forward();
     set_Rightward();
     set_Upward();
+    std::cout << "forward: ";
+    transform::print_glmVector(cam_Forward);
+    std::cout << "right: ";
+    transform::print_glmVector(cam_Right);
+    std::cout << "up: ";
+    transform::print_glmVector(cam_Up);
 }
 
 // cam direction pointing at 0, 0, -1 by default
@@ -82,18 +88,18 @@ void cam::set_Forward()
 {
     glm::vec3 position = self_Transform.get_Translate();
     if (cam_Target_Postion != position) {
-        cam_Forward = glm::normalize(cam_Target_Postion - position);
+        cam_Forward = glm::normalize(position - cam_Target_Postion);
     }
 }
 
 void cam::set_Rightward()
 {
-    cam_Right = glm::normalize(glm::cross(cam_Forward, transform::basis_Y));
+    cam_Right = glm::normalize(glm::cross(transform::basis_Y, cam_Forward));
 }
 
 void cam::set_Upward()
 {
-    cam_Up = glm::normalize(glm::cross(cam_Right, cam_Forward));
+    cam_Up = glm::normalize(glm::cross(cam_Forward, cam_Right));
 }
 
 void cam::set_Fov(float fov)
@@ -129,4 +135,20 @@ void cam::print_CamInfo()
     std::cout << "near and far plane:\t" << cam_Near_Plane << " | " << cam_Far_Plane << std::endl;
     std::cout << "fov and ratio:\t" << cam_Fov << " | " << cam_Ratio << std::endl;
     std::cout << "width and height:\t" << cam_Width << " | " << cam_Height << std::endl;
+    std::cout << "eye_Matrix:" << std::endl;
+    transform::print_glmMatrix(get_Matrix_Eye());
+    std::cout << " *********************************************** " << std::endl;
+    glm::vec4 Rxyzw(cam_Right, 0.0f);
+    glm::vec4 Uxyzw(cam_Up, 0.0f);
+    glm::vec4 Fxyzw(cam_Forward, 0.0f);
+    glm::vec4 xyzw(0.0f, 0.0f, 0.0f, 1.0f);
+    glm::mat4 lookingAt(Rxyzw, Uxyzw, Fxyzw, xyzw);
+    glm::mat4 trans(1.0f);
+    trans[0][3] = self_Transform.get_Translate().x * -1.0f;
+    trans[1][3] = self_Transform.get_Translate().y * -1.0f;
+    trans[2][3] = self_Transform.get_Translate().z * -1.0f;
+    std::cout << "looking at:" << std::endl;
+    transform::print_glmMatrix(glm::transpose(trans * lookingAt));
+    //transform::print_glmMatrix(glm::transpose(lookingAt));
+    std::cout << " *********************************************** " << std::endl;
 }
