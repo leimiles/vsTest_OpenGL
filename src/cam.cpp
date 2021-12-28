@@ -155,8 +155,11 @@ void cam::print_CamInfo()
 {
     std::cout << "Cam Info:" << std::endl;
     std::cout << "\tnear and far plane:\t" << cam_Near_Plane << " | " << cam_Far_Plane << std::endl;
-    std::cout << "\tfov and ratio:\t" << cam_Fov << " | " << cam_Ratio << std::endl;
-    std::cout << "\twidth and height:\t" << cam_Width << " | " << cam_Height << std::endl;
+    std::cout << "\tfov and ratio:     \t" << cam_Fov << " | " << cam_Ratio << std::endl;
+    std::cout << "\twidth and height:  \t" << cam_Width << " | " << cam_Height << std::endl;
+    std::cout << "\tcam forward:       \t" << cam_Forward.x << "\t" << cam_Forward.y << "\t" << cam_Forward.z << std::endl;
+    std::cout << "\tcam right:         \t" << cam_Right.x << "\t" << cam_Right.y << "\t" << cam_Right.z << std::endl;
+    std::cout << "\tcam up:            \t" << cam_Up.x << "\t" << cam_Up.y << "\t" << cam_Up.z << std::endl;
     std::cout << "eye_Matrix: (default)" << std::endl;
     transform::print_glmMatrix(get_Matrix_Eye());
     std::cout << " *********************************************** " << std::endl;
