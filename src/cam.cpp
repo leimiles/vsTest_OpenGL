@@ -22,7 +22,7 @@ void cam::set_Translate(float x, float y, float z)
 {
     if (x == cam_Target_Postion.x && y == cam_Target_Postion.y && z == cam_Target_Postion.z)
     {
-        return;
+        z += 0.0001f;
     }
     self_Transform.set_Translate(x, y, z);
     set_Directions();
@@ -60,12 +60,37 @@ glm::mat4 cam::get_Matrix_ViewToWorld()
     return self_Transform.get_Matrix_LocalToWorld();
 }
 
-// by world
+// by target coordinates
 glm::mat4 cam::get_Matrix_Eye()
 {
     if (self_Transform.get_Translate() != cam_Target_Postion)
     {
         eye_Matrix = glm::lookAt(self_Transform.get_Translate(), cam_Target_Postion, transform::basis_Y);
+    }
+    return eye_Matrix;
+}
+
+// imporoved to avoid vertical eye matrix bug
+glm::mat4 cam::get_Matrix_Eye_Improved()
+{
+    if (self_Transform.get_Translate() != cam_Target_Postion)
+    {
+        glm::mat4 eye_Directions(1.0f);
+        eye_Directions[0][0] = cam_Right.x;
+        eye_Directions[0][1] = cam_Right.y;
+        eye_Directions[0][2] = cam_Right.z;
+        eye_Directions[1][0] = cam_Up.x;
+        eye_Directions[1][1] = cam_Up.y;
+        eye_Directions[1][2] = cam_Up.z;
+        eye_Directions[2][0] = cam_Forward.x;
+        eye_Directions[2][1] = cam_Forward.y;
+        eye_Directions[2][2] = cam_Forward.z;
+
+        glm::mat4 trans(1.0f);
+        trans[0][3] = self_Transform.get_Translate().x * -1.0f;
+        trans[1][3] = self_Transform.get_Translate().y * -1.0f;
+        trans[2][3] = self_Transform.get_Translate().z * -1.0f;
+        eye_Matrix = glm::transpose(trans * eye_Directions);
     }
     return eye_Matrix;
 }
@@ -94,7 +119,14 @@ void cam::set_Forward()
 
 void cam::set_Rightward()
 {
+
+    if (cam_Forward == transform::basis_Y)
+    {
+        cam_Forward.z = 0.0001f;
+        cam_Forward = glm::normalize(cam_Forward);
+    }
     cam_Right = glm::normalize(glm::cross(transform::basis_Y, cam_Forward));
+
 }
 
 void cam::set_Upward()

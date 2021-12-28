@@ -38,6 +38,7 @@ public:
     glm::mat4 get_Matrix_WorldToView();
     glm::mat4 get_Matrix_ViewToWorld();
     glm::mat4 get_Matrix_Eye();
+    glm::mat4 get_Matrix_Eye_Improved();
     void print_CamInfo();
 };
 
