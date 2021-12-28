@@ -160,7 +160,7 @@ void cam::print_CamInfo()
     std::cout << "eye_Matrix: (default)" << std::endl;
     transform::print_glmMatrix(get_Matrix_Eye());
     std::cout << " *********************************************** " << std::endl;
-    std::cout << "eye_Matrix: (custom)" << std::endl;
+    std::cout << "eye_Matrix: (improved)" << std::endl;
     transform::print_glmMatrix(get_Matrix_Eye_Improved());
     std::cout << " *********************************************** " << std::endl;
 }
