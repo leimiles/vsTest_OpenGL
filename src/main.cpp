@@ -65,7 +65,6 @@ int main()
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
 	cam ca;
-	ca.set_Translate(0.0f, 3.0f, 0.0f);
 	ca.print_CamInfo();
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))

@@ -71,44 +71,44 @@ glm::mat4 transform::get_Matrix_WorldToLocal()
 
 void transform::print_glmVector(glm::vec4 vector)
 {
-    std::cout << vector.x << "\t" << vector.y << "\t" << vector.z << "\t" << vector.w << std::endl;
+    std::cout << "\t" << vector.x << "\t" << vector.y << "\t" << vector.z << "\t" << vector.w << std::endl;
 }
 
 void transform::print_glmVector(glm::vec3 vector)
 {
-    std::cout << vector.x << "\t" << vector.y << "\t" << vector.z << std::endl;
+    std::cout << "\t" << vector.x << "\t" << vector.y << "\t" << vector.z << std::endl;
 }
 
 void transform::print_glmVector(glm::vec2 vector)
 {
-    std::cout << vector.x << "\t" << vector.y << std::endl;
+    std::cout << "\t" << vector.x << "\t" << vector.y << std::endl;
 }
 
 void transform::print_glmMatrix(glm::mat4 matrix)
 {
     matrix = glm::transpose(matrix);
-    std::cout << matrix[0][0] << "\t" << matrix[0][1] << "\t" << matrix[0][2] << "\t" << matrix[0][3] << std::endl;
-    std::cout << matrix[1][0] << "\t" << matrix[1][1] << "\t" << matrix[1][2] << "\t" << matrix[1][3] << std::endl;
-    std::cout << matrix[2][0] << "\t" << matrix[2][1] << "\t" << matrix[2][2] << "\t" << matrix[2][3] << std::endl;
-    std::cout << matrix[3][0] << "\t" << matrix[3][1] << "\t" << matrix[3][2] << "\t" << matrix[3][3] << std::endl;
+    std::cout << "\t" << matrix[0][0] << "\t" << matrix[0][1] << "\t" << matrix[0][2] << "\t" << matrix[0][3] << std::endl;
+    std::cout << "\t" << matrix[1][0] << "\t" << matrix[1][1] << "\t" << matrix[1][2] << "\t" << matrix[1][3] << std::endl;
+    std::cout << "\t" << matrix[2][0] << "\t" << matrix[2][1] << "\t" << matrix[2][2] << "\t" << matrix[2][3] << std::endl;
+    std::cout << "\t" << matrix[3][0] << "\t" << matrix[3][1] << "\t" << matrix[3][2] << "\t" << matrix[3][3] << std::endl;
 }
 
 void transform::print_glmMatrix(glm::mat3 matrix)
 {
     matrix = glm::transpose(matrix);
-    std::cout << matrix[0][0] << "\t" << matrix[0][1] << "\t" << matrix[0][2] << std::endl;
-    std::cout << matrix[1][0] << "\t" << matrix[1][1] << "\t" << matrix[1][2] << std::endl;
-    std::cout << matrix[2][0] << "\t" << matrix[2][1] << "\t" << matrix[2][2] << std::endl;
+    std::cout << "\t" << matrix[0][0] << "\t" << matrix[0][1] << "\t" << matrix[0][2] << std::endl;
+    std::cout << "\t" << matrix[1][0] << "\t" << matrix[1][1] << "\t" << matrix[1][2] << std::endl;
+    std::cout << "\t" << matrix[2][0] << "\t" << matrix[2][1] << "\t" << matrix[2][2] << std::endl;
 }
 
 void transform::print_glmMatrix(glm::mat2 matrix)
 {
     matrix = glm::transpose(matrix);
-    std::cout << matrix[0][0] << "\t" << matrix[0][1] << std::endl;
-    std::cout << matrix[1][0] << "\t" << matrix[1][1] << std::endl;
+    std::cout << "\t" << matrix[0][0] << "\t" << matrix[0][1] << std::endl;
+    std::cout << "\t" << matrix[1][0] << "\t" << matrix[1][1] << std::endl;
 }
 
 void transform::print_glmQuaternion(glm::quat quat)
 {
-    std::cout << quat.w << "\t" << quat.x << "\t" << quat.y << "\t" << quat.z << std::endl;
+    std::cout << "\t" << quat.w << "\t" << quat.x << "\t" << quat.y << "\t" << quat.z << std::endl;
 }

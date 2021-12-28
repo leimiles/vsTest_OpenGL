@@ -32,7 +32,7 @@ void cam::set_Target(float x, float y, float z)
 {
     glm::vec3 position = self_Transform.get_Translate();
     if (x == position.x && y == position.y && z == position.z) {
-        return;
+        z += 0.0001f;
     }
     cam_Target_Postion.x = x;
     cam_Target_Postion.y = y;
@@ -63,35 +63,31 @@ glm::mat4 cam::get_Matrix_ViewToWorld()
 // by target coordinates
 glm::mat4 cam::get_Matrix_Eye()
 {
-    if (self_Transform.get_Translate() != cam_Target_Postion)
-    {
-        eye_Matrix = glm::lookAt(self_Transform.get_Translate(), cam_Target_Postion, transform::basis_Y);
-    }
+    eye_Matrix = glm::lookAt(self_Transform.get_Translate(), cam_Target_Postion, transform::basis_Y);
     return eye_Matrix;
 }
 
 // imporoved to avoid vertical eye matrix bug
 glm::mat4 cam::get_Matrix_Eye_Improved()
 {
-    if (self_Transform.get_Translate() != cam_Target_Postion)
-    {
-        glm::mat4 eye_Directions(1.0f);
-        eye_Directions[0][0] = cam_Right.x;
-        eye_Directions[0][1] = cam_Right.y;
-        eye_Directions[0][2] = cam_Right.z;
-        eye_Directions[1][0] = cam_Up.x;
-        eye_Directions[1][1] = cam_Up.y;
-        eye_Directions[1][2] = cam_Up.z;
-        eye_Directions[2][0] = cam_Forward.x;
-        eye_Directions[2][1] = cam_Forward.y;
-        eye_Directions[2][2] = cam_Forward.z;
 
-        glm::mat4 trans(1.0f);
-        trans[0][3] = self_Transform.get_Translate().x * -1.0f;
-        trans[1][3] = self_Transform.get_Translate().y * -1.0f;
-        trans[2][3] = self_Transform.get_Translate().z * -1.0f;
-        eye_Matrix = glm::transpose(trans * eye_Directions);
-    }
+    glm::mat4 eye_Directions(1.0f);
+    eye_Directions[0][0] = cam_Right.x;
+    eye_Directions[0][1] = cam_Right.y;
+    eye_Directions[0][2] = cam_Right.z;
+    eye_Directions[1][0] = cam_Up.x;
+    eye_Directions[1][1] = cam_Up.y;
+    eye_Directions[1][2] = cam_Up.z;
+    eye_Directions[2][0] = cam_Forward.x;
+    eye_Directions[2][1] = cam_Forward.y;
+    eye_Directions[2][2] = cam_Forward.z;
+
+    glm::mat4 trans(1.0f);
+    trans[0][3] = self_Transform.get_Translate().x * -1.0f;
+    trans[1][3] = self_Transform.get_Translate().y * -1.0f;
+    trans[2][3] = self_Transform.get_Translate().z * -1.0f;
+    eye_Matrix = glm::transpose(trans * eye_Directions);
+
     return eye_Matrix;
 }
 
@@ -100,12 +96,6 @@ void cam::set_Directions()
     set_Forward();
     set_Rightward();
     set_Upward();
-    std::cout << "forward: ";
-    transform::print_glmVector(cam_Forward);
-    std::cout << "right: ";
-    transform::print_glmVector(cam_Right);
-    std::cout << "up: ";
-    transform::print_glmVector(cam_Up);
 }
 
 // cam direction pointing at 0, 0, -1 by default
@@ -164,23 +154,13 @@ void cam::set_Height(int height)
 void cam::print_CamInfo()
 {
     std::cout << "Cam Info:" << std::endl;
-    std::cout << "near and far plane:\t" << cam_Near_Plane << " | " << cam_Far_Plane << std::endl;
-    std::cout << "fov and ratio:\t" << cam_Fov << " | " << cam_Ratio << std::endl;
-    std::cout << "width and height:\t" << cam_Width << " | " << cam_Height << std::endl;
-    std::cout << "eye_Matrix:" << std::endl;
+    std::cout << "\tnear and far plane:\t" << cam_Near_Plane << " | " << cam_Far_Plane << std::endl;
+    std::cout << "\tfov and ratio:\t" << cam_Fov << " | " << cam_Ratio << std::endl;
+    std::cout << "\twidth and height:\t" << cam_Width << " | " << cam_Height << std::endl;
+    std::cout << "eye_Matrix: (default)" << std::endl;
     transform::print_glmMatrix(get_Matrix_Eye());
     std::cout << " *********************************************** " << std::endl;
-    glm::vec4 Rxyzw(cam_Right, 0.0f);
-    glm::vec4 Uxyzw(cam_Up, 0.0f);
-    glm::vec4 Fxyzw(cam_Forward, 0.0f);
-    glm::vec4 xyzw(0.0f, 0.0f, 0.0f, 1.0f);
-    glm::mat4 lookingAt(Rxyzw, Uxyzw, Fxyzw, xyzw);
-    glm::mat4 trans(1.0f);
-    trans[0][3] = self_Transform.get_Translate().x * -1.0f;
-    trans[1][3] = self_Transform.get_Translate().y * -1.0f;
-    trans[2][3] = self_Transform.get_Translate().z * -1.0f;
-    std::cout << "looking at:" << std::endl;
-    transform::print_glmMatrix(glm::transpose(trans * lookingAt));
-    //transform::print_glmMatrix(glm::transpose(lookingAt));
+    std::cout << "eye_Matrix: (custom)" << std::endl;
+    transform::print_glmMatrix(get_Matrix_Eye_Improved());
     std::cout << " *********************************************** " << std::endl;
 }
