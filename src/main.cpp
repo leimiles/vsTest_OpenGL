@@ -66,6 +66,7 @@ int main()
 
 	cam ca;
 	//ca.set_Translate(3.0f, 3.0f, 3.0f);
+	ca.set_SphericalSystem(4.0f, 90.0f, 720.0f);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -89,7 +90,6 @@ int main()
 					miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 				}
 		*/
-		ca.set_SphericalSystem(4.0f, glfwGetTime() * 40.0f, glfwGetTime() * 40.0f);
 
 		// simple draw
 		glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
