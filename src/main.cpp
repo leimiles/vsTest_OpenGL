@@ -65,8 +65,7 @@ int main()
 	shader::set_Int("example3_Texture", 2);		// gl_texture2
 
 	cam ca;
-
-	ca.print_CamInfo();
+	//ca.set_Translate(3.0f, 3.0f, 3.0f);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
@@ -77,25 +76,26 @@ int main()
 		miles_RenderingPipeline.clear_Buffer();
 		// active current shader
 		shader::use_Program();
-
-		//draw cube 10 time at certain positions
-		for (int i = 0; i < 10; i++) {
-			geo_Cube.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
-			geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
-			geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
-			// test rotation
-			//ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
-			glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
-			shader::set_Matrix("mvp", mvp);
-			miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
-		}
-
 		/*
-				// simple draw
-				glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
-				shader::set_Matrix("mvp", mvp);
-				miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+				//draw cube 10 time at certain positions
+				for (int i = 0; i < 10; i++) {
+					geo_Cube.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
+					geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
+					geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
+					// test rotation
+					//ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
+					glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+					shader::set_Matrix("mvp", mvp);
+					miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+				}
 		*/
+		ca.set_SphericalSystem(4.0f, glfwGetTime() * 40.0f, glfwGetTime() * 40.0f);
+
+		// simple draw
+		glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+		shader::set_Matrix("mvp", mvp);
+		miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+
 		// double buffer avoiding the tearing
 		glfwSwapBuffers(window);
 		// this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
