@@ -2,8 +2,10 @@
 #include "GLFW/glfw3.h"
 #include "users/mrp.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
+void mouse_Callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 const unsigned int SCR_WIDTH = 640;
 const unsigned int SCR_HEIGHT = 480;
@@ -31,6 +33,10 @@ int main()
 
 	// resize the viewport when the window size is changed, all the call-back functions must be registered before the render loop begins
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_Callback);
+	glfwSetScrollCallback(window, scroll_Callback);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	// here we need to init the glad, this lib will manage all function pointers we need to use for opengl
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -112,6 +118,17 @@ void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+}
+
+void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	std::cout << "scroll offset: " << yoffset << std::endl;
+}
+
+void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
+{
+	std::cout << "mouse xpos: " << xpos << std::endl;
+	std::cout << "mouse ypos: " << ypos << std::endl;
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
