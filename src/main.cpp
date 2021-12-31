@@ -1,14 +1,18 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "users/mrp.h"
+#include "users/interactive.h"
 
 void processInput(GLFWwindow* window);
 void mouse_Callback(GLFWwindow* window, double xpos, double ypos);
+void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods);
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 const unsigned int SCR_WIDTH = 640;
 const unsigned int SCR_HEIGHT = 480;
+
+interactive inter;
 
 int main()
 {
@@ -34,6 +38,7 @@ int main()
 	// resize the viewport when the window size is changed, all the call-back functions must be registered before the render loop begins
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_Callback);
+	glfwSetMouseButtonCallback(window, mouse_Button_Callback);
 	glfwSetScrollCallback(window, scroll_Callback);
 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -72,13 +77,13 @@ int main()
 
 	cam ca;
 	//ca.set_Translate(3.0f, 3.0f, 3.0f);
-	ca.set_SphericalSystem(4.0f, 90.0f, 720.0f);
 
 	// this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
 	while (!glfwWindowShouldClose(window))
 	{
 		// to orgnize our input control
 		processInput(window);
+		ca.set_SphericalSystem(inter.zoom, inter.elevationAngle, inter.turningAngle);
 		// clear target
 		miles_RenderingPipeline.clear_Buffer();
 		// active current shader
@@ -117,18 +122,46 @@ int main()
 void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
 		glfwSetWindowShouldClose(window, true);
+	}
 }
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	std::cout << "scroll offset: " << yoffset << std::endl;
+	inter.zoom += yoffset;
 }
 
 void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 {
-	std::cout << "mouse xpos: " << xpos << std::endl;
-	std::cout << "mouse ypos: " << ypos << std::endl;
+	//std::cout << "mouse xpos: " << xpos << std::endl;
+	//std::cout << "mouse ypos: " << ypos << std::endl;
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		inter.print_MouseOffset(xpos);
+	}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+	{
+	}
+
+}
+
+void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		std::cout << "an la" << std::endl;
+		inter.press_Start_Time = glfwGetTime();
+		glfwGetCursorPos(window, &inter.pos_Start_X, &inter.pos_Start_Y);
+	}
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+	{
+		std::cout << "fang la" << std::endl;
+		inter.press_End_Time = glfwGetTime();
+		glfwGetCursorPos(window, &inter.pos_End_X, &inter.pos_End_Y);
+		inter.set_TurningEnergy();
+	}
+
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
