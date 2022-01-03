@@ -13,7 +13,10 @@ interactive::interactive()
     pos_End_X = 0.0;
     pos_Start_Y = 0.0;
     pos_End_Y = 0.0;
+    updating_X = 0.0f;
+    interval = 0.0f;
 }
+
 
 float interactive::get_Druation()
 {
@@ -35,13 +38,28 @@ void interactive::set_TurningEnergy()
     {
         turning_Energy = get_HorizontalOffset() / duration;
     }
-
-    std::cout << "energy: " << turning_Energy << std::endl;
+    //std::cout << "energy: " << turning_Energy << std::endl;
 }
 
-void interactive::print_MouseOffset(float pos_Current_X)
+
+void interactive::update_TurningAngle(float pos_Current_X, float time)
 {
-    //std::cout << "current mouse: " << pos_Current_X << " | " << "start mouse: " << pos_Start_X << std::endl;
-    std::cout << "mouse_Offset_X: " << pos_Current_X - pos_Start_X << std::endl;
-    turningAngle = (pos_Current_X - pos_Start_X) * -1.0f;
+
+    if (time - interval > 0.05f) {
+        interval = time;
+        updating_X = pos_Current_X;
+    }
+    if (updating_X != pos_Current_X)
+    {
+        float offset = abs(updating_X - pos_Current_X) * 0.5f;
+        if (updating_X > pos_Current_X)
+        {
+            turningAngle += offset;
+        }
+        else
+        {
+            turningAngle -= offset;
+        }
+    }
+
 }

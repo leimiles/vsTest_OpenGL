@@ -138,7 +138,7 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 	//std::cout << "mouse ypos: " << ypos << std::endl;
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
-		inter.print_MouseOffset(xpos);
+		inter.update_TurningAngle(xpos, glfwGetTime());
 	}
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
 	{
@@ -150,13 +150,13 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
-		std::cout << "an la" << std::endl;
+		//std::cout << "an la" << std::endl;
 		inter.press_Start_Time = glfwGetTime();
 		glfwGetCursorPos(window, &inter.pos_Start_X, &inter.pos_Start_Y);
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 	{
-		std::cout << "fang la" << std::endl;
+		//std::cout << "fang la" << std::endl;
 		inter.press_End_Time = glfwGetTime();
 		glfwGetCursorPos(window, &inter.pos_End_X, &inter.pos_End_Y);
 		inter.set_TurningEnergy();
