@@ -7,6 +7,7 @@ interactive::interactive()
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
     updating_X = 0.0f;
+    updating_Y = 0.0f;
     interval = 0.0f;
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
@@ -17,35 +18,47 @@ interactive::~interactive()
 
 }
 
-void interactive::update_TurningAngle(float pos_Current_X, float time)
+void interactive::set_BothAngles(float pos_Current_X, float pos_Current_Y, float time)
 {
     acceleration = 0.0f;
-
     if (time - interval > 0.05f) {
         interval = time;
         updating_X = pos_Current_X;
+        updating_Y = pos_Current_Y;
     }
     if (updating_X != pos_Current_X)
     {
-        float offset = abs(updating_X - pos_Current_X) * 0.5f;
+        float offset_X = abs(updating_X - pos_Current_X) * 0.5f;
         if (updating_X > pos_Current_X)
         {
-            turningAngle += offset;
-            autoTurningEnergy = offset;
+            turningAngle += offset_X;
+            autoTurningEnergy = offset_X;
         }
         else
         {
-            turningAngle -= offset;
-            autoTurningEnergy = offset * -1.0f;
+            turningAngle -= offset_X;
+            autoTurningEnergy = offset_X * -1.0f;
         }
-
     }
-
+    if (updating_Y != pos_Current_Y)
+    {
+        float offset_Y = abs(updating_Y - pos_Current_Y) * 0.25f;
+        if (updating_Y > pos_Current_Y)
+        {
+            //std::cout << "down" << std::endl;
+            elevationAngle += offset_Y;
+        }
+        else
+        {
+            //std::cout << "up" << std::endl;
+            elevationAngle -= offset_Y;
+        }
+    }
 }
 
 void interactive::set_AutoTurningEnergy()
 {
-    acceleration = autoTurningEnergy * 0.1f;
+    acceleration = autoTurningEnergy * 0.05f;
     //std::cout << "autoTurningEnergy:" << autoTurningEnergy << " | " << "acceleration: " << acceleration << std::endl;
 }
 
@@ -57,14 +70,14 @@ float interactive::get_TurningAngle()
 float interactive::get_TurningSpeed()
 {
 
-    if (acceleration > 0.1f)
+    if (acceleration > 0.01f)
     {
-        acceleration -= 0.1f;
+        acceleration -= 0.01f;
         //std::cout << "turning left" << std::endl;
     }
-    else if (acceleration < -0.1f)
+    else if (acceleration < -0.01f)
     {
-        acceleration += 0.1f;
+        acceleration += 0.01f;
         //std::cout << "turning right" << std::endl;
     }
     else
@@ -75,4 +88,9 @@ float interactive::get_TurningSpeed()
 
     return acceleration;
 
+}
+
+float interactive::get_ElevationAngle()
+{
+    return elevationAngle;
 }

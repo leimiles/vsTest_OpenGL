@@ -8,17 +8,19 @@ class interactive
     float autoTurningEnergy;
     float acceleration;
     float updating_X;
+    float updating_Y;
     float interval;
     float turningAngle;
+    float elevationAngle;
     float get_TurningSpeed();
 public:
     float zoom;
-    float elevationAngle;
     interactive();
     ~interactive();
-    void update_TurningAngle(float pos_Current_X, float time);
-    float get_TurningAngle();
     void set_AutoTurningEnergy();
+    void set_BothAngles(float pos_Current_X, float pos_Current_Y, float time);
+    float get_TurningAngle();
+    float get_ElevationAngle();
 };
 
 

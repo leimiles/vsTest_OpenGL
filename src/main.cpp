@@ -83,7 +83,7 @@ int main()
 	{
 		// to orgnize our input control
 		processInput(window);
-		ca.set_SphericalSystem(inter.zoom, inter.elevationAngle, inter.get_TurningAngle());
+		ca.set_SphericalSystem(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
 		// clear target
 		miles_RenderingPipeline.clear_Buffer();
 		// active current shader
@@ -136,7 +136,7 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
-		inter.update_TurningAngle(xpos, glfwGetTime());
+		inter.set_BothAngles(xpos, ypos, glfwGetTime());
 	}
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
 	{
