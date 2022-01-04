@@ -46,7 +46,7 @@ void interactive::update_TurningAngle(float pos_Current_X, float time)
 void interactive::set_AutoTurningEnergy()
 {
     acceleration = autoTurningEnergy * 0.1f;
-    std::cout << "autoTurningEnergy:" << autoTurningEnergy << " | " << "acceleration: " << acceleration << std::endl;
+    //std::cout << "autoTurningEnergy:" << autoTurningEnergy << " | " << "acceleration: " << acceleration << std::endl;
 }
 
 float interactive::get_TurningAngle()
@@ -60,12 +60,12 @@ float interactive::get_TurningSpeed()
     if (acceleration > 0.1f)
     {
         acceleration -= 0.1f;
-        std::cout << "turning left" << std::endl;
+        //std::cout << "turning left" << std::endl;
     }
     else if (acceleration < -0.1f)
     {
         acceleration += 0.1f;
-        std::cout << "turning right" << std::endl;
+        //std::cout << "turning right" << std::endl;
     }
     else
     {
