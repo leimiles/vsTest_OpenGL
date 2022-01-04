@@ -1,5 +1,18 @@
 # vsTest_OpenGL
 
+## 五，开发日志 2022/01/04
+### 1，完成使用球面坐标系构建摄影机空间位置，新增 interactive 类作为鼠标交互逻辑
+<div align = center>
+<img src="./Pics/pic10.png" width = 50%>
+</div>
+### 2，完成观察摄影机添加惯性旋转的功能
+<div align = center>
+<img src="./Pics/pic09.gif" width = 50%>
+</div>
+
+---
+
+
 ## 四，开发日志 2021/12/15
 ### 1，环境配置说明，如果是切到最新提交记录，请按照如下步骤配置环境
 >* 在 [https://sourceforge.net/projects/mingw-w64/files/] 下载自己系统对应的版本(往列表下面看)，我是 [win10_X64] 下载的是 *x86_64_win32-seh* (47.8 MB)，下载后解压
