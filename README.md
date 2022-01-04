@@ -5,6 +5,7 @@
 <div align = center>
 <img src="./Pics/pic10.png" width = 50%>
 </div>
+
 ### 2，完成观察摄影机添加惯性旋转的功能
 <div align = center>
 <img src="./Pics/pic09.gif" width = 50%>
