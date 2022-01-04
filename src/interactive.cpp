@@ -3,47 +3,23 @@
 
 interactive::interactive()
 {
-    float turning_Energy = 0.0f;
     zoom = 3.0f;
-    press_Start_Time = 0.0f;
-    press_End_Time = 0.0f;
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
-    pos_Start_X = 0.0;
-    pos_End_X = 0.0;
-    pos_Start_Y = 0.0;
-    pos_End_Y = 0.0;
     updating_X = 0.0f;
     interval = 0.0f;
+    autoTurningEnergy = 0.0f;
+    acceleration = 0.0f;
 }
 
-
-float interactive::get_Druation()
+interactive::~interactive()
 {
-    return press_End_Time - press_Start_Time;
-}
 
-float interactive::get_HorizontalOffset()
-{
-    return (float)(pos_End_X - pos_Start_X);
 }
-
-void interactive::set_TurningEnergy()
-{
-    float duration = get_Druation();
-    if (duration == 0.0f) {
-        turning_Energy = 0.0f;
-    }
-    else
-    {
-        turning_Energy = get_HorizontalOffset() / duration;
-    }
-    //std::cout << "energy: " << turning_Energy << std::endl;
-}
-
 
 void interactive::update_TurningAngle(float pos_Current_X, float time)
 {
+    acceleration = 0.0f;
 
     if (time - interval > 0.05f) {
         interval = time;
@@ -55,11 +31,48 @@ void interactive::update_TurningAngle(float pos_Current_X, float time)
         if (updating_X > pos_Current_X)
         {
             turningAngle += offset;
+            autoTurningEnergy = offset;
         }
         else
         {
             turningAngle -= offset;
+            autoTurningEnergy = offset * -1.0f;
         }
+
     }
+
+}
+
+void interactive::set_AutoTurningEnergy()
+{
+    acceleration = autoTurningEnergy * 0.1f;
+    std::cout << "autoTurningEnergy:" << autoTurningEnergy << " | " << "acceleration: " << acceleration << std::endl;
+}
+
+float interactive::get_TurningAngle()
+{
+    turningAngle += get_TurningSpeed();
+}
+
+float interactive::get_TurningSpeed()
+{
+
+    if (acceleration > 0.1f)
+    {
+        acceleration -= 0.1f;
+        std::cout << "turning left" << std::endl;
+    }
+    else if (acceleration < -0.1f)
+    {
+        acceleration += 0.1f;
+        std::cout << "turning right" << std::endl;
+    }
+    else
+    {
+        acceleration = 0.0f;
+        //std::cout << "stop" << std::endl;
+    }
+
+    return acceleration;
 
 }

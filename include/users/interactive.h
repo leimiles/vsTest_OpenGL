@@ -3,27 +3,22 @@
 #define INTERACTIVE_H
 #include <iostream>
 
-struct interactive
+class interactive
 {
-    float turning_Energy;
-    float turningAngle_Offset;
+    float autoTurningEnergy;
+    float acceleration;
     float updating_X;
     float interval;
-public:
-    float press_Start_Time;
-    float press_End_Time;
-    float zoom;
     float turningAngle;
+    float get_TurningSpeed();
+public:
+    float zoom;
     float elevationAngle;
-    double pos_Start_X;
-    double pos_End_X;
-    double pos_Start_Y;
-    double pos_End_Y;
     interactive();
-    float get_Druation();
-    float get_HorizontalOffset();
-    void set_TurningEnergy();
+    ~interactive();
     void update_TurningAngle(float pos_Current_X, float time);
+    float get_TurningAngle();
+    void set_AutoTurningEnergy();
 };
 
 
