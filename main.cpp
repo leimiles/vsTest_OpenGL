@@ -12,8 +12,8 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-const unsigned int SCR_WIDTH = 640;
-const unsigned int SCR_HEIGHT = 480;
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 // this function hide the console window
 void hideConsole()
@@ -170,5 +170,5 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 }
