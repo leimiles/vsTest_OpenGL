@@ -7,12 +7,14 @@
 *.o
 *.obj
 
+# cmake files
+*.cmake
+
 # Precompiled Headers
 *.gch
 *.pch
 
 # Compiled Dynamic libraries
-*.so
 *.dylib
 
 # Fortran module files
@@ -23,14 +25,8 @@
 *.lai
 *.la
 
-
 # Executables
-*.exe
 *.out
 *.app
-include/glad
-include/glad/glad.h
-include/KHR
-include/KHR/khrplatform.h
-lib/libglad.a
-.vscode/c_cpp_properties.json
+build
+.vscode
