@@ -65,6 +65,7 @@ void interactive::set_AutoTurningEnergy()
 float interactive::get_TurningAngle()
 {
     turningAngle += get_TurningSpeed();
+    return turningAngle;
 }
 
 float interactive::get_TurningSpeed()
