@@ -67,5 +67,3 @@ target_link_libraries(${EXE_NAME} glfw glad mylib)    #构建时链接指定的�
 
 install(TARGETS ${EXE_NAME} DESTINATION ./)        #安装在项目目录的 mdv 文件夹下
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resources DESTINATION ./)    #安装在项目目录的 mdv 文件夹下
-install(FILES lib/libgcc_s_seh-1.dll DESTINATION ./)
-install(FILES lib/libstdc++-6.dll DESTINATION ./)
