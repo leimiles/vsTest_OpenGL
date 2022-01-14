@@ -59,9 +59,12 @@ endif()
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/thirdParty/stb/stb_image.h")
     message(FATAL_ERROR "the stb submodules was not downloaded!")
 endif()
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/thirdParty/assimp/CMakeLists.txt")
+    message(FATAL_ERROR "the assimp submodules was not downloaded!")
+endif()
 
 add_subdirectory(thirdParty/glfw)   #构建时包含第三方库下的 glfw 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行
-#add_subdirectory(thirdParty/glm)   #构建时包含第三方库下的 glm 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行
+add_subdirectory(thirdParty/assimp)   #构建时包含第三方库下的 assimp 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行
 add_subdirectory(thirdParty/glad)   #构建时包含第三方库下的 glad 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行
 target_link_libraries(${EXE_NAME} glfw glad mylib)    #构建时链接指定的库
 
