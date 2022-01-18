@@ -1,5 +1,5 @@
 #include "users/texture.h"
-#include "stb/stb_image.h"
+#include "stb_image.h"
 
 int texture::count = 0;
 

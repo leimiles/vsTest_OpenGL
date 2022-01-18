@@ -7,7 +7,6 @@
 #include "users/texture.h"
 #include "users/cam.h"
 #include "users/data.h"
-#include "glad/glad.h"
 
 enum vao_Mode {
     vao_0Pos3,
