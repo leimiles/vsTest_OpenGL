@@ -73,6 +73,9 @@ void mrp::set_RenderingData(vao_Mode mode, const geometry& geo)
     case vao_0Pos3_2Texcoord2:
         mrp::set_VAO_0Pos3_2Texcoord2(geo);
         break;
+    case vao_0Pos3_1Normal3_2Texcoord2:
+        mrp::set_VAO_0Pos3_1Normal3_2Texcoord2(geo);
+        break;
     default:
         break;
     }
@@ -83,6 +86,11 @@ void mrp::set_RenderingData(vao_Mode mode, const geometry& geo)
 
 void mrp::draw_Geometry(const geometry& geo, bool isDepth_Test)
 {
+    if (geo.VERTEX_ATTRIBUTES_SIZE == 0)
+    {
+        std::cout << "nothing to draw\n" << std::endl;
+        return;
+    }
     if (geo.VERTEX_ELEMENTS_SIZE > 0)
     {
         glBindVertexArray(mrp::current_VAO);
@@ -116,5 +124,15 @@ void mrp::set_VAO_0Pos3_2Texcoord2(const geometry& geo)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * geo.VERTEX_ATTRIBUTES_STRIDE, (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * geo.VERTEX_ATTRIBUTES_STRIDE, (void*)(sizeof(float) * 3));
+    glEnableVertexAttribArray(2);
+}
+
+void mrp::set_VAO_0Pos3_1Normal3_2Texcoord2(const geometry& geo)
+{
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * geo.VERTEX_ATTRIBUTES_STRIDE, (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * geo.VERTEX_ATTRIBUTES_STRIDE, (void*)(sizeof(float) * 3));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * geo.VERTEX_ATTRIBUTES_STRIDE, (void*)(sizeof(float) * 6));
     glEnableVertexAttribArray(2);
 }

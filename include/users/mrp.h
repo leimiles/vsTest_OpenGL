@@ -11,7 +11,8 @@
 enum vao_Mode {
     vao_0Pos3,
     vao_0Pos3_1Col3_2Texcoord2,
-    vao_0Pos3_2Texcoord2
+    vao_0Pos3_2Texcoord2,
+    vao_0Pos3_1Normal3_2Texcoord2
 };
 
 // this is the render pipeline
@@ -32,6 +33,7 @@ public:
     void draw_Geometry(const geometry& geo, bool isDepth_Test);
     static void set_VAO_0Pos3_1Col3_2Texcoord2(const geometry& geo);
     static void set_VAO_0Pos3_2Texcoord2(const geometry& geo);
+    static void set_VAO_0Pos3_1Normal3_2Texcoord2(const geometry& geo);
 };
 
 #endif

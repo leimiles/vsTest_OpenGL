@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 SET(THIRDPARTY_BINARY_DIR "${CMAKE_BINARY_DIR}/thirdParty")      # 能找到 glad 头文件路径
 SET(THIRDPARTY_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdParty")      # 能找到第三方库头文件路径
 
-add_library(mylib 
+add_library(mylib
     interactive.cpp
     texture.cpp
     transform.cpp

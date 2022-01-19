@@ -1,21 +1,38 @@
 #pragma once
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
+#include <iostream>
+#include <vector>
 #include "glad/glad.h"
 #include "users/object.h"
-#include <iostream>
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
+
+struct vertexData
+{
+    glm::vec3 position_Obj;
+    glm::vec3 normal_Obj;
+    glm::vec2 texcoords;
+};
 
 class geometry : public object
 {
 private:
+    std::string model_Directory;
+    void load_Model(std::string model_Path);
+    void process_Node(aiNode* node, const aiScene* scenePtr);
+    void process_Mesh(aiMesh* mesh, const aiScene* scenePtr);
 public:
-    const unsigned int VERTEX_ATTRIBUTES_SIZE;
-    const unsigned int VERTEX_ELEMENTS_SIZE;
-    const float* VERTEX_ATTRIBUTES;
-    const unsigned int* VERTEX_ELEMENTS;
-    const unsigned int VERTEX_ATTRIBUTES_STRIDE;
+    unsigned int VERTEX_ATTRIBUTES_SIZE;
+    unsigned int VERTEX_ELEMENTS_SIZE;
+    float* VERTEX_ATTRIBUTES;
+    unsigned int* VERTEX_ELEMENTS;
+    unsigned int VERTEX_ATTRIBUTES_STRIDE;
     GLenum geometry_Type;
     geometry(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size = 0, unsigned int* elements = nullptr);
+    geometry(std::string model_Path);
     ~geometry();
     void set_Translate(float x, float y, float z);
     void set_Rotate(float degrees, float x, float y, float z);

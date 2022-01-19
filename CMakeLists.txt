@@ -16,9 +16,13 @@ set(TEXTURE_TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/resources")     #图片资�
 set(TEXTURE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/textures")    #图片资源源目录
 file(COPY ${TEXTURE_SOURCE_DIR} DESTINATION ${TEXTURE_TARGET_DIR})
 
-set(TEXTURE_TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/resources")     #着色器资源目标目录
-set(TEXTURE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/shaders")    #着色器资源源目录
-file(COPY ${TEXTURE_SOURCE_DIR} DESTINATION ${TEXTURE_TARGET_DIR})
+set(SHADER_TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/resources")     #着色器资源目标目录
+set(SHADER_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/shaders")    #着色器资源源目录
+file(COPY ${SHADER_SOURCE_DIR} DESTINATION ${SHADER_TARGET_DIR})
+
+set(MODEL_TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/resources")     #着色器资源目标目录
+set(MODEL_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/models")    #着色器资源源目录
+file(COPY ${MODEL_SOURCE_DIR} DESTINATION ${MODEL_TARGET_DIR})
 
 #link_directories(lib) #使用编译好的库，需要在 add_executable 执行之前，指定编译好的库所在的位置
 

@@ -6,8 +6,45 @@ geometry::geometry(unsigned int stride, unsigned int attributes_Size, float* att
     geometry_Type = GL_TRIANGLES;
 }
 
+geometry::geometry(std::string model_Path)
+{
+    load_Model(model_Path);
+    VERTEX_ATTRIBUTES_STRIDE = 0;
+    VERTEX_ATTRIBUTES_SIZE = 0;
+    VERTEX_ATTRIBUTES = nullptr;
+    VERTEX_ELEMENTS_SIZE = 0;
+    VERTEX_ELEMENTS = nullptr;
+}
+
 geometry::~geometry()
 {
+}
+
+void geometry::load_Model(std::string model_Path)
+{
+    Assimp::Importer modelImporter;
+    const aiScene* scenePtr = modelImporter.ReadFile(model_Path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    if (!scenePtr || scenePtr->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scenePtr->mRootNode)
+    {
+        std::cout << "ERROR::ASSIMP::LOAD_MODEL::" << modelImporter.GetErrorString() << std::endl;
+        return;
+    }
+    std::cout << "ASSIMP::MODEL_LOAD::SUCCESSFULLY\n" << std::endl;
+    //model_Directory = model_Path.substr(0, model_Path.find_last_not_of('/'));
+    //process_Node(scenePtr->mRootNode, scenePtr);
+}
+
+void geometry::process_Node(aiNode* node, const aiScene* scenePtr)
+{
+    for (unsigned int i = 0; i < node->mNumMeshes; i++)
+    {
+        aiMesh* mesh = scenePtr->mMeshes[node->mMeshes[i]];
+    }
+}
+
+void geometry::process_Mesh(aiMesh* mesh, const aiScene* scenePtr)
+{
+
 }
 
 void geometry::set_Translate(float x, float y, float z)
