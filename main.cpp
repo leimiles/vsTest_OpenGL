@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
     texture tex01("super_Mario_A.png", GL_RGBA, true, true);
     texture tex02("batman.jpg", GL_RGB, true, true);
     texture tex03("miaoYu.jpg", GL_RGB, true, true);
-    texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
+    //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
     // always active shader before setting uniform buffer
     shader::use_Program();
@@ -97,6 +97,8 @@ int main(int argc, char* argv[])
     shader::set_Int("example3_Texture", 2);		// gl_texture2
 
     cam ca;
+    // compatiable orientation
+    model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
@@ -110,9 +112,9 @@ int main(int argc, char* argv[])
         shader::use_Program();
 
         // draw loaded model
-        //glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
-        //shader::set_Matrix("mvp", mvp);
-        //miles_RenderingPipeline.draw_Model(model01, true);
+        glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * model01.get_Matrix_LocalToWorld();
+        shader::set_Matrix("mvp", mvp);
+        miles_RenderingPipeline.draw_Model(model01, true);
 
         //draw cube 10 time at certain positions
         /*
@@ -170,11 +172,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += 0.05f * (inter.zoom * 0.2f);
+        inter.targetHeight += 0.05f * (inter.zoom * 0.5f);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= 0.05f * (inter.zoom * 0.2f);
+        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f);
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
@@ -185,7 +187,7 @@ void processInput(GLFWwindow* window)
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    inter.zoom += yoffset;
+    inter.zoom += yoffset * 10.0f;
     if (inter.zoom < 0)
     {
         inter.zoom = 0.001f;

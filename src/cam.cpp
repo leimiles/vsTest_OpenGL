@@ -4,13 +4,13 @@ cam::cam()
 {
     // self member
     cam_Near_Plane = 1.0f;
-    cam_Far_Plane = 100.0f;
+    cam_Far_Plane = 1000.0f;
     cam_Fov = 45.0f;
     cam_Width = 640;
     cam_Height = 480;
     cam_Ratio = (float)cam_Width / (float)cam_Height;  // 1.333
     cam_Target_Postion = glm::vec3(0.0f);
-    set_Translate(0.0f, 0.0f, 3.0f);
+    set_Translate(0.0f, 0.0f, 10.0f);
     eye_Matrix = get_Matrix_Eye();
 }
 

@@ -125,7 +125,7 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test)
     }
     for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
     {
-        std::cout << "draw a mesh" << std::endl;
+        //std::cout << "draw a mesh" << std::endl;
         // how to draw submeshes?
         glBindVertexArray(mdl.submeshes[i].vao);
         glDrawElements(GL_TRIANGLES, mdl.submeshes[i].vertex_Elements.size(), GL_UNSIGNED_INT, 0);

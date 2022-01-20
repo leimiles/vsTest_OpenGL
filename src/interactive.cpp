@@ -3,7 +3,7 @@
 
 interactive::interactive()
 {
-    zoom = 3.0f;
+    zoom = 240.0f;
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
     updating_X = 0.0f;
@@ -11,7 +11,7 @@ interactive::interactive()
     interval = 0.0f;
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
-    targetHeight = 0.0f;
+    targetHeight = 80.0f;
 }
 
 interactive::~interactive()
@@ -107,8 +107,8 @@ float interactive::get_ElevationAngle()
 
 void interactive::reset()
 {
-    zoom = 3.0f;
+    zoom = 240.0f;
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
-    targetHeight = 0.0f;
+    targetHeight = 80.0f;
 }

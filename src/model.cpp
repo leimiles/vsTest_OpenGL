@@ -87,7 +87,15 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
         vertex_Attributes.push_back(vtx_Attri);
     }
 
-    mesh submesh(vertex_Attributes, vertex_Elements);
-    return submesh;
+    for (unsigned int i = 0; i < meshNode->mNumFaces; i++)
+    {
+        aiFace face = meshNode->mFaces[i];
+        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        {
+            vertex_Elements.push_back(face.mIndices[j]);
+        }
+    }
+
+    return mesh(vertex_Attributes, vertex_Elements);
 }
 
