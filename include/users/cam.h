@@ -41,6 +41,7 @@ public:
     glm::mat4 get_Matrix_Eye_Improved();
     void print_CamInfo();
     void set_SphericalSystem(float radius, float elevationAngle_Degrees, float turningAngle_Degrees);
+    void set_SphericalSystem_With_Target(float radius, float elevationAngle_Degrees, float turningAngle_Degrees);
 };
 
 

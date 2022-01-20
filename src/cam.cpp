@@ -191,3 +191,27 @@ void cam::set_SphericalSystem(float radius, float elevationAngle_Degrees, float 
     set_Translate(x, y, z);
     set_Directions();
 }
+
+void cam::set_SphericalSystem_With_Target(float radius, float elevationAngle_Degrees, float turningAngle_Degrees)
+{
+    if (elevationAngle_Degrees > 179.9001f) {
+        elevationAngle_Degrees = 179.9001f;
+    }
+    if (elevationAngle_Degrees < 0.1f) {
+        elevationAngle_Degrees = 0.1f;
+    }
+    if (radius == 0.0f) {
+        radius = 0.0001f;
+    }
+    float elevationAngle_Radians = glm::radians(elevationAngle_Degrees);
+    float turningAngle_Radians = glm::radians(turningAngle_Degrees);
+    float x = radius * sin(elevationAngle_Radians) * sin(turningAngle_Radians) - cam_Target_Postion.x;
+    float y = radius * cos(elevationAngle_Radians) - cam_Target_Postion.y * (-1.0f);
+    float z = radius * sin(elevationAngle_Radians) * cos(turningAngle_Radians) - cam_Target_Postion.z;
+    //std::cout << elevationAngle_Radians << " | " << turningAngle_Radians << std::endl;
+    //std::cout << "x: " << x << std::endl;
+    //std::cout << "y: " << y << std::endl;
+    //std::cout << "z: " << z << std::endl;
+    set_Translate(x, y, z);
+    set_Directions();
+}

@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
         // to orgnize our input control
         processInput(window);
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
-        ca.set_SphericalSystem(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
+        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
         // clear target
         miles_RenderingPipeline.clear_Buffer();
         // active current shader
@@ -157,11 +157,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += 0.03f;
+        inter.targetHeight += 0.05f * (inter.zoom * 0.2f);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= 0.03f;
+        inter.targetHeight -= 0.05f * (inter.zoom * 0.2f);
     }
 }
 
