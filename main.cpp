@@ -120,14 +120,15 @@ int main(int argc, char* argv[])
         */
 
         // simple draw
-        /*
-        geo_Cube.set_Translate(0.0f, 1.0f, 0.0f);
+
+        geo_Cube.set_Translate(0.0f, 0.0f, 0.0f);
         glm::mat4 mvp1 = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
         shader::set_Matrix("mvp", mvp1);
         miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
-        */
+
 
         // draw cube tower
+        /*
         for (int i = 0; i < 20; i++)
         {
             geo_Cube.set_Translate(0.0f, i + i * 0.05f, 0.0f);
@@ -137,6 +138,7 @@ int main(int argc, char* argv[])
             miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
 
         }
+        */
         // double buffer avoiding the tearing
         glfwSwapBuffers(window);
         // this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
