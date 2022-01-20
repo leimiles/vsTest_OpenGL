@@ -67,19 +67,20 @@ int main(int argc, char* argv[])
     // init geometry quad
     //geometry geo_Quad(8, 32, data::quad_Example_Attributes, 6, data::quad_Example_Indices);
     // init geometry cube
-    geometry geo_Cube(5, 180, data::cube_Example_Attributes);
+    //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
-    //model model01("sausage_Model.fbx");
+    model model01("sausage_Model.fbx");
+
 
     // init render pipeline
     mrp miles_RenderingPipeline;
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
-    miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
+    //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
     //miles_RenderingPipeline.set_RenderingData(model01);
 
     // user shader files, check compile, check files
-    shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
+    shader miles_shaderProgram("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
 
 
     // set texture data
@@ -129,11 +130,12 @@ int main(int argc, char* argv[])
         */
 
         // simple draw
+        /*
         geo_Cube.set_Translate(0.0f, 0.0f, 0.0f);
         glm::mat4 mvp1 = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
         shader::set_Matrix("mvp", mvp1);
         miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
-
+        */
 
         // draw cube tower
         /*

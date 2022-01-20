@@ -17,7 +17,7 @@ mrp::~mrp()
 void mrp::clear_Buffer()
 {
     // set clear color  value
-    glClearColor(0.21f, 0.45f, 0.35f, 1.0f);
+    glClearColor(0.21f, 0.35f, 0.35f, 1.0f);
     // clear color buffer with the set of clear color
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -115,6 +115,22 @@ void mrp::set_RenderingData(const model& mdl)
 
 void mrp::draw_Model(const model& mdl, bool isDepth_Test)
 {
+    if (mdl.submeshes.size() == 0) {
+        //std::cout << "no mesh to draw" << std::endl;
+        return;
+    }
+    if (isDepth_Test)
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+    for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
+    {
+        std::cout << "draw a mesh" << std::endl;
+        // how to draw submeshes?
+        glBindVertexArray(mdl.submeshes[i].vao);
+        glDrawElements(GL_TRIANGLES, mdl.submeshes[i].vertex_Elements.size(), GL_UNSIGNED_INT, 0);
+
+    }
 
 }
 
