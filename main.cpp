@@ -29,7 +29,7 @@ interactive inter;
 int main(int argc, char* argv[])
 {
     //hideConsole();
-    std::cout << argv[0] << " VERSION: " << MDV_VERSION_MAJOR << "." << MDV_VERSION_MINOR << std::endl;
+    std::cout << argv[0] << " VERSION: " << MDV_VERSION_MAJOR << "." << MDV_VERSION_MINOR << "\n" << std::endl;
     // init glfw 
     glfwInit();
     // init some settings for glfw window, note there are a lot of options...
@@ -67,15 +67,15 @@ int main(int argc, char* argv[])
     // init geometry quad
     //geometry geo_Quad(8, 32, data::quad_Example_Attributes, 6, data::quad_Example_Indices);
     // init geometry cube
-    //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
-    geometry geo_Cube("resources/models/sausage_Model.fbx");
+    geometry geo_Cube(5, 180, data::cube_Example_Attributes);
+
     // init render pipeline
     mrp miles_RenderingPipeline;
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
-    miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Normal3_2Texcoord2, geo_Cube);
+    miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
     // user shader files, check compile, check files
-    shader miles_shaderProgram("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+    shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
 
 
     // set texture data

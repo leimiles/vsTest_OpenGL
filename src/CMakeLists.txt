@@ -16,6 +16,8 @@ add_library(mylib
     shader.cpp
     cam.cpp
     data.cpp
+    model.cpp
+    mesh.cpp
 )
 
 target_link_libraries(mylib

@@ -20,10 +20,6 @@ struct vertexData
 class geometry : public object
 {
 private:
-    std::string model_Directory;
-    void load_Model(std::string model_Path);
-    void process_Node(aiNode* node, const aiScene* scenePtr);
-    void process_Mesh(aiMesh* mesh, const aiScene* scenePtr);
 public:
     unsigned int VERTEX_ATTRIBUTES_SIZE;
     unsigned int VERTEX_ELEMENTS_SIZE;
@@ -32,7 +28,6 @@ public:
     unsigned int VERTEX_ATTRIBUTES_STRIDE;
     GLenum geometry_Type;
     geometry(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size = 0, unsigned int* elements = nullptr);
-    geometry(std::string model_Path);
     ~geometry();
     void set_Translate(float x, float y, float z);
     void set_Rotate(float degrees, float x, float y, float z);
