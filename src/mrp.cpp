@@ -108,6 +108,16 @@ void mrp::draw_Geometry(const geometry& geo, bool isDepth_Test)
     }
 }
 
+void mrp::set_RenderingData(const model& mdl)
+{
+
+}
+
+void mrp::draw_Model(const model& mdl, bool isDepth_Test)
+{
+
+}
+
 // 3 floats for position, 3 floats for color, 2 floats for texcoord
 void mrp::set_VAO_0Pos3_1Col3_2Texcoord2(const geometry& geo)
 {

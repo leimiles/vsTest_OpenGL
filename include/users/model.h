@@ -11,7 +11,7 @@ class model : public object
 private:
     /* data */
 public:
-    model(/* args */);
+    model(std::string model_Path);
     ~model();
 };
 

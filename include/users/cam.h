@@ -33,7 +33,7 @@ public:
     void set_Height(int height);
     void set_Translate(float x, float y, float z);
     void set_Target(float x, float y, float z);
-    void set_Rotate(float degrees, float x, float y, float z);
+    void set_Scale(float x, float y, float z);
     glm::mat4 get_Matrix_PerspectiveProjection();
     glm::mat4 get_Matrix_WorldToView();
     glm::mat4 get_Matrix_ViewToWorld();

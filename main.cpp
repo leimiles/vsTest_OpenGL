@@ -69,10 +69,14 @@ int main(int argc, char* argv[])
     // init geometry cube
     geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
+    //model model01("sausage_Model.fbx");
+
     // init render pipeline
     mrp miles_RenderingPipeline;
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
     miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
+
+    //miles_RenderingPipeline.set_RenderingData(model01);
 
     // user shader files, check compile, check files
     shader miles_shaderProgram("shd_simple_v1.vert", "shd_simple_v1.frag", true, true);
@@ -104,6 +108,11 @@ int main(int argc, char* argv[])
         // active current shader
         shader::use_Program();
 
+        // draw loaded model
+        //glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+        //shader::set_Matrix("mvp", mvp);
+        //miles_RenderingPipeline.draw_Model(model01, true);
+
         //draw cube 10 time at certain positions
         /*
         for (int i = 0; i < 10; i++)
@@ -112,7 +121,7 @@ int main(int argc, char* argv[])
             geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
             geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
             // test rotation
-            //ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
+            ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
             glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
             shader::set_Matrix("mvp", mvp);
             miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
@@ -120,7 +129,6 @@ int main(int argc, char* argv[])
         */
 
         // simple draw
-
         geo_Cube.set_Translate(0.0f, 0.0f, 0.0f);
         glm::mat4 mvp1 = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
         shader::set_Matrix("mvp", mvp1);
@@ -139,6 +147,7 @@ int main(int argc, char* argv[])
 
         }
         */
+
         // double buffer avoiding the tearing
         glfwSwapBuffers(window);
         // this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.

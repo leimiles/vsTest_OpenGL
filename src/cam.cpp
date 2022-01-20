@@ -28,6 +28,11 @@ void cam::set_Translate(float x, float y, float z)
     set_Directions();
 }
 
+void cam::set_Scale(float x, float y, float z)
+{
+    // scale cam means nothing...
+}
+
 void cam::set_Target(float x, float y, float z)
 {
     glm::vec3 position = self_Transform.get_Translate();
@@ -38,11 +43,6 @@ void cam::set_Target(float x, float y, float z)
     cam_Target_Postion.y = y;
     cam_Target_Postion.z = z;
     set_Directions();
-}
-
-void cam::set_Rotate(float degrees, float x, float y, float z)
-{
-    self_Transform.set_Rotate(degrees, x, y, z);
 }
 
 glm::mat4 cam::get_Matrix_PerspectiveProjection()

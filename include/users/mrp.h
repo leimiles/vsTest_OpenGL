@@ -2,6 +2,7 @@
 #ifndef MRP_H
 #define MRP_H
 #include <cmath>
+#include "users/model.h"
 #include "users/geometry.h"
 #include "users/shader.h"
 #include "users/texture.h"
@@ -30,7 +31,9 @@ public:
     int get_MaxVertex_Attributes();
     void set_DrawMode(GLenum draw_Mode);
     void set_RenderingData(vao_Mode mode, const geometry& geo);
+    void set_RenderingData(const model& mdl);
     void draw_Geometry(const geometry& geo, bool isDepth_Test);
+    void draw_Model(const model& mdl, bool isDepth_Test);
     static void set_VAO_0Pos3_1Col3_2Texcoord2(const geometry& geo);
     static void set_VAO_0Pos3_2Texcoord2(const geometry& geo);
     static void set_VAO_0Pos3_1Normal3_2Texcoord2(const geometry& geo);

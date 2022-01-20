@@ -1,9 +1,10 @@
 #include "users/model.h"
 
-model::model(/* args */)
+model::model(std::string model_Path)
 {
 }
 
 model::~model()
 {
 }
+

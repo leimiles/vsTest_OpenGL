@@ -11,8 +11,11 @@ protected:
 public:
     object();
     ~object();
-    virtual void set_Translate(float x, float y, float z) = 0;
-    virtual void set_Rotate(float degrees, float x, float y, float z) = 0;
+    void set_Translate(float x, float y, float z);
+    void set_Rotate(float degrees, float x, float y, float z);
+    void set_Scale(float x, float y, float z);
+    glm::mat4 get_Matrix_LocalToWorld();
+    glm::mat4 get_Matrix_WorldToLocal();
 };
 
 #endif
