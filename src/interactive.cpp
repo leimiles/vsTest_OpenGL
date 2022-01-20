@@ -11,6 +11,7 @@ interactive::interactive()
     interval = 0.0f;
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
+    targetHeight = 0.0f;
 }
 
 interactive::~interactive()
@@ -47,11 +48,19 @@ void interactive::set_BothAngles(float pos_Current_X, float pos_Current_Y, float
         {
             //std::cout << "down" << std::endl;
             elevationAngle += offset_Y;
+            if (elevationAngle > 179.9f)
+            {
+                elevationAngle = 179.9f;
+            }
         }
         else
         {
             //std::cout << "up" << std::endl;
             elevationAngle -= offset_Y;
+            if (elevationAngle < 0.01f)
+            {
+                elevationAngle = 0.01f;
+            }
         }
     }
 }

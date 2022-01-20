@@ -92,36 +92,51 @@ int main(int argc, char* argv[])
     shader::set_Int("example3_Texture", 2);		// gl_texture2
 
     cam ca;
-
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
         // to orgnize our input control
         processInput(window);
+        ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
         // clear target
         miles_RenderingPipeline.clear_Buffer();
         // active current shader
         shader::use_Program();
+
+        //draw cube 10 time at certain positions
         /*
-                //draw cube 10 time at certain positions
-                for (int i = 0; i < 10; i++) {
-                    geo_Cube.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
-                    geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
-                    geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
-                    // test rotation
-                    //ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
-                    glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
-                    shader::set_Matrix("mvp", mvp);
-                    miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
-                }
+        for (int i = 0; i < 10; i++)
+        {
+            geo_Cube.set_Translate(data::some_Positions[i].x, data::some_Positions[i].y, data::some_Positions[i].z);
+            geo_Cube.set_Rotate((i - 10) * 10.0f * glfwGetTime(), 0.7f, 0.7f, 0.0f);
+            geo_Cube.set_Scale(1.0f, 0.7f, 1.0f);
+            // test rotation
+            //ca.set_Translate(sin(glfwGetTime()) * 10.0f, 3.0f, cos(glfwGetTime()) * 10.0f);
+            glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+            shader::set_Matrix("mvp", mvp);
+            miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+        }
         */
 
         // simple draw
-        glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
-        shader::set_Matrix("mvp", mvp);
+        /*
+        geo_Cube.set_Translate(0.0f, 1.0f, 0.0f);
+        glm::mat4 mvp1 = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+        shader::set_Matrix("mvp", mvp1);
         miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+        */
 
+        // draw cube tower
+        for (int i = 0; i < 20; i++)
+        {
+            geo_Cube.set_Translate(0.0f, i + i * 0.05f, 0.0f);
+            geo_Cube.set_Rotate(i * 10.0f + glfwGetTime() * 2.0f, 0.0f, 1.0f, 0.0f);
+            glm::mat4 mvp1 = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * geo_Cube.get_Matrix_LocalToWorld();
+            shader::set_Matrix("mvp", mvp1);
+            miles_RenderingPipeline.draw_Geometry(geo_Cube, true);
+
+        }
         // double buffer avoiding the tearing
         glfwSwapBuffers(window);
         // this method is used to check if there's any event function (call back) should run, like keyboard, mouse window states ,etc.
@@ -140,11 +155,23 @@ void processInput(GLFWwindow* window)
     {
         glfwSetWindowShouldClose(window, true);
     }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        inter.targetHeight += 0.03f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        inter.targetHeight -= 0.03f;
+    }
 }
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     inter.zoom += yoffset;
+    if (inter.zoom < 0)
+    {
+        inter.zoom = 0.001f;
+    }
 }
 
 void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
@@ -153,14 +180,14 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
     {
         inter.set_BothAngles(xpos, ypos, glfwGetTime());
     }
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
     {
     }
 }
 
 void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
     {
     }
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)

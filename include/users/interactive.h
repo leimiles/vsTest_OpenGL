@@ -15,6 +15,7 @@ class interactive
     float get_TurningSpeed();
 public:
     float zoom;
+    float targetHeight;
     interactive();
     ~interactive();
     void set_AutoTurningEnergy();
