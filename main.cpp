@@ -165,6 +165,11 @@ void processInput(GLFWwindow* window)
     {
         inter.targetHeight -= 0.05f * (inter.zoom * 0.2f);
     }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+        inter.reset();
+    }
+
 }
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)

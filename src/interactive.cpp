@@ -104,3 +104,11 @@ float interactive::get_ElevationAngle()
 {
     return elevationAngle;
 }
+
+void interactive::reset()
+{
+    zoom = 3.0f;
+    elevationAngle = 90.0f;
+    turningAngle = 0.0f;
+    targetHeight = 0.0f;
+}

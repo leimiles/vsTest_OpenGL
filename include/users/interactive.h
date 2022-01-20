@@ -22,6 +22,7 @@ public:
     void set_BothAngles(float pos_Current_X, float pos_Current_Y, float time);
     float get_TurningAngle();
     float get_ElevationAngle();
+    void reset();
 };
 
 
