@@ -189,7 +189,14 @@ void processInput(GLFWwindow* window)
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    inter.zoom += yoffset * inter.zoomSpeed * inter.deltaTime;
+    if (yoffset > 0)
+    {
+        inter.zoom += inter.zoomSpeed * inter.deltaTime;
+    }
+    if (yoffset < 0)
+    {
+        inter.zoom -= inter.zoomSpeed * inter.deltaTime;
+    }
     if (inter.zoom < 0)
     {
         inter.zoom = 0.001f;

@@ -15,7 +15,7 @@ interactive::interactive()
     deltaTime = 1.0f;
     lastFrameTime = 0.0f;
     targetHeightSpeed = 1.0f;
-    zoomSpeed = 300.0f;
+    zoomSpeed = 500.0f;
 }
 
 interactive::~interactive()
