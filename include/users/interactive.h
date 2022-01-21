@@ -14,12 +14,12 @@ private:
     float turningAngle;
     float elevationAngle;
     void set_TurningAcceleration();
-    float deltaTime;
     float lastFrameTime;
 public:
-    float deltatime;
+    float deltaTime;
     float zoom;
     float targetHeight;
+    float targetHeightSpeed;
     interactive();
     ~interactive();
     void set_AutoTurningEnergy();
@@ -27,7 +27,7 @@ public:
     float get_TurningAngle();
     float get_ElevationAngle();
     void reset();
-    float get_DeltaTime(float time);
+    void set_DeltaTime(float time);
 };
 
 

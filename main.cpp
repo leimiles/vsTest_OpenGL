@@ -102,10 +102,7 @@ int main(int argc, char* argv[])
         // to orgnize our input control
         processInput(window);
 
-        std::cout << "deltaTime: " << inter.get_DeltaTime(glfwGetTime()) << std::endl;
-        // float currentFrame = glfwGetTime();
-        // deltaTime = currentFrame - lastFrame;
-        // lastFrame = currentFrame;
+        inter.set_DeltaTime(glfwGetTime());
 
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
@@ -177,11 +174,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += 0.05f * (inter.zoom * 0.5f);
+        inter.targetHeight += inter.targetHeightSpeed * inter.deltaTime;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f);
+        inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {

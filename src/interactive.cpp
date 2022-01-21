@@ -12,8 +12,9 @@ interactive::interactive()
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
     targetHeight = 80.0f;
-    deltaTime = 0.0f;
+    deltaTime = 1.0f;
     lastFrameTime = 0.0f;
+    targetHeightSpeed = 10.0f;
 }
 
 interactive::~interactive()
@@ -112,9 +113,8 @@ void interactive::reset()
     targetHeight = 80.0f;
 }
 
-float interactive::get_DeltaTime(float time)
+void interactive::set_DeltaTime(float time)
 {
-    deltatime = time - lastFrameTime;
+    deltaTime = time - lastFrameTime;
     lastFrameTime = time;
-    return deltatime;
 }
