@@ -12,10 +12,8 @@ interactive::interactive()
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
     targetHeight = 80.0f;
-    frameCount = 0;
-    previousTime = 0.0f;
-    second = 1.0f;
-    deltatime = 1.0f;
+    deltaTime = 0.0f;
+    lastFrameTime = 0.0f;
 }
 
 interactive::~interactive()
@@ -77,17 +75,11 @@ void interactive::set_AutoTurningEnergy()
 
 float interactive::get_TurningAngle()
 {
-    turningAngle += get_TurningSpeed();
-    return turningAngle;
-}
-
-float interactive::get_TurningAngle(float time)
-{
-    set_TurningAcceleration(time);
+    set_TurningAcceleration();
     return turningAngle += acceleration;
 }
 
-float interactive::get_TurningSpeed()
+void interactive::set_TurningAcceleration()
 {
 
     if (acceleration > 0.01f)
@@ -105,29 +97,6 @@ float interactive::get_TurningSpeed()
         acceleration = 0.0f;
         //std::cout << "stop" << std::endl;
     }
-    return acceleration;
-}
-
-void interactive::set_TurningAcceleration(float time)
-{
-    // once time interval longer than 0.1 second
-    if (time - previousTime > 0.001f)
-    {
-        if (acceleration > 0.01f)
-        {
-            acceleration -= 0.01f;
-        }
-        else if (acceleration < -0.01f)
-        {
-            acceleration += 0.01f;
-        }
-        else
-        {
-            acceleration = 0.0f;
-        }
-
-        previousTime = time;
-    }
 }
 
 float interactive::get_ElevationAngle()
@@ -143,15 +112,9 @@ void interactive::reset()
     targetHeight = 80.0f;
 }
 
-int interactive::get_FPS(float time)
+float interactive::get_DeltaTime(float time)
 {
-    frameCount++;
-    if ((time - previousTime) > second)
-    {
-        std::cout << frameCount << std::endl;
-        frameCount = 0;
-        previousTime = time;
-    }
-    return 0;
-
+    deltatime = time - lastFrameTime;
+    lastFrameTime = time;
+    return deltatime;
 }

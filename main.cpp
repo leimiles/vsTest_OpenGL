@@ -96,20 +96,16 @@ int main(int argc, char* argv[])
 
     cam ca;
 
-    GLfloat deltaTime = 0.0f;
-    GLfloat lastFrame = 0.0f;
-
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
         // to orgnize our input control
         processInput(window);
 
-        GLfloat currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
-        std::cout << "delta time: " << deltaTime << std::endl;
+        std::cout << "deltaTime: " << inter.get_DeltaTime(glfwGetTime()) << std::endl;
+        // float currentFrame = glfwGetTime();
+        // deltaTime = currentFrame - lastFrame;
+        // lastFrame = currentFrame;
 
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
