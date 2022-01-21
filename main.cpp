@@ -96,13 +96,22 @@ int main(int argc, char* argv[])
 
     cam ca;
 
+    GLfloat deltaTime = 0.0f;
+    GLfloat lastFrame = 0.0f;
+
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
         // to orgnize our input control
         processInput(window);
-        ca.set_Target(0.0f, inter.targetHeight, 0.0f);
 
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        std::cout << "delta time: " << deltaTime << std::endl;
+
+        ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
 
         // clear target
@@ -172,11 +181,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += 0.05f * (inter.zoom * 0.5f) * inter.deltatime;
+        inter.targetHeight += 0.05f * (inter.zoom * 0.5f);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f) * inter.deltatime;
+        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f);
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {

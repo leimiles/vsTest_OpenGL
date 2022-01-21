@@ -15,7 +15,7 @@ interactive::interactive()
     frameCount = 0;
     previousTime = 0.0f;
     second = 1.0f;
-    deltatime = 0.001f;
+    deltatime = 1.0f;
 }
 
 interactive::~interactive()
