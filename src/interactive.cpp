@@ -16,7 +16,6 @@ interactive::interactive()
     lastFrameTime = 0.0f;
     targetHeightSpeed = 1.0f;
     zoomSpeed = 300.0f;
-    turningSpeed = 1.0f;
 }
 
 interactive::~interactive()
@@ -87,12 +86,12 @@ void interactive::set_TurningAcceleration()
 
     if (acceleration > 0.01f)
     {
-        acceleration -= turningSpeed * deltaTime;
+        acceleration -= 0.01f;
         //std::cout << "turning left" << std::endl;
     }
     else if (acceleration < -0.01f)
     {
-        acceleration += turningSpeed * deltaTime;
+        acceleration += 0.01f;
         //std::cout << "turning right" << std::endl;
     }
     else

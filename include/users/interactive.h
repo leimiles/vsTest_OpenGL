@@ -12,7 +12,6 @@ private:
     float updating_Y;
     float interval;
     float turningAngle;
-    float turningSpeed;
     float elevationAngle;
     void set_TurningAcceleration();
     float lastFrameTime;
