@@ -17,6 +17,9 @@ interactive::interactive()
     targetHeightSpeed = 1.0f;
     zoomSpeed = 500.0f;
     drawMode = 1;
+    E = 90.0f;
+    T = 0.0f;
+    T_Speed = 100.0f;
 }
 
 interactive::~interactive()

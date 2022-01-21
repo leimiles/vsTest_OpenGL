@@ -107,7 +107,8 @@ int main(int argc, char* argv[])
         inter.set_DeltaTime(glfwGetTime());
 
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
-        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
+        //ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
+        ca.set_SphericalSystem_With_Target(inter.zoom, inter.E, inter.T);
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
@@ -182,6 +183,14 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
         inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime * inter.zoom;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        inter.T -= inter.T_Speed * inter.deltaTime;
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        inter.T += inter.T_Speed * inter.deltaTime;
     }
 }
 

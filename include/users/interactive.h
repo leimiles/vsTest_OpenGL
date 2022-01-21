@@ -16,6 +16,9 @@ private:
     void set_TurningAcceleration();
     float lastFrameTime;
 public:
+    float E;
+    float T;
+    float T_Speed;
     unsigned int drawMode;
     float deltaTime;
     float zoom;
