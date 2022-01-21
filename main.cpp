@@ -174,11 +174,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += inter.targetHeightSpeed * inter.deltaTime;
+        inter.targetHeight += inter.targetHeightSpeed * inter.deltaTime * inter.zoom;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime;
+        inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime * inter.zoom;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
@@ -189,7 +189,7 @@ void processInput(GLFWwindow* window)
 
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    inter.zoom += yoffset * 10.0f;
+    inter.zoom += yoffset * inter.zoomSpeed * inter.deltaTime;
     if (inter.zoom < 0)
     {
         inter.zoom = 0.001f;
