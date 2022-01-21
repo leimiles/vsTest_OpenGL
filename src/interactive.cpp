@@ -16,6 +16,7 @@ interactive::interactive()
     lastFrameTime = 0.0f;
     targetHeightSpeed = 1.0f;
     zoomSpeed = 500.0f;
+    drawMode = 1;
 }
 
 interactive::~interactive()
@@ -118,4 +119,13 @@ void interactive::set_DeltaTime(float time)
 {
     deltaTime = time - lastFrameTime;
     lastFrameTime = time;
+}
+
+void interactive::set_DrawMode()
+{
+    drawMode++;
+    if (drawMode > 3)
+    {
+        drawMode = 1;
+    }
 }

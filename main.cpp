@@ -11,6 +11,7 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos);
 void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods);
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -54,6 +55,7 @@ int main(int argc, char* argv[])
     glfwSetCursorPosCallback(window, mouse_Callback);
     glfwSetMouseButtonCallback(window, mouse_Button_Callback);
     glfwSetScrollCallback(window, scroll_Callback);
+    glfwSetKeyCallback(window, key_Callback);
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
@@ -116,6 +118,7 @@ int main(int argc, char* argv[])
         // draw loaded model
         glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * model01.get_Matrix_LocalToWorld();
         shader::set_Matrix("mvp", mvp);
+        miles_RenderingPipeline.set_DrawMode(inter.drawMode);
         miles_RenderingPipeline.draw_Model(model01, true);
 
         //draw cube 10 time at certain positions
@@ -180,9 +183,17 @@ void processInput(GLFWwindow* window)
     {
         inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime * inter.zoom;
     }
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+}
+
+void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
     {
         inter.reset();
+    }
+    if (key == GLFW_KEY_1 && action == GLFW_PRESS)
+    {
+        inter.set_DrawMode();
     }
 
 }

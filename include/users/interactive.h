@@ -16,6 +16,7 @@ private:
     void set_TurningAcceleration();
     float lastFrameTime;
 public:
+    unsigned int drawMode;
     float deltaTime;
     float zoom;
     float zoomSpeed;
@@ -29,6 +30,7 @@ public:
     float get_ElevationAngle();
     void reset();
     void set_DeltaTime(float time);
+    void set_DrawMode();
 };
 
 

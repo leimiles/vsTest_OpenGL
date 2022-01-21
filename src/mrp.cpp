@@ -31,10 +31,24 @@ void mrp::release_Resource()
     shader::delete_Program();
 }
 
-// set draw mode
-void mrp::set_DrawMode(GLenum draw_Mode)
+// set draw mode, GL_TRIANGLES, GL_LINE
+void mrp::set_DrawMode(unsigned int drawMode)
 {
-    glPolygonMode(GL_FRONT_AND_BACK, draw_Mode);
+    switch (drawMode)
+    {
+    case 1:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        break;
+    case 2:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        break;
+    case 3:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+        break;
+    default:
+        break;
+    }
+
 }
 
 // get max supported attribute
