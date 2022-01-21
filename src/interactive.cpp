@@ -12,6 +12,10 @@ interactive::interactive()
     autoTurningEnergy = 0.0f;
     acceleration = 0.0f;
     targetHeight = 80.0f;
+    frameCount = 0;
+    previousTime = 0.0f;
+    lastTime = 0.0f;
+    second = 1.0f;
 }
 
 interactive::~interactive()
@@ -111,4 +115,17 @@ void interactive::reset()
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
     targetHeight = 80.0f;
+}
+
+int interactive::get_FPS(float time)
+{
+    frameCount++;
+    if ((time - previousTime) > second)
+    {
+        std::cout << frameCount << std::endl;
+        frameCount = 0;
+        previousTime = time;
+    }
+    return 0;
+
 }

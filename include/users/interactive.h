@@ -13,6 +13,10 @@ class interactive
     float turningAngle;
     float elevationAngle;
     float get_TurningSpeed();
+    unsigned int frameCount;
+    float previousTime;
+    float lastTime;
+    float second;
 public:
     float zoom;
     float targetHeight;
@@ -23,6 +27,7 @@ public:
     float get_TurningAngle();
     float get_ElevationAngle();
     void reset();
+    int get_FPS(float time);
 };
 
 

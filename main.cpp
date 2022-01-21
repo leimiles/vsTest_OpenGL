@@ -70,23 +70,21 @@ int main(int argc, char* argv[])
     //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
     model model01("sausage_Model.fbx");
-
+    // compatiable orientation
+    model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
     // init render pipeline
     mrp miles_RenderingPipeline;
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
-    //miles_RenderingPipeline.set_RenderingData(model01);
-
     // user shader files, check compile, check files
     shader miles_shaderProgram("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
 
-
     // set texture data
-    texture tex01("super_Mario_A.png", GL_RGBA, true, true);
-    texture tex02("batman.jpg", GL_RGB, true, true);
-    texture tex03("miaoYu.jpg", GL_RGB, true, true);
+    //texture tex01("super_Mario_A.png", GL_RGBA, true, true);
+    //texture tex02("batman.jpg", GL_RGB, true, true);
+    //texture tex03("miaoYu.jpg", GL_RGB, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
     // always active shader before setting uniform buffer
@@ -97,17 +95,22 @@ int main(int argc, char* argv[])
     shader::set_Int("example3_Texture", 2);		// gl_texture2
 
     cam ca;
-    // compatiable orientation
-    model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
+
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
+
+        int fps = inter.get_FPS(glfwGetTime());
+
+
         // to orgnize our input control
         processInput(window);
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
+
         // clear target
         miles_RenderingPipeline.clear_Buffer();
+
         // active current shader
         shader::use_Program();
 
