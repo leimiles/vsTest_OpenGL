@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
         // to orgnize our input control
         processInput(window);
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
-        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
+        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle(glfwGetTime()));
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
