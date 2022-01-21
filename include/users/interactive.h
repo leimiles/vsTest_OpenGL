@@ -20,6 +20,7 @@ private:
     float previousTime;
     float second;
 public:
+    float deltatime;
     float zoom;
     float targetHeight;
     interactive();

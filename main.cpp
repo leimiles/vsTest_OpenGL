@@ -99,14 +99,11 @@ int main(int argc, char* argv[])
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
     {
-
-        int fps = inter.get_FPS(glfwGetTime());
-
-
         // to orgnize our input control
         processInput(window);
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
-        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle(glfwGetTime()));
+
+        ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
@@ -175,11 +172,11 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        inter.targetHeight += 0.05f * (inter.zoom * 0.5f);
+        inter.targetHeight += 0.05f * (inter.zoom * 0.5f) * inter.deltatime;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f);
+        inter.targetHeight -= 0.05f * (inter.zoom * 0.5f) * inter.deltatime;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {

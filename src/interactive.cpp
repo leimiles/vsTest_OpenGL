@@ -15,6 +15,7 @@ interactive::interactive()
     frameCount = 0;
     previousTime = 0.0f;
     second = 1.0f;
+    deltatime = 0.001f;
 }
 
 interactive::~interactive()
@@ -110,7 +111,7 @@ float interactive::get_TurningSpeed()
 void interactive::set_TurningAcceleration(float time)
 {
     // once time interval longer than 0.1 second
-    if (time - previousTime > 0.1f)
+    if (time - previousTime > 0.001f)
     {
         if (acceleration > 0.01f)
         {
