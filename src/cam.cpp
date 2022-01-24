@@ -4,7 +4,7 @@ cam::cam()
 {
     // self member
     cam_Near_Plane = 1.0f;
-    cam_Far_Plane = 1000.0f;
+    cam_Far_Plane = 3000.0f;
     cam_Fov = 45.0f;
     cam_Width = 640;
     cam_Height = 480;

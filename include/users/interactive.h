@@ -29,16 +29,14 @@ public:
     float targetHeightSpeed;
     interactive();
     ~interactive();
-    void set_AutoTurningEnergy();
-    void set_BothAngles(float pos_Current_X, float pos_Current_Y, float time);
-    float get_TurningAngle();
-    float get_ElevationAngle();
     void reset();
     void set_DeltaTime(float time);
     void set_DrawMode();
     void set_ET(float pos_Current_X, float pos_Current_Y, float time);
     void set_AutoT();
+    void set_Zoom(float offset);
     void show_FPS(float time);
+    void set_TargetHeight(int direction);
 };
 
 
