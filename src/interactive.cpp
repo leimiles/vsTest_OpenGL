@@ -81,7 +81,7 @@ void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
 
 void interactive::set_ET(double time)
 {
-    if (time - interval > deltaTime)
+    if (time - interval > deltaTime * 0.5)
     {
         acceleration = 0.0f;
 
