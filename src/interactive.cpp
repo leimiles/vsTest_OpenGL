@@ -32,53 +32,6 @@ interactive::~interactive()
 
 }
 
-void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
-{
-    acceleration = 0.0f;
-    if (time - interval > 0.05f) {
-        interval = time;
-        updating_X = pos_Current_X;
-        updating_Y = pos_Current_Y;
-    }
-    if (updating_X != pos_Current_X)
-    {
-        float offset_X = (abs(updating_X - pos_Current_X));
-        if (updating_X > pos_Current_X)
-        {
-            T += offset_X;
-            energy = offset_X;
-        }
-        else
-        {
-            T -= offset_X;
-            energy = offset_X * -1.0f;
-        }
-    }
-    if (updating_Y != pos_Current_Y)
-    {
-        float offset_Y = (abs(updating_Y - pos_Current_Y));
-        if (updating_Y > pos_Current_Y)
-        {
-            //std::cout << "down" << std::endl;
-            E += offset_Y;
-            if (E > 179.9f)
-            {
-                E = 179.9f;
-            }
-        }
-        else
-        {
-            //std::cout << "up" << std::endl;
-            E -= offset_Y;
-            if (E < 0.01f)
-            {
-                E = 0.01f;
-            }
-        }
-    }
-
-}
-
 void interactive::set_ET(double time)
 {
     if (time - interval > deltaTime * 0.5)
@@ -131,27 +84,6 @@ void interactive::set_Acceleration()
     acceleration = energy;
 }
 
-/*
-void interactive::set_TurningAcceleration()
-{
-
-    if (acceleration > 0.01f)
-    {
-        acceleration -= 0.01f;
-        //std::cout << "turning left" << std::endl;
-    }
-    else if (acceleration < -0.01f)
-    {
-        acceleration += 0.01f;
-        //std::cout << "turning right" << std::endl;
-    }
-    else
-    {
-        acceleration = 0.0f;
-        //std::cout << "stop" << std::endl;
-    }
-}
-*/
 
 void interactive::reset()
 {
@@ -204,6 +136,10 @@ void interactive::set_Zoom(float offset)
     }
 }
 
+void interactive::set_TargetHeightOffset(double pos_Current_Y)
+{
+}
+
 void interactive::set_TargetHeight(int direction)
 {
     float intensity = zoom * 0.5;
@@ -219,7 +155,13 @@ void interactive::set_TargetHeight(int direction)
     {
         targetHeight = 0.0f;
     }
+}
 
+
+
+void interactive::reset_TargetHeightOffset()
+{
+    targetHeight_Offset = 0.0f;
 }
 
 void interactive::fade_T(double time)
