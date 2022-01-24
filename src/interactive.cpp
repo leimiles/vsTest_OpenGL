@@ -19,7 +19,7 @@ interactive::interactive()
     drawMode = 1;
     E = 90.0f;
     T = 0.0f;
-    T_Speed = 100.0f;
+    ET_Speed = 100.0f;
 }
 
 interactive::~interactive()
@@ -83,7 +83,7 @@ void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
     }
     if (updating_X != pos_Current_X)
     {
-        float offset_X = abs(updating_X - pos_Current_X) * 0.5f;
+        float offset_X = (abs(updating_X - pos_Current_X)) * deltaTime * ET_Speed;
         if (updating_X > pos_Current_X)
         {
             T += offset_X;
@@ -97,7 +97,7 @@ void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
     }
     if (updating_Y != pos_Current_Y)
     {
-        float offset_Y = abs(updating_Y - pos_Current_Y) * 0.25f;
+        float offset_Y = (abs(updating_Y - pos_Current_Y)) * deltaTime * ET_Speed;
         if (updating_Y > pos_Current_Y)
         {
             //std::cout << "down" << std::endl;

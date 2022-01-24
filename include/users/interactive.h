@@ -18,7 +18,7 @@ private:
 public:
     float E;
     float T;
-    float T_Speed;
+    float ET_Speed;
     unsigned int drawMode;
     float deltaTime;
     float zoom;
