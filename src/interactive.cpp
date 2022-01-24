@@ -73,10 +73,63 @@ void interactive::set_BothAngles(float pos_Current_X, float pos_Current_Y, float
     }
 }
 
+void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
+{
+    acceleration = 0.0f;
+    if (time - interval > 0.05f) {
+        interval = time;
+        updating_X = pos_Current_X;
+        updating_Y = pos_Current_Y;
+    }
+    if (updating_X != pos_Current_X)
+    {
+        float offset_X = abs(updating_X - pos_Current_X) * 0.5f;
+        if (updating_X > pos_Current_X)
+        {
+            T += offset_X;
+            autoTurningEnergy = offset_X;
+        }
+        else
+        {
+            T -= offset_X;
+            autoTurningEnergy = offset_X * -1.0f;
+        }
+    }
+    if (updating_Y != pos_Current_Y)
+    {
+        float offset_Y = abs(updating_Y - pos_Current_Y) * 0.25f;
+        if (updating_Y > pos_Current_Y)
+        {
+            //std::cout << "down" << std::endl;
+            E += offset_Y;
+            if (E > 179.9f)
+            {
+                E = 179.9f;
+            }
+        }
+        else
+        {
+            //std::cout << "up" << std::endl;
+            E -= offset_Y;
+            if (E < 0.01f)
+            {
+                E = 0.01f;
+            }
+        }
+    }
+
+}
+
 void interactive::set_AutoTurningEnergy()
 {
     acceleration = autoTurningEnergy * 0.05f;
     //std::cout << "autoTurningEnergy:" << autoTurningEnergy << " | " << "acceleration: " << acceleration << std::endl;
+}
+
+void interactive::set_AutoT()
+{
+    std::cout << autoTurningEnergy << ": auto Energy" << std::endl;
+
 }
 
 float interactive::get_TurningAngle()

@@ -184,6 +184,7 @@ void processInput(GLFWwindow* window)
     {
         inter.targetHeight -= inter.targetHeightSpeed * inter.deltaTime * inter.zoom;
     }
+    /*
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
     {
         inter.T -= inter.T_Speed * inter.deltaTime;
@@ -192,6 +193,7 @@ void processInput(GLFWwindow* window)
     {
         inter.T += inter.T_Speed * inter.deltaTime;
     }
+    */
 }
 
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -228,7 +230,8 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 {
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
-        inter.set_BothAngles(xpos, ypos, glfwGetTime());
+        //inter.set_BothAngles(xpos, ypos, glfwGetTime());
+        inter.set_ET(xpos, ypos, glfwGetTime());
     }
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
     {
@@ -242,7 +245,8 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
     }
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
-        inter.set_AutoTurningEnergy();
+        //inter.set_AutoTurningEnergy();
+        inter.set_AutoT();
     }
 }
 

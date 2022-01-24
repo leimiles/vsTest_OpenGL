@@ -34,6 +34,8 @@ public:
     void reset();
     void set_DeltaTime(float time);
     void set_DrawMode();
+    void set_ET(float pos_Current_X, float pos_Current_Y, float time);
+    void set_AutoT();
 };
 
 
