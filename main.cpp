@@ -49,6 +49,8 @@ int main(int argc, char* argv[])
         return -1;
     }
     glfwMakeContextCurrent(window);
+    // set vsync on
+    glfwSwapInterval(1);
 
     // resize the viewport when the window size is changed, all the call-back functions must be registered before the render loop begins
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -104,7 +106,9 @@ int main(int argc, char* argv[])
         // to orgnize our input control
         processInput(window);
 
-        inter.set_DeltaTime(glfwGetTime());
+        float time = glfwGetTime();
+        inter.set_DeltaTime(time);
+        inter.show_FPS(time);
 
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         //ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());

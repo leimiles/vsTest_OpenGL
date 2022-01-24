@@ -15,6 +15,8 @@ private:
     float elevationAngle;
     void set_TurningAcceleration();
     float lastFrameTime;
+    unsigned int frameCount;
+    float frameInterval;
 public:
     float E;
     float T;
@@ -36,6 +38,7 @@ public:
     void set_DrawMode();
     void set_ET(float pos_Current_X, float pos_Current_Y, float time);
     void set_AutoT();
+    void show_FPS(float time);
 };
 
 

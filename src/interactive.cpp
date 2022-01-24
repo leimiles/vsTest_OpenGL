@@ -20,6 +20,8 @@ interactive::interactive()
     E = 90.0f;
     T = 0.0f;
     ET_Speed = 100.0f;
+    frameCount = 0;
+    frameInterval = 0.0f;
 }
 
 interactive::~interactive()
@@ -183,5 +185,16 @@ void interactive::set_DrawMode()
     if (drawMode > 3)
     {
         drawMode = 1;
+    }
+}
+
+void interactive::show_FPS(float time)
+{
+    frameCount++;
+    if (time - frameInterval > 1.0f)
+    {
+        std::cout << "FPS: " << frameCount << std::endl;
+        frameCount = 0;
+        frameInterval = time;
     }
 }
