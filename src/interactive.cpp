@@ -1,4 +1,5 @@
 #include "users/interactive.h"
+#include <cmath>
 
 
 interactive::interactive()
@@ -6,22 +7,24 @@ interactive::interactive()
     zoom = 240.0f;
     elevationAngle = 90.0f;
     turningAngle = 0.0f;
-    updating_X = 0.0f;
-    updating_Y = 0.0f;
-    interval = 0.0f;
-    autoTurningEnergy = 0.0f;
-    acceleration = 0.0f;
+    updating_X = 0.0;
+    updating_Y = 0.0;
+    interval = 0.0;
+    energy = 0.0f;
     targetHeight = 80.0f;
     deltaTime = 1.0f;
     lastFrameTime = 0.0f;
     targetHeightSpeed = 1.0f;
     zoomSpeed = 30.0f;
-    ET_Speed = 30.0f;
+    ET_Speed = 15.0f;
     drawMode = 1;
     E = 90.0f;
     T = 0.0f;
     frameCount = 0;
     frameInterval = 0.0f;
+    acceleration = 0.0f;
+    cursorPos_X = 0.0;
+    cursorPos_Y = 0.0;
 }
 
 interactive::~interactive()
@@ -39,21 +42,21 @@ void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
     }
     if (updating_X != pos_Current_X)
     {
-        float offset_X = (abs(updating_X - pos_Current_X)) * deltaTime * ET_Speed;
+        float offset_X = (abs(updating_X - pos_Current_X));
         if (updating_X > pos_Current_X)
         {
             T += offset_X;
-            autoTurningEnergy = offset_X;
+            energy = offset_X;
         }
         else
         {
             T -= offset_X;
-            autoTurningEnergy = offset_X * -1.0f;
+            energy = offset_X * -1.0f;
         }
     }
     if (updating_Y != pos_Current_Y)
     {
-        float offset_Y = (abs(updating_Y - pos_Current_Y)) * deltaTime * ET_Speed;
+        float offset_Y = (abs(updating_Y - pos_Current_Y));
         if (updating_Y > pos_Current_Y)
         {
             //std::cout << "down" << std::endl;
@@ -76,12 +79,59 @@ void interactive::set_ET(float pos_Current_X, float pos_Current_Y, float time)
 
 }
 
-void interactive::set_AutoT()
+void interactive::set_ET(double time)
 {
-    std::cout << autoTurningEnergy << ": auto Energy" << std::endl;
+    if (time - interval > deltaTime)
+    {
+        acceleration = 0.0f;
+
+        float offset_X = (float)(abs(updating_X - cursorPos_X)) * deltaTime * ET_Speed;
+        if (updating_X > cursorPos_X)
+        {
+            T += offset_X;
+            energy = offset_X;
+        }
+        else
+        {
+            T -= offset_X;
+            energy = offset_X * -1.0f;
+        }
+        //std::cout << "energy set: " << energy << std::endl;
+
+        float offset_Y = (float)(abs(updating_Y - cursorPos_Y)) * deltaTime * ET_Speed;
+        if (updating_Y > cursorPos_Y)
+        {
+            //std::cout << "down" << std::endl;
+            E += offset_Y;
+            if (E > 179.9f)
+            {
+                E = 179.9f;
+            }
+        }
+        else
+        {
+            //std::cout << "up" << std::endl;
+            E -= offset_Y;
+            if (E < 0.01f)
+            {
+                E = 0.01f;
+            }
+        }
+
+        interval = time;
+        updating_X = cursorPos_X;
+        updating_Y = cursorPos_Y;
+    }
 
 }
 
+void interactive::set_Acceleration()
+{
+    std::cout << "energy show: " << energy << std::endl;
+    acceleration = energy;
+}
+
+/*
 void interactive::set_TurningAcceleration()
 {
 
@@ -101,6 +151,7 @@ void interactive::set_TurningAcceleration()
         //std::cout << "stop" << std::endl;
     }
 }
+*/
 
 void interactive::reset()
 {
@@ -110,7 +161,7 @@ void interactive::reset()
     targetHeight = 80.0f;
 }
 
-void interactive::set_DeltaTime(float time)
+void interactive::set_DeltaTime(double time)
 {
     deltaTime = time - lastFrameTime;
     lastFrameTime = time;
@@ -125,10 +176,10 @@ void interactive::set_DrawMode()
     }
 }
 
-void interactive::show_FPS(float time)
+void interactive::show_FPS(double time)
 {
     frameCount++;
-    if (time - frameInterval > 1.0f)
+    if (time - frameInterval > 0.2f)
     {
         std::cout << "FPS: " << frameCount << std::endl;
         frameCount = 0;
@@ -169,4 +220,22 @@ void interactive::set_TargetHeight(int direction)
         targetHeight = 0.0f;
     }
 
+}
+
+void interactive::fade_T(double time)
+{
+    if (acceleration > 0)
+    {
+        //T += 100.0f * deltaTime;
+
+    }
+    else if (acceleration < 0)
+    {
+        //T -= 100.0f * deltaTime;
+
+    }
+    else
+    {
+
+    }
 }

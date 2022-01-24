@@ -106,13 +106,12 @@ int main(int argc, char* argv[])
         // to orgnize our input control
         processInput(window);
 
-        float time = glfwGetTime();
+        // interactive control
+        double time = glfwGetTime();
         inter.set_DeltaTime(time);
-        inter.show_FPS(time);
-
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
-        //ca.set_SphericalSystem_With_Target(inter.zoom, inter.get_ElevationAngle(), inter.get_TurningAngle());
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.E, inter.T);
+        //inter.fade_T(time);
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
@@ -188,6 +187,14 @@ void processInput(GLFWwindow* window)
     {
         inter.set_TargetHeight(-1);
     }
+
+    if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
+    {
+        // when holding mouse
+
+        glfwGetCursorPos(window, &inter.cursorPos_X, &inter.cursorPos_Y);
+        inter.set_ET(glfwGetTime());
+    }
 }
 
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -212,21 +219,22 @@ void mouse_Callback(GLFWwindow* window, double xpos, double ypos)
 {
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
-        inter.set_ET(xpos, ypos, glfwGetTime());
+        //inter.set_ET(xpos, ypos, glfwGetTime());
     }
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
     {
     }
 }
 
 void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
+        glfwGetCursorPos(window, &inter.updating_X, &inter.updating_Y);
     }
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
-        inter.set_AutoT();
+        inter.set_Acceleration();
     }
 }
 

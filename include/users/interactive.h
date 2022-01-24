@@ -6,23 +6,27 @@
 class interactive
 {
 private:
-    float autoTurningEnergy;
-    float acceleration;
-    float updating_X;
-    float updating_Y;
-    float interval;
+    float energy;
+    double interval;
     float turningAngle;
     float elevationAngle;
+    float acceleration;
+    /*
     void set_TurningAcceleration();
-    float lastFrameTime;
+    */
+    double lastFrameTime;
     unsigned int frameCount;
-    float frameInterval;
+    double frameInterval;
 public:
+    double updating_X;
+    double updating_Y;
+    double cursorPos_X;
+    double cursorPos_Y;
     float E;
     float T;
     float ET_Speed;
     unsigned int drawMode;
-    float deltaTime;
+    double deltaTime;
     float zoom;
     float zoomSpeed;
     float targetHeight;
@@ -30,13 +34,15 @@ public:
     interactive();
     ~interactive();
     void reset();
-    void set_DeltaTime(float time);
+    void set_DeltaTime(double time);
     void set_DrawMode();
     void set_ET(float pos_Current_X, float pos_Current_Y, float time);
-    void set_AutoT();
+    void set_ET(double time);
+    void set_Acceleration();
     void set_Zoom(float offset);
-    void show_FPS(float time);
+    void show_FPS(double time);
     void set_TargetHeight(int direction);
+    void fade_T(double time);
 };
 
 
