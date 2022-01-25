@@ -8,7 +8,6 @@
 class material
 {
 private:
-    std::vector<texture> textures;
 public:
     material(shader shader_Program);
     ~material();

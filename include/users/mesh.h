@@ -2,6 +2,7 @@
 #define MESH_H
 #define MAX_BONE_INFLUENCE 4
 #include <vector>
+#include "users/material.h"
 #include "glad/glad.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -31,6 +32,7 @@ public:
     std::vector<vertexAttri_Pattern> vertex_Attributes;
     std::vector<unsigned int> vertex_Elements;
     mesh(std::vector<vertexAttri_Pattern> vertex_Attributes, std::vector<unsigned int> vertex_Elements);
+    mesh(std::vector<vertexAttri_Pattern> vertex_Attributes, std::vector<unsigned int> vertex_Elements, material material);
     ~mesh();
 };
 
