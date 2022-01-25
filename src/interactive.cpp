@@ -121,11 +121,11 @@ void interactive::show_FPS(double time)
 void interactive::set_Zoom(float offset)
 {
     float intensity = zoom * 0.5;
-    if (offset > 0)
+    if (offset < 0)
     {
         zoom += zoomSpeed * deltaTime * intensity;
     }
-    if (offset < 0)
+    if (offset > 0)
     {
         zoom -= zoomSpeed * deltaTime * intensity;
     }
