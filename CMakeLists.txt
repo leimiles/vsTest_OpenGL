@@ -67,6 +67,9 @@ endif()
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/thirdParty/assimp/CMakeLists.txt")
     message(FATAL_ERROR "the assimp submodules was not downloaded!")
 endif()
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/thirdParty/imgui/imgui.h")
+    message(FATAL_ERROR "the imgui submodules was not downloaded!")
+endif()
 
 add_subdirectory(src)       #构建时包含 src 路径下的内容, src 下构建的内容才能被找到
 add_subdirectory(thirdParty/glfw)   #构建时包含第三方库下的 glfw 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行

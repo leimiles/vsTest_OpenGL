@@ -4,6 +4,7 @@
 #include "GLFW/glfw3.h"
 #include "users/mrp.h"
 #include "users/interactive.h"
+#include "users/ui.h"
 #include "MDVConfig.h"
 
 void processInput(GLFWwindow* window);

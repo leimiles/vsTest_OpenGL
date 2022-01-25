@@ -3,6 +3,16 @@ cmake_minimum_required(VERSION 3.21.3)  #cmake 最小版本
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+
+set(IMGUI_SOURCE_DIR ${PROJECT_SOURCE_DIR}/thirdParty/imgui)
+set(IMGUI_SOURCE 
+    ${IMGUI_SOURCE_DIR}/imgui.cpp 
+    ${IMGUI_SOURCE_DIR}/imgui_widgets.cpp 
+    ${IMGUI_SOURCE_DIR}/imgui_draw.cpp
+    ${IMGUI_SOURCE_DIR}/imgui_tables.cpp
+)
+set(IMGUI_INCLUDE ${PROJECT_SOURCE_DIR}/thirdParty/imgui)
+
 add_library(mylib
     interactive.cpp
     texture.cpp
@@ -16,6 +26,8 @@ add_library(mylib
     model.cpp
     mesh.cpp
     material.cpp
+    ui.cpp
+    ${IMGUI_SOURCE}
 )
 
 target_link_libraries(mylib
@@ -26,6 +38,7 @@ target_link_libraries(mylib
 target_include_directories(mylib
     PUBLIC
         ${PROJECT_SOURCE_DIR}/thirdParty/glm
+        ${IMGUI_INCLUDE}
     PRIVATE
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/thirdParty/stb
