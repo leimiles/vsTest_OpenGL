@@ -14,6 +14,7 @@ private:
     double lastFrameTime;
     unsigned int frameCount;
     double frameInterval;
+    short sign(double number);
 public:
     double updating_X;
     double updating_Y;
@@ -27,7 +28,6 @@ public:
     float zoom;
     float zoomSpeed;
     float targetHeight;
-    float targetHeight_Offset;
     float targetHeightSpeed;
     interactive();
     ~interactive();
@@ -39,8 +39,7 @@ public:
     void set_Zoom(float offset);
     void show_FPS(double time);
     void set_TargetHeight(int direction);
-    void set_TargetHeightOffset(double pos_Current_Y);
-    void reset_TargetHeightOffset();
+    void set_TargetHeightOffset(double time);
     void fade_T(double time);
 };
 

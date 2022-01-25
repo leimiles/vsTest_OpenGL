@@ -11,10 +11,10 @@ interactive::interactive()
     updating_Y = 0.0;
     interval = 0.0;
     energy = 0.0f;
-    targetHeight = 80.0f;
     deltaTime = 1.0f;
     lastFrameTime = 0.0f;
-    targetHeightSpeed = 1.0f;
+    targetHeight = 80.0f;
+    targetHeightSpeed = 2.0f;
     zoomSpeed = 30.0f;
     ET_Speed = 15.0f;
     drawMode = 1;
@@ -136,8 +136,32 @@ void interactive::set_Zoom(float offset)
     }
 }
 
-void interactive::set_TargetHeightOffset(double pos_Current_Y)
+short interactive::sign(double number)
 {
+    if (number > 0)
+    {
+        return 1;
+    }
+    else if (number < 0)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void interactive::set_TargetHeightOffset(double time)
+{
+    short int direction;
+    if (time - interval > deltaTime * 0.5)
+    {
+        direction = sign(cursorPos_Y - updating_Y);
+        interval = time;
+        updating_Y = cursorPos_Y;
+    }
+    targetHeight += direction * targetHeightSpeed * deltaTime * zoom;
 }
 
 void interactive::set_TargetHeight(int direction)
@@ -159,10 +183,6 @@ void interactive::set_TargetHeight(int direction)
 
 
 
-void interactive::reset_TargetHeightOffset()
-{
-    targetHeight_Offset = 0.0f;
-}
 
 void interactive::fade_T(double time)
 {
