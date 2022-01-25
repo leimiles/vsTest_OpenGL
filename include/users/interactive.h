@@ -38,9 +38,8 @@ public:
     void set_Acceleration();
     void set_Zoom(float offset);
     void show_FPS(double time);
-    void set_TargetHeight(int direction);
     void set_TargetHeightOffset(double time);
-    void fade_T(double time);
+    void fade_T();
 };
 
 

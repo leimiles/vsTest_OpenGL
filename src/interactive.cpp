@@ -80,7 +80,6 @@ void interactive::set_ET(double time)
 
 void interactive::set_Acceleration()
 {
-    std::cout << "energy show: " << energy << std::endl;
     acceleration = energy;
 }
 
@@ -164,40 +163,21 @@ void interactive::set_TargetHeightOffset(double time)
     targetHeight += direction * targetHeightSpeed * deltaTime * zoom;
 }
 
-void interactive::set_TargetHeight(int direction)
+void interactive::fade_T()
 {
-    float intensity = zoom * 0.5;
-    if (direction >= 1)
+    T += acceleration * ET_Speed * deltaTime;
+
+    if (acceleration > 0.1f)
     {
-        targetHeight += targetHeightSpeed * deltaTime * intensity;
+        acceleration -= 0.1f;
     }
-    else if (direction <= -1)
+    else if (acceleration < -0.1f)
     {
-        targetHeight -= targetHeightSpeed * deltaTime * intensity;
+        acceleration += 0.1f;
     }
     else
     {
-        targetHeight = 0.0f;
+        acceleration = 0.0f;
     }
-}
 
-
-
-
-void interactive::fade_T(double time)
-{
-    if (acceleration > 0)
-    {
-        //T += 100.0f * deltaTime;
-
-    }
-    else if (acceleration < 0)
-    {
-        //T -= 100.0f * deltaTime;
-
-    }
-    else
-    {
-
-    }
 }

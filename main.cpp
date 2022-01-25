@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
         inter.set_DeltaTime(time);
         ca.set_Target(0.0f, inter.targetHeight, 0.0f);
         ca.set_SphericalSystem_With_Target(inter.zoom, inter.E, inter.T);
-        //inter.fade_T(time);
+        inter.fade_T();
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
