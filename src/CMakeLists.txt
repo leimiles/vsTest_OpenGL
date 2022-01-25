@@ -11,7 +11,10 @@ set(IMGUI_SOURCE
     ${IMGUI_SOURCE_DIR}/imgui_draw.cpp
     ${IMGUI_SOURCE_DIR}/imgui_tables.cpp
 )
-set(IMGUI_INCLUDE ${PROJECT_SOURCE_DIR}/thirdParty/imgui)
+set(IMGUI_INCLUDE 
+    ${PROJECT_SOURCE_DIR}/thirdParty/imgui
+    ${PROJECT_SOURCE_DIR}/thirdParty/imgui/backends
+)
 
 add_library(mylib
     interactive.cpp
