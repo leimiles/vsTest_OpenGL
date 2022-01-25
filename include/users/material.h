@@ -1,12 +1,16 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
+#include <vector>
+#include <string>
+#include "users/shader.h"
+#include "users/texture.h"
 
 class material
 {
 private:
-    /* data */
+    std::vector<texture> textures;
 public:
-    material(/* args */);
+    material(shader shader_Program);
     ~material();
 };
 
