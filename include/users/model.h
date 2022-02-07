@@ -3,6 +3,7 @@
 #define MODEL_PATH_ROOT "resources/models/"
 #include <vector>
 #include "users/object.h"
+#include "users/material.h"
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
@@ -19,6 +20,7 @@ public:
     std::vector<mesh> submeshes;
     model(std::string model_Path);
     ~model();
+    void set_Material_ForSubMesh(unsigned int submesh_id, material& material);
 };
 
 #endif

@@ -84,7 +84,17 @@ int main(int argc, char* argv[])
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
     // user shader files, check compile, check files
-    shader miles_shaderProgram("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+    shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
+    shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+
+    material redMat(shader_red);
+    material blackMat(shader_black);
+
+    model01.set_Material_ForSubMesh(0, redMat);
+    model01.set_Material_ForSubMesh(1, redMat);
+    model01.set_Material_ForSubMesh(2, blackMat);
+    model01.set_Material_ForSubMesh(3, blackMat);
+
 
     // set texture data
     //texture tex01("super_Mario_A.png", GL_RGBA, true, true);
@@ -93,11 +103,11 @@ int main(int argc, char* argv[])
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
     // always active shader before setting uniform buffer
-    shader::use_Program();
+    //shader::use_Program();
     // set uniform buffer, this buffer won't be changed every frame
-    shader::set_Int("example1_Texture", 0);		// gl_texture0
-    shader::set_Int("example2_Texture", 1);		// gl_texture1
-    shader::set_Int("example3_Texture", 2);		// gl_texture2
+    //shader::set_Int("example1_Texture", 0);		// gl_texture0
+    //shader::set_Int("example2_Texture", 1);		// gl_texture1
+    //shader::set_Int("example3_Texture", 2);		// gl_texture2
 
     cam ca;
 
@@ -118,13 +128,15 @@ int main(int argc, char* argv[])
         miles_RenderingPipeline.clear_Buffer();
 
         // active current shader
-        shader::use_Program();
+        //shader::use_Program();
+        //shader02.use_Program();
 
         // draw loaded model
         glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * model01.get_Matrix_LocalToWorld();
-        shader::set_Matrix("mvp", mvp);
+        redMat.set_MVP(mvp);
+        blackMat.set_MVP(mvp);
         miles_RenderingPipeline.set_DrawMode(inter.drawMode);
-        miles_RenderingPipeline.draw_Model(model01, true);
+        miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
 
         //draw cube 10 time at certain positions
         /*

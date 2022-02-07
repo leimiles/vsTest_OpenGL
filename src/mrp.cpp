@@ -148,6 +148,33 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test)
 
 }
 
+void mrp::draw_Model_WithMaterial(const model& mdl, bool isDepth_Test)
+{
+    if (mdl.submeshes.size() == 0) {
+        //std::cout << "no mesh to draw" << std::endl;
+        return;
+    }
+    if (isDepth_Test)
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+    for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
+    {
+        //std::cout << "draw a mesh" << std::endl;
+        // how to draw submeshes?
+        if (mdl.submeshes[i].material == nullptr)
+        {
+            //std::cout << "submesh index " << i << " has no material assigned, skip." << std::endl;
+            continue;
+        }
+        mdl.submeshes[i].material->active();
+        glBindVertexArray(mdl.submeshes[i].vao);
+        glDrawElements(GL_TRIANGLES, mdl.submeshes[i].vertex_Elements.size(), GL_UNSIGNED_INT, 0);
+
+    }
+
+}
+
 // 3 floats for position, 3 floats for color, 2 floats for texcoord
 void mrp::set_VAO_0Pos3_1Col3_2Texcoord2(const geometry& geo)
 {

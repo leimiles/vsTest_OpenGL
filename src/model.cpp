@@ -99,3 +99,15 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
     return mesh(vertex_Attributes, vertex_Elements);
 }
 
+void model::set_Material_ForSubMesh(unsigned int submesh_id, material& material)
+{
+    if (submesh_id < this->submeshes.size() && submesh_id >= 0)
+    {
+        this->submeshes[submesh_id].material = &material;
+    }
+    else
+    {
+        std::cout << "can't find submesh[" << submesh_id << "] to assign material. " << std::endl;
+        return;
+    }
+}

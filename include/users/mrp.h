@@ -5,6 +5,7 @@
 #include "users/model.h"
 #include "users/geometry.h"
 #include "users/shader.h"
+#include "users/shaderV2.h"
 #include "users/texture.h"
 #include "users/cam.h"
 #include "users/data.h"
@@ -26,6 +27,7 @@ private:
 public:
     mrp(/* args */);
     ~mrp();
+    glm::mat4 mvp;
     void clear_Buffer();
     void release_Resource();
     int get_MaxVertex_Attributes();
@@ -34,6 +36,7 @@ public:
     void set_RenderingData(const model& mdl);
     void draw_Geometry(const geometry& geo, bool isDepth_Test);
     void draw_Model(const model& mdl, bool isDepth_Test);
+    void draw_Model_WithMaterial(const model& mdl, bool isDepth_Test);
     static void set_VAO_0Pos3_1Col3_2Texcoord2(const geometry& geo);
     static void set_VAO_0Pos3_2Texcoord2(const geometry& geo);
     static void set_VAO_0Pos3_1Normal3_2Texcoord2(const geometry& geo);

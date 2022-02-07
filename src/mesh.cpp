@@ -5,6 +5,7 @@ mesh::mesh(std::vector<vertexAttri_Pattern> vertex_Attributes, std::vector<unsig
     this->vertex_Attributes = vertex_Attributes;
     this->vertex_Elements = vertex_Elements;
     setup_Mesh();
+    this->material = nullptr;
 }
 
 mesh::~mesh()

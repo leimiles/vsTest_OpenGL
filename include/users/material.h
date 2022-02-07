@@ -2,15 +2,22 @@
 #define MATERIAL_H
 #include <vector>
 #include <string>
-#include "users/shader.h"
+#include "users/shaderV2.h"
 #include "users/texture.h"
 
 class material
 {
 private:
+    static unsigned int material_Count;
+    unsigned int material_ID;
+    shaderV2* shader;
+    glm::mat4 mvp;
 public:
-    material(shader shader_Program);
+    material(shaderV2 shader_Program);
     ~material();
+    void set_MVP(glm::mat4& mvp);
+    unsigned int get_Material_ID();
+    void active();
 };
 
 #endif

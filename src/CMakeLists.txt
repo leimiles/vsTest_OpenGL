@@ -24,6 +24,7 @@ add_library(mylib
     geometry.cpp
     object.cpp
     shader.cpp
+    shaderV2.cpp
     cam.cpp
     data.cpp
     model.cpp

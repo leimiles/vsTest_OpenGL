@@ -29,10 +29,10 @@ private:
     void setup_Mesh();
 public:
     unsigned int vao;        // vertex attribute object
+    material* material;
     std::vector<vertexAttri_Pattern> vertex_Attributes;
     std::vector<unsigned int> vertex_Elements;
     mesh(std::vector<vertexAttri_Pattern> vertex_Attributes, std::vector<unsigned int> vertex_Elements);
-    mesh(std::vector<vertexAttri_Pattern> vertex_Attributes, std::vector<unsigned int> vertex_Elements, material material);
     ~mesh();
 };
 
