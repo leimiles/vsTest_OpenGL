@@ -4,7 +4,6 @@
 #include <cmath>
 #include "users/model.h"
 #include "users/geometry.h"
-#include "users/shader.h"
 #include "users/shaderV2.h"
 #include "users/texture.h"
 #include "users/cam.h"

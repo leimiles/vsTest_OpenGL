@@ -23,7 +23,6 @@ add_library(mylib
     mrp.cpp
     geometry.cpp
     object.cpp
-    shader.cpp
     shaderV2.cpp
     cam.cpp
     data.cpp
