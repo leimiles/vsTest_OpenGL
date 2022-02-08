@@ -14,8 +14,8 @@ public:
     void set_Translate(float x, float y, float z);
     void set_Rotate(float degrees, float x, float y, float z);
     void set_Scale(float x, float y, float z);
-    glm::mat4 get_Matrix_LocalToWorld();
-    glm::mat4 get_Matrix_WorldToLocal();
+    glm::mat4 get_Matrix_LocalToWorld() const;
+    glm::mat4 get_Matrix_WorldToLocal() const;
 };
 
 #endif

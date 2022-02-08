@@ -78,8 +78,6 @@ int main(int argc, char* argv[])
     // compatiable orientation
     model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
-    // init render pipeline
-    mrp miles_RenderingPipeline;
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
@@ -109,7 +107,11 @@ int main(int argc, char* argv[])
     //shader::set_Int("example2_Texture", 1);		// gl_texture1
     //shader::set_Int("example3_Texture", 2);		// gl_texture2
 
+    // init camera
     cam ca;
+
+    // init render pipeline
+    mrp miles_RenderingPipeline(ca);
 
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
@@ -127,15 +129,10 @@ int main(int argc, char* argv[])
         // clear target
         miles_RenderingPipeline.clear_Buffer();
 
-        // active current shader
-        //shader::use_Program();
-        //shader02.use_Program();
-
-        // draw loaded model
-        glm::mat4 mvp = ca.get_Matrix_PerspectiveProjection() * ca.get_Matrix_Eye_Improved() * model01.get_Matrix_LocalToWorld();
-        redMat.set_MVP(mvp);
-        blackMat.set_MVP(mvp);
+        // draw mode
         miles_RenderingPipeline.set_DrawMode(inter.drawMode);
+
+        // draw model
         miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
 
         //draw cube 10 time at certain positions

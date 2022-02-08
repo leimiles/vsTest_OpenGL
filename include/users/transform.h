@@ -18,7 +18,7 @@ private:
     // scale value, default 1.0
     glm::vec3 scale;
     // model matrix
-    glm::mat4 model_Matrix;
+    //glm::mat4 model_Matrix;
 public:
     transform();
     ~transform();
@@ -38,8 +38,8 @@ public:
     void set_Rotate(float degrees, float x, float y, float z);
     void set_Scale(float x, float y, float z);
     glm::vec3 get_Translate();
-    glm::mat4 get_Matrix_LocalToWorld();
-    glm::mat4 get_Matrix_WorldToLocal();
+    glm::mat4 get_Matrix_LocalToWorld() const;
+    glm::mat4 get_Matrix_WorldToLocal() const;
 };
 
 #endif

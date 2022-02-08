@@ -5,8 +5,9 @@ unsigned int mrp::current_VAO;
 unsigned int mrp::current_VBO;
 unsigned int mrp::current_EBO;
 
-mrp::mrp(/* args */)
+mrp::mrp(cam& camera)
 {
+    this->camera = &camera;
 }
 
 mrp::~mrp()
@@ -168,6 +169,8 @@ void mrp::draw_Model_WithMaterial(const model& mdl, bool isDepth_Test)
             continue;
         }
         mdl.submeshes[i].material->active();
+        glm::mat4 mvp = camera->get_Matrix_PerspectiveProjection() * camera->get_Matrix_Eye_Improved() * mdl.get_Matrix_LocalToWorld();
+        mdl.submeshes[i].material->set_MVP(mvp);
         glBindVertexArray(mdl.submeshes[i].vao);
         glDrawElements(GL_TRIANGLES, mdl.submeshes[i].vertex_Elements.size(), GL_UNSIGNED_INT, 0);
 

@@ -24,12 +24,12 @@ void object::set_Scale(float x, float y, float z)
     self_Transform.set_Scale(x, y, z);
 }
 
-glm::mat4 object::get_Matrix_LocalToWorld()
+glm::mat4 object::get_Matrix_LocalToWorld() const
 {
     return self_Transform.get_Matrix_LocalToWorld();
 }
 
-glm::mat4 object::get_Matrix_WorldToLocal()
+glm::mat4 object::get_Matrix_WorldToLocal() const
 {
     return self_Transform.get_Matrix_WorldToLocal();
 }

@@ -51,18 +51,18 @@ void transform::set_Scale(float x, float y, float z)
     scale.z = z;
 }
 
-glm::mat4 transform::get_Matrix_LocalToWorld()
+glm::mat4 transform::get_Matrix_LocalToWorld() const
 {
-    model_Matrix = transform::mat_Identity;
+    glm::mat4 model_Matrix = transform::mat_Identity;
     model_Matrix = glm::translate(transform::mat_Identity, translate);
     model_Matrix = glm::rotate(model_Matrix, glm::radians(rotate_degrees), rotate_Axis);
     model_Matrix = glm::scale(model_Matrix, scale);
     return model_Matrix;
 }
 
-glm::mat4 transform::get_Matrix_WorldToLocal()
+glm::mat4 transform::get_Matrix_WorldToLocal() const
 {
-    model_Matrix = transform::mat_Identity;
+    glm::mat4 model_Matrix = transform::mat_Identity;
     model_Matrix = glm::translate(transform::mat_Identity, translate);
     model_Matrix = glm::rotate(model_Matrix, glm::radians(rotate_degrees), rotate_Axis);
     model_Matrix = glm::scale(model_Matrix, scale);

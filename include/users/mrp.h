@@ -24,8 +24,9 @@ private:
     static unsigned int current_VAO;        // vertex attribute object
     static unsigned int current_VBO;        // vertex buffer object
     static unsigned int current_EBO;        // vertex element object
+    cam* camera;
 public:
-    mrp(/* args */);
+    mrp(cam& camera);
     ~mrp();
     glm::mat4 mvp;
     void clear_Buffer();

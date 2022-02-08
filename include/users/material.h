@@ -11,7 +11,6 @@ private:
     static unsigned int material_Count;
     unsigned int material_ID;
     shaderV2* shader;
-    glm::mat4 mvp;
 public:
     material(shaderV2 shader_Program);
     ~material();
