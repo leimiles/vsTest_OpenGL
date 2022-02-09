@@ -17,8 +17,9 @@ private:
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode);
 public:
+    const std::string model_Name;
     std::vector<mesh> submeshes;
-    model(std::string model_Path);
+    model(std::string model_Name);
     ~model();
     void set_Material_ForSubMesh(unsigned int submesh_id, material& material);
 };

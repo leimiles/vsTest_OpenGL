@@ -131,3 +131,8 @@ void shaderV2::delete_Program()
     glDeleteShader(current_FSO);
     glDeleteProgram(current_Program);
 }
+
+void shaderV2::set_Int(const char* parameter_Name, int value)
+{
+    glUniform1i(get_ParameterLocation(parameter_Name), value);
+}

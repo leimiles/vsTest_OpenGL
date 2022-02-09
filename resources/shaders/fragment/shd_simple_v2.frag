@@ -10,8 +10,7 @@ uniform float time;
 
 void main()
 {
-    vec4 example1_Color = texture(example1_Texture, out_Uv);
-    vec4 example2_Color = texture(example2_Texture, out_Uv);
-    final_Color = example1_Color * example1_Color.a;
-
+    vec4 example1_Color = texture(example1_Texture, out_Uv * 5.0);
+    vec4 example2_Color = texture(example2_Texture, out_Uv * 5.0);
+    final_Color = example1_Color;
 }

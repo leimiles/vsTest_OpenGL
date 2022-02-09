@@ -86,19 +86,25 @@ int main(int argc, char* argv[])
     shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
 
     material redMat(shader_red);
-    material blackMat(shader_black);
+    material greenMat(shader_black);
 
     model01.set_Material_ForSubMesh(0, redMat);
     model01.set_Material_ForSubMesh(1, redMat);
-    model01.set_Material_ForSubMesh(2, blackMat);
-    model01.set_Material_ForSubMesh(3, blackMat);
+    model01.set_Material_ForSubMesh(2, greenMat);
+    model01.set_Material_ForSubMesh(3, greenMat);
 
 
     // set texture data
-    //texture tex01("super_Mario_A.png", GL_RGBA, true, true);
-    //texture tex02("batman.jpg", GL_RGB, true, true);
-    //texture tex03("miaoYu.jpg", GL_RGB, true, true);
+    texture tex01("super_Mario_A.png", GL_RGBA, true, true);
+    texture tex02("batman.jpg", GL_RGB, true, true);
+    texture tex03("miaoYu.jpg", GL_RGB, true, true);
+    texture tex04("checkBoard01.png", GL_RGB, true, true);
+    texture tex05("checkBoard03.jpg", GL_RGB, true, true);
+    //texture tex05("checkBoard02.png", GL_R8, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
+
+    redMat.set_Textures(2, tex04, tex02);
+    greenMat.set_Textures(1, tex05);
 
     // always active shader before setting uniform buffer
     //shader::use_Program();

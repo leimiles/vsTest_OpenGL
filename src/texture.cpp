@@ -62,4 +62,9 @@ texture::~texture()
 
 }
 
+unsigned int texture::get_TXO()
+{
+    return TXO;
+}
+
 

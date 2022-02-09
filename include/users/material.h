@@ -11,12 +11,16 @@ private:
     static unsigned int material_Count;
     unsigned int material_ID;
     shaderV2* shader;
+    std::vector<texture> textures;
 public:
     material(shaderV2 shader_Program);
     ~material();
     void set_MVP(glm::mat4& mvp);
     unsigned int get_Material_ID();
     void active();
+    void set_Textures(unsigned int texture_Count, ...);
+    void use_Textures();
+    void release_Textures();
 };
 
 #endif

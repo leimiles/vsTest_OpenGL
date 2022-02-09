@@ -1,9 +1,8 @@
 #include "users/model.h"
 
-model::model(std::string model_Path)
+model::model(std::string model_Name) : model_Name(model_Name)
 {
-    this->model_Path = MODEL_PATH_ROOT + model_Path;
-    //std::cout << model_Path << "..." << std::endl;
+    this->model_Path = MODEL_PATH_ROOT + model_Name;
     load_Model();
 }
 

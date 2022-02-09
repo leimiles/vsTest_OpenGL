@@ -170,9 +170,10 @@ void mrp::draw_Model_WithMaterial(const model& mdl, bool isDepth_Test)
         mdl.submeshes[i].material->active();
         glm::mat4 mvp = camera->get_Matrix_PerspectiveProjection() * camera->get_Matrix_Eye_Improved() * mdl.get_Matrix_LocalToWorld();
         mdl.submeshes[i].material->set_MVP(mvp);
+        mdl.submeshes[i].material->use_Textures();
         glBindVertexArray(mdl.submeshes[i].vao);
         glDrawElements(GL_TRIANGLES, mdl.submeshes[i].vertex_Elements.size(), GL_UNSIGNED_INT, 0);
-
+        mdl.submeshes[i].material->release_Textures();
     }
 
 }
