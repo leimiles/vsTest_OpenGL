@@ -24,6 +24,7 @@ private:
     static unsigned int current_VBO;        // vertex buffer object
     static unsigned int current_EBO;        // vertex element object
     cam* camera;
+    unsigned int drawMode;
 public:
     mrp(cam& camera);
     ~mrp();
