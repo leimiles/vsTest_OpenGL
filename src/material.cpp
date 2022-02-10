@@ -1,21 +1,15 @@
 #include "users/material.h"
 
-unsigned int material::material_Count = 0;
+std::vector<material*> material::current_Materials;
 
 material::material(shaderV2 shader_Program)
 {
     shader = &shader_Program;
-    material_Count++;
-    material_ID = material_Count;
+    current_Materials.push_back(this);
 }
 
 material::~material()
 {
-}
-
-unsigned int material::get_Material_ID()
-{
-    return material_ID;
 }
 
 void material::active() const

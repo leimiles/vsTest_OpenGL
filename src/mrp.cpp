@@ -8,6 +8,8 @@ unsigned int mrp::current_EBO;
 mrp::mrp(cam& camera)
 {
     this->camera = &camera;
+    this->model_View_Mode = 0;
+    this->quad_View_Mode = 0;
 }
 
 mrp::~mrp()
@@ -32,10 +34,9 @@ void mrp::release_Resource()
 }
 
 // set draw mode, GL_TRIANGLES, GL_LINE
-void mrp::set_DrawMode(unsigned int drawMode)
+void mrp::set_Draw_Mode(unsigned int draw_Mode)
 {
-    this->drawMode = drawMode;
-    switch (drawMode)
+    switch (draw_Mode)
     {
     case 1:
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -50,6 +51,17 @@ void mrp::set_DrawMode(unsigned int drawMode)
         break;
     }
 
+}
+
+
+void mrp::set_Model_View_Mode(unsigned int mode)
+{
+    this->model_View_Mode = (mode + 2) % 2;
+}
+
+void mrp::set_Quad_View_Mode(unsigned int mode)
+{
+    this->quad_View_Mode = (mode + material::current_Materials.size()) % material::current_Materials.size();
 }
 
 // get max supported attribute
@@ -88,17 +100,25 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
     material->active();
     glm::mat4 mvp = camera->get_Matrix_PerspectiveProjection() * camera->get_Matrix_Eye_Improved() * localToWorld;
     material->set_MVP(mvp);
-    if (this->drawMode != 1)
+    if (this->model_View_Mode == 0)
     {
-        material->release_Textures();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        material->use_Textures();
     }
     else
     {
-        material->use_Textures();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        material->release_Textures();
     }
     glBindVertexArray(mesh.vao);
     glDrawElements(GL_TRIANGLES, mesh.vertex_Elements.size(), GL_UNSIGNED_INT, 0);
     material->release_Textures();
 
+}
+
+void mrp::draw_Mesh(const mesh& mesh, std::vector<material*> materials, bool isDepth_Test, glm::mat4 localToWorld) const
+{
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    draw_Mesh(mesh, materials[this->quad_View_Mode], isDepth_Test, localToWorld);
 }
 

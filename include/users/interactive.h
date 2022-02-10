@@ -23,8 +23,9 @@ public:
     float E;
     float T;
     float ET_Speed;
-    unsigned int drawMode;
-    unsigned int next;
+    int draw_Mode;
+    int model_View_Mode;
+    int quad_View_Mode;
     double deltaTime;
     float zoom;
     float zoomSpeed;
@@ -34,8 +35,7 @@ public:
     ~interactive();
     void reset();
     void set_DeltaTime(double time);
-    void set_DrawMode();
-    void renderNext();
+    void set_DrawMode(int mode);
     void set_ET(double time);
     void set_Acceleration();
     void set_Zoom(float offset);

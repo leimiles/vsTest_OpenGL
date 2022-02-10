@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
     // set texture data checkBoard01.png
     texture tex_Suit_Diffuse("checkBoard01.png", GL_RGB, true, true);
     texture tex_Gloves_Diffuse("checkBoard03.jpg", GL_RGB, true, true);
-    texture tex_Shoe_Diffuse("checkBoard01.png", GL_RGB, true, true);
+    texture tex_Shoe_Diffuse("batman.jpg", GL_RGB, true, true);
     //texture tex05("checkBoard02.png", GL_R8, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
@@ -141,10 +141,24 @@ int main(int argc, char* argv[])
         miles_RenderingPipeline.clear_Buffer();
 
         // draw mode
-        miles_RenderingPipeline.set_DrawMode(inter.drawMode);
+        //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
 
+        switch (inter.draw_Mode)
+        {
+        case 1:
+            inter.quad_View_Mode = -1;
+            miles_RenderingPipeline.set_Model_View_Mode(inter.model_View_Mode);
+            miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+            break;
+        case 2:
+            inter.model_View_Mode = -1;
+            miles_RenderingPipeline.set_Quad_View_Mode(inter.quad_View_Mode);
+            miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, model01.get_Matrix_LocalToWorld());
+            break;
+        default:
+            break;
+        }
 
-        miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
 
         // draw model
 
@@ -217,11 +231,11 @@ void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
     if (key == GLFW_KEY_1 && action == GLFW_PRESS)
     {
-        inter.set_DrawMode();
+        inter.set_DrawMode(1);
     }
     if (key == GLFW_KEY_2 && action == GLFW_PRESS)
     {
-        inter.renderNext();
+        inter.set_DrawMode(2);
     }
 }
 
