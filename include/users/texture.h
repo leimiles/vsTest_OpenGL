@@ -17,6 +17,7 @@ private:
     int number_OfChannels;
     unsigned int TXO;
 public:
+    std::string texture_ChannelName;
     texture(const char* texture_FileName, GLenum color_Mode, bool isChecked, bool isMipmap);
     ~texture();
     void set_TextureMode_2D();

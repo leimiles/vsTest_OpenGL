@@ -93,7 +93,6 @@ int main(int argc, char* argv[])
     model01.set_Material_ForSubMesh(2, greenMat);
     model01.set_Material_ForSubMesh(3, greenMat);
 
-
     // set texture data
     texture tex01("super_Mario_A.png", GL_RGBA, true, true);
     texture tex02("batman.jpg", GL_RGB, true, true);
@@ -103,8 +102,10 @@ int main(int argc, char* argv[])
     //texture tex05("checkBoard02.png", GL_R8, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
-    redMat.set_Textures(2, tex04, tex02);
-    greenMat.set_Textures(1, tex05);
+    //redMat.set_Textures(2, tex04, tex02);
+    redMat.set_Texture("surf.texture02", tex04);
+    redMat.set_Texture("surf.texture03", tex02);
+    greenMat.set_Texture("example1_Texture", tex03);
 
     // always active shader before setting uniform buffer
     //shader::use_Program();

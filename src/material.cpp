@@ -43,13 +43,19 @@ void material::set_Textures(unsigned int texture_Count, ...)
     va_end(texture_Pointer);
 }
 
+void material::set_Texture(const char* texture_ChannelName, texture& texture)
+{
+    texture.texture_ChannelName = texture_ChannelName;
+    textures.push_back(texture);
+}
+
 void material::use_Textures()
 {
-    //std::cout << textures.size() << " textures set" << std::endl;
     for (int i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, textures[i].get_TXO());
+        shader->set_Int(textures[i].texture_ChannelName.c_str(), i);
     }
 }
 
