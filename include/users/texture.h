@@ -18,7 +18,7 @@ private:
     unsigned int TXO;
 public:
     std::string texture_ChannelName;
-    texture(const char* texture_FileName, GLenum color_Mode, bool isChecked, bool isMipmap);
+    texture(const char* texture_FileName, GLenum color_Mode, bool isFlipV, bool isChecked, bool isMipmap);
     ~texture();
     void set_TextureMode_2D();
     unsigned int get_TXO() const;

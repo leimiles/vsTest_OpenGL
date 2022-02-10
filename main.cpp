@@ -93,13 +93,13 @@ int main(int argc, char* argv[])
     material mat_Shoe_33(shader_Chicken01);
 
     model01.set_Material_ForSubMesh(0, mat_Suit_33);
-    model01.set_Material_ForSubMesh(1, mat_Gloves_33);
-    model01.set_Material_ForSubMesh(2, mat_Shoe_33);
+    model01.set_Material_ForSubMesh(1, mat_Shoe_33);
+    model01.set_Material_ForSubMesh(2, mat_Gloves_33);
 
     // set texture data checkBoard01.png
-    texture tex_Suit_Diffuse("checkBoard01.png", GL_RGB, true, true);
-    texture tex_Gloves_Diffuse("checkBoard03.jpg", GL_RGB, true, true);
-    texture tex_Shoe_Diffuse("batman.jpg", GL_RGB, true, true);
+    texture tex_Suit_Diffuse("Suit_33_D.psd", GL_RGBA, false, true, true);
+    texture tex_Gloves_Diffuse("Gloves_33_D.psd", GL_RGBA, false, true, true);
+    texture tex_Shoe_Diffuse("Shoe_33.psd", GL_RGBA, false, true, true);
     //texture tex05("checkBoard02.png", GL_R8, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 

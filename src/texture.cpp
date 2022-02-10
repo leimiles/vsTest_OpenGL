@@ -3,12 +3,12 @@
 
 int texture::count = 0;
 
-texture::texture(const char* texture_FileName, GLenum color_Mode, bool isChecked, bool isMipmap)
+texture::texture(const char* texture_FileName, GLenum color_Mode, bool isFlipV, bool isChecked, bool isMipmap)
 {
     std::string texture_FileName_String = texture_FileName;
     texture_FileName_String = TEXTURE_PATH_ROOT + texture_FileName_String;
     // this is for opengl which 0.0 is at bottom
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(isFlipV);
     unsigned char* texture_Data = stbi_load(texture_FileName_String.c_str(), &width, &height, &number_OfChannels, 0);
     if (isChecked)
     {
