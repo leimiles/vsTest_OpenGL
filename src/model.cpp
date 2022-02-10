@@ -43,13 +43,13 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
 
 mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
 {
-    std::vector<vertexAttri_Pattern> vertex_Attributes;
+    std::vector<vertexAttri_Pattern_FBX> vertex_Attributes;
     std::vector<unsigned int> vertex_Elements;
     //std::cout << "vertices: " << meshNode->mNumVertices << std::endl;
 
     for (unsigned int i = 0; i < meshNode->mNumVertices; i++)
     {
-        vertexAttri_Pattern vtx_Attri;
+        vertexAttri_Pattern_FBX vtx_Attri;
         vtx_Attri.position_Obj.x = meshNode->mVertices[i].x;
         vtx_Attri.position_Obj.y = meshNode->mVertices[i].y;
         vtx_Attri.position_Obj.z = meshNode->mVertices[i].z;

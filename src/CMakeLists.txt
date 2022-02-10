@@ -21,7 +21,6 @@ add_library(mylib
     texture.cpp
     transform.cpp
     mrp.cpp
-    geometry.cpp
     object.cpp
     shaderV2.cpp
     cam.cpp

@@ -18,6 +18,7 @@ interactive::interactive()
     zoomSpeed = 30.0f;
     ET_Speed = 15.0f;
     drawMode = 1;
+    next = 0;
     E = 90.0f;
     T = 0.0f;
     frameCount = 0;
@@ -180,4 +181,13 @@ void interactive::fade_T()
         acceleration = 0.0f;
     }
 
+}
+
+void interactive::renderNext()
+{
+    next++;
+    if (next > 1)
+    {
+        next = 0;
+    }
 }

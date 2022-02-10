@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     // init geometry cube
     //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
-    model model01("sausage_Model.fbx");
+    model model01("Sausage_33.fbx");
     // compatiable orientation
     model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -82,30 +82,31 @@ int main(int argc, char* argv[])
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
     // user shader files, check compile, check files
-    shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
-    shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+    //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
+    //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+    shaderV2 shader_Chicken01("chicken01.vert", "chicken01.frag", true, true);
 
-    material redMat(shader_red);
-    material greenMat(shader_black);
+    //material redMat(shader_red);
+    //material greenMat(shader_black);
+    material mat_Suit_33(shader_Chicken01);
+    material mat_Gloves_33(shader_Chicken01);
+    material mat_Shoe_33(shader_Chicken01);
 
-    model01.set_Material_ForSubMesh(0, redMat);
-    model01.set_Material_ForSubMesh(1, redMat);
-    model01.set_Material_ForSubMesh(2, greenMat);
-    model01.set_Material_ForSubMesh(3, greenMat);
+    model01.set_Material_ForSubMesh(0, mat_Suit_33);
+    model01.set_Material_ForSubMesh(1, mat_Gloves_33);
+    model01.set_Material_ForSubMesh(2, mat_Shoe_33);
 
-    // set texture data
-    texture tex01("super_Mario_A.png", GL_RGBA, true, true);
-    texture tex02("batman.jpg", GL_RGB, true, true);
-    texture tex03("miaoYu.jpg", GL_RGB, true, true);
-    texture tex04("checkBoard01.png", GL_RGB, true, true);
-    texture tex05("checkBoard03.jpg", GL_RGB, true, true);
+    // set texture data checkBoard01.png
+    texture tex_Suit_Diffuse("checkBoard01.png", GL_RGB, true, true);
+    texture tex_Gloves_Diffuse("checkBoard03.jpg", GL_RGB, true, true);
+    texture tex_Shoe_Diffuse("checkBoard01.png", GL_RGB, true, true);
     //texture tex05("checkBoard02.png", GL_R8, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
     //redMat.set_Textures(2, tex04, tex02);
-    redMat.set_Texture("surf.texture02", tex04);
-    redMat.set_Texture("surf.texture03", tex02);
-    greenMat.set_Texture("example1_Texture", tex03);
+    mat_Suit_33.set_Texture("surf.diffuse", tex_Suit_Diffuse);
+    mat_Gloves_33.set_Texture("surf.diffuse", tex_Gloves_Diffuse);
+    mat_Shoe_33.set_Texture("surf.diffuse", tex_Shoe_Diffuse);
 
     // always active shader before setting uniform buffer
     //shader::use_Program();
@@ -119,6 +120,9 @@ int main(int argc, char* argv[])
 
     // init render pipeline
     mrp miles_RenderingPipeline(ca);
+
+    // help quad
+    mesh quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
 
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
@@ -139,8 +143,10 @@ int main(int argc, char* argv[])
         // draw mode
         miles_RenderingPipeline.set_DrawMode(inter.drawMode);
 
-        // draw model
+
         miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+
+        // draw model
 
         //draw cube 10 time at certain positions
         /*
@@ -213,7 +219,10 @@ void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         inter.set_DrawMode();
     }
-
+    if (key == GLFW_KEY_2 && action == GLFW_PRESS)
+    {
+        inter.renderNext();
+    }
 }
 
 // scroll mouse event

@@ -62,7 +62,7 @@ texture::~texture()
 
 }
 
-unsigned int texture::get_TXO()
+unsigned int texture::get_TXO() const
 {
     return TXO;
 }

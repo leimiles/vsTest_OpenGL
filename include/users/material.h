@@ -16,12 +16,12 @@ private:
 public:
     material(shaderV2 shader_Program);
     ~material();
-    void set_MVP(glm::mat4& mvp);
+    void set_MVP(glm::mat4& mvp) const;
     unsigned int get_Material_ID();
-    void active();
+    void active() const;
     void set_Texture(const char* texture_ChannelName, texture& texture);
-    void use_Textures();
-    void release_Textures();
+    void use_Textures() const;
+    void release_Textures() const;
 };
 
 #endif

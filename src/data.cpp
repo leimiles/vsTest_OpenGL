@@ -1,22 +1,22 @@
 #include "users/data.h"
 
-float data::quad_Example_Attributes[] = {
-    0.5f, 0.5f, 0.0f,       // top right
-    1.0f, 1.0f, 0.0f,       // color
+float data::help_Quad_Attributes[] = {
+    50.5f, 50.5f, 0.0f,       // top right
+    0.0f, 0.0f, 1.0f,       // normal
     1.0f, 1.0f,             // uv
-    0.5f, -0.5f, 0.0f,      // bottom right
-    1.0f, 0.0f, 0.0f,       // color
+    50.5f, -50.5f, 0.0f,      // bottom right
+    0.0f, 0.0f, 1.0f,       // normal
     1.0f, 0.0f,             // uv
-    -0.5f, -0.5f, 0.0f,     // bottom left
-    0.0f, 0.0f, 0.0f,       // color
+    -50.5f, -50.5f, 0.0f,     // bottom left
+    0.0f, 0.0f, 1.0f,       // normal
     0.0f, 0.0f,             // uv
-    -0.5f, 0.5f, 0.0f,      // top left
-    0.0f, 1.0f, 0.0f,       // color
+    -50.5f, 50.5f, 0.0f,      // top left
+    0.0f, 0.0f, 1.0f,       // normal
     0.0f, 1.0f              // uv
 };
 
 // not clock-wise ???
-unsigned int data::quad_Example_Indices[] = {
+unsigned int data::help_Quad_Indices[] = {
     0, 1, 3,    // 1st triangle
     1, 2, 3     // 2nd triangle
 };

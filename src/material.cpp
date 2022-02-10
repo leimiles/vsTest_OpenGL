@@ -18,13 +18,13 @@ unsigned int material::get_Material_ID()
     return material_ID;
 }
 
-void material::active()
+void material::active() const
 {
     shader->use_Program();
     //shader->set_Matrix("mvp", mvp);
 }
 
-void material::set_MVP(glm::mat4& mvp)
+void material::set_MVP(glm::mat4& mvp) const
 {
     shader->set_Matrix("mvp", mvp);
 }
@@ -49,7 +49,7 @@ void material::set_Texture(const char* texture_ChannelName, texture& texture)
     textures.push_back(texture);
 }
 
-void material::use_Textures()
+void material::use_Textures() const
 {
     for (int i = 0; i < textures.size(); i++)
     {
@@ -59,7 +59,7 @@ void material::use_Textures()
     }
 }
 
-void material::release_Textures()
+void material::release_Textures() const
 {
     //std::cout << textures.size() << " textures set" << std::endl;
     for (int i = 0; i < textures.size(); i++)

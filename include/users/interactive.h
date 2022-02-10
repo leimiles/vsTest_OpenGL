@@ -24,6 +24,7 @@ public:
     float T;
     float ET_Speed;
     unsigned int drawMode;
+    unsigned int next;
     double deltaTime;
     float zoom;
     float zoomSpeed;
@@ -34,6 +35,7 @@ public:
     void reset();
     void set_DeltaTime(double time);
     void set_DrawMode();
+    void renderNext();
     void set_ET(double time);
     void set_Acceleration();
     void set_Zoom(float offset);
