@@ -1,8 +1,15 @@
 #include "users/model.h"
 
+std::string model::current_Model_Directory = "";
+std::string model::remote_Model_Directory;
+
 model::model(std::string model_Name) : model_Name(model_Name)
 {
-    this->model_Path = MODEL_PATH_ROOT + model_Name;
+    if (current_Model_Directory == "")
+    {
+        current_Model_Directory = MODEL_PATH_ROOT;
+    }
+    this->model_Path = current_Model_Directory + model_Name;
     load_Model();
 }
 

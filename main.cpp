@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <windows.h>
 #include "glad/glad.h"      // this works glad's cmake set glad_dir
 #include "GLFW/glfw3.h"
@@ -13,6 +14,7 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 void scroll_Callback(GLFWwindow* window, double xoffset, double yoffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+std::string get_CorrectPath(std::string path);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -32,6 +34,26 @@ int main(int argc, char* argv[])
 {
     //hideConsole();
     std::cout << argv[0] << " VERSION: " << MDV_VERSION_MAJOR << "." << MDV_VERSION_MINOR << "\n" << std::endl;
+
+    std::string model01_Name = "Sausage_33.fbx";
+    std::string model02_Name = "";
+
+    // read file from anywhere
+    if (argc == 2)
+    {
+        // argv[1] contains the full name of the openning file
+        std::string model_FullPath = argv[1];
+        //std::cout << "file name is " << model_FullPath << std::endl;
+        int index = model_FullPath.find_last_of('\\') + 1;
+        std::string model_Name = model_FullPath.substr(index, model_FullPath.length() - 1);
+        std::string model_Directory = model_FullPath.substr(0, index);
+        //std::cout << "model name is " << model_Name << std::endl;
+        //std::cout << "model directory is " << model_Directory << std::endl;
+        model01_Name = model_Name;
+        model::current_Model_Directory = model_Directory;
+        shaderV2::install_Path = get_CorrectPath(CMAKE_INSTALL);
+    }
+
     // init glfw 
     glfwInit();
     // init some settings for glfw window, note there are a lot of options...
@@ -74,7 +96,7 @@ int main(int argc, char* argv[])
     // init geometry cube
     //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
-    model model01("Sausage_33.fbx");
+    model model01(model01_Name);
     // compatiable orientation
     model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -275,4 +297,16 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+}
+
+std::string get_CorrectPath(std::string path)
+{
+    for (int i = 0; i < path.length(); i++)
+    {
+        if (path[i] == '/')
+        {
+            path[i] = '\\';
+        }
+    }
+    return path + '\\';
 }

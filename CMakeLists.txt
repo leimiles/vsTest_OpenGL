@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.21.3)  #cmake 最小版本
 
-project(MDV VERSION 0.1) #工程当前版本
+project(MDV VERSION 0.12) #工程当前版本
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-configure_file(MDVConfig.h.in MDVConfig.h)  #工程版本配置文件
-
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/install" CACHE PATH "..." FORCE)        #设置安装目录
+
+set(CMAKE_INSTALL \"${CMAKE_INSTALL_PREFIX}\")
+
+configure_file(MDVConfig.h.in MDVConfig.h)  #工程版本配置文件
 
 set(EXE_NAME mdv)   #设置可执行程序的名称
 set(INCLUDE include)    #设置包含头文件的目录, 本项目

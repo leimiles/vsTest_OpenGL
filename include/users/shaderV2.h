@@ -1,7 +1,7 @@
 #ifndef SHADER_V2_H
 #define SHADER_V2_H
-#define VERTEX_SHADER_PATH_ROOT "./resources/shaders/vertex/"
-#define FRAGMENT_SHADER_PATH_ROOT "./resources/shaders/fragment/"
+#define VERTEX_SHADER_PATH_ROOT "resources/shaders/vertex/"
+#define FRAGMENT_SHADER_PATH_ROOT "resources/shaders/fragment/"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,6 +19,7 @@ private:
     unsigned int current_FSO;
     unsigned int current_Program;
 public:
+    static std::string install_Path;
     shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated);
     ~shaderV2();
     void check_ShaderCompileInfo(unsigned int shaderID);

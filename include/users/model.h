@@ -17,6 +17,8 @@ private:
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode);
 public:
+    static std::string current_Model_Directory;
+    static std::string remote_Model_Directory;
     const std::string model_Name;
     std::vector<mesh> submeshes;
     model(std::string model_Name);
