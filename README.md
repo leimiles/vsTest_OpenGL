@@ -2,7 +2,7 @@
 
 ## 九，开发日志 2022/02/11
 <div align = center>
-<img src="./Pics/pic12.png" width = 50%><img src="./Pics/pic13.png" width = 50%>
+<img src="./Pics/pic12.png" width = 50%><img src="./Pics/pic14.gif" width = 50%>
 </div>
 
 ### 1, 主要特性
@@ -10,6 +10,8 @@
 >* 重构了材质球逻辑
 >* FBX 模型导入时不需要在垂直方向上反转 UV
 >* 渲染管线除了渲染 Model， 还可以单独渲染基于数据的 Mesh
+>* 数字 1 键，模型在网格与贴图两种模式间切换
+>* 数字 2 键，用一个 Plane 查看当前已经加载的材质
 
 ### 2, 待解决
 >* 一些 subMesh 导入后，位置不对，如图 （ 手套落到了地上 ）
