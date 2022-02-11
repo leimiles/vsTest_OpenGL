@@ -13,7 +13,7 @@ model::~model()
 void model::load_Model()
 {
     Assimp::Importer fbxImporter;
-    const aiScene* sceneNode = fbxImporter.ReadFile(model_Path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* sceneNode = fbxImporter.ReadFile(model_Path, aiProcess_Triangulate);
     if (!sceneNode || sceneNode->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !sceneNode->mRootNode)
     {
         std::cout << "MODEL::" << model_Path << "::NOT LOADED!\n" << fbxImporter.GetErrorString() << std::endl;
