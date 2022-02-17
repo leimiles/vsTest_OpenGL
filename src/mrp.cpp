@@ -98,8 +98,17 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
         glEnable(GL_DEPTH_TEST);
     }
     material->active();
-    glm::mat4 mvp = camera->get_Matrix_PerspectiveProjection() * camera->get_Matrix_Eye_Improved() * localToWorld;
-    material->set_MVP(mvp);
+
+    glm::mat4 matrix_Eye = camera->get_Matrix_Eye_Improved();
+    glm::mat4 matrix_ViewToPerspectiveProjection = camera->get_Matrix_PerspectiveProjection();
+    glm::mat4 mvp = matrix_ViewToPerspectiveProjection * matrix_Eye * localToWorld;
+
+    // set shader global variables
+    material->set_Matrix_MVP(mvp);
+    material->set_Matrix_LocalToWorld(localToWorld);
+    material->set_Matrix_Eye(matrix_Eye);
+    material->set_Matrix_ViewToPerspectiveProjection(matrix_ViewToPerspectiveProjection);
+
     if (this->model_View_Mode == 0)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

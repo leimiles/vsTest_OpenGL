@@ -18,9 +18,29 @@ void material::active() const
     //shader->set_Matrix("mvp", mvp);
 }
 
-void material::set_MVP(glm::mat4& mvp) const
+void material::set_Matrix_MVP(glm::mat4& mvp) const
 {
-    shader->set_Matrix("mvp", mvp);
+    shader->set_Matrix("matrix_MVP", mvp);
+}
+
+void material::set_Matrix_LocalToWorld(glm::mat4& localToWorld) const
+{
+    shader->set_Matrix("matrix_LocalToWorld", localToWorld);
+}
+
+void material::set_Matrix_WorldToView(glm::mat4& worldToView) const
+{
+    shader->set_Matrix("matrix_WorldToView", worldToView);
+}
+
+void material::set_Matrix_ViewToPerspectiveProjection(glm::mat4& viewToPerspectiveProjection) const
+{
+    shader->set_Matrix("matrix_ViewToPerspectiveProjection", viewToPerspectiveProjection);
+}
+
+void material::set_Matrix_Eye(glm::mat4& eye) const
+{
+    shader->set_Matrix("matrix_Eye", eye);
 }
 
 void material::set_Textures(unsigned int texture_Count, ...)

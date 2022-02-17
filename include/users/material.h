@@ -15,7 +15,11 @@ public:
     static std::vector<material*> current_Materials;
     material(shaderV2 shader_Program);
     ~material();
-    void set_MVP(glm::mat4& mvp) const;
+    void set_Matrix_MVP(glm::mat4& mvp) const;
+    void set_Matrix_LocalToWorld(glm::mat4& localToWorld) const;
+    void set_Matrix_WorldToView(glm::mat4& worldToView) const;
+    void set_Matrix_Eye(glm::mat4& eye) const;
+    void set_Matrix_ViewToPerspectiveProjection(glm::mat4& viewToPerspectiveProjection) const;
     void active() const;
     void set_Texture(const char* texture_ChannelName, texture& texture);
     void use_Textures() const;
