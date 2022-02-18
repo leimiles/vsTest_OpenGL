@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
     // user shader files, check compile, check files
     //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
     //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
-    shaderV2 shader_Chicken01("chicken01.vert", "chicken01.frag", true, true);
+    shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true);
 
     //material redMat(shader_red);
     //material greenMat(shader_black);

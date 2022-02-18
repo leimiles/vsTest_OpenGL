@@ -37,6 +37,39 @@ shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shad
 
 }
 
+shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked)
+{
+    // read and compile vertex shader
+    const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
+    current_VSO = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(current_VSO, 1, &vertex_Shader_Pointer, NULL);
+    glCompileShader(current_VSO);
+    if (isChecked)
+    {
+        check_ShaderCompileInfo(current_VSO);
+    }
+
+    // read and compile fragment shader
+    const char* fragment_Shader_Pointer = fragment_Shader_String.c_str();
+    current_FSO = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(current_FSO, 1, &fragment_Shader_Pointer, NULL);
+    glCompileShader(current_FSO);
+    if (isChecked)
+    {
+        check_ShaderCompileInfo(current_FSO);
+    }
+
+    // link shaders
+    current_Program = glCreateProgram();
+    glAttachShader(current_Program, current_VSO);
+    glAttachShader(current_Program, current_FSO);
+    glLinkProgram(current_Program);
+    if (isChecked) {
+        check_ShaderLinkInfo(current_Program);
+    }
+
+}
+
 shaderV2::~shaderV2()
 {
 

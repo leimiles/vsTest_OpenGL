@@ -21,6 +21,7 @@ private:
 public:
     static std::string install_Path;
     shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated);
+    shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked);
     ~shaderV2();
     void check_ShaderCompileInfo(unsigned int shaderID);
     void check_ShaderLinkInfo(unsigned int programID);
