@@ -16,6 +16,7 @@ private:
     void load_Model();
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode);
+    void extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene);
 public:
     static std::string current_Model_Directory;
     static std::string remote_Model_Directory;

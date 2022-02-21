@@ -20,7 +20,7 @@ model::~model()
 void model::load_Model()
 {
     Assimp::Importer fbxImporter;
-    const aiScene* sceneNode = fbxImporter.ReadFile(model_Path, aiProcess_Triangulate);
+    const aiScene* sceneNode = fbxImporter.ReadFile(model_Path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
     if (!sceneNode || sceneNode->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !sceneNode->mRootNode)
     {
         std::cout << "MODEL::" << model_Path << "::NOT LOADED!\n" << fbxImporter.GetErrorString() << std::endl;
@@ -46,6 +46,10 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     {
         process_Node(node->mChildren[i], sceneNode);
     }
+}
+
+void model::extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene)
+{
 }
 
 mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
@@ -101,6 +105,8 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
             vertex_Elements.push_back(face.mIndices[j]);
         }
     }
+
+    extract_BoneWeightForVertices(vertex_Attributes, meshNode, sceneNode);
 
     return mesh(vertex_Attributes, vertex_Elements);
 }

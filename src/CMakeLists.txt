@@ -30,6 +30,7 @@ add_library(mylib
     material.cpp
     ui.cpp
     light.cpp
+    animation.cpp
     ${IMGUI_SOURCE}
 )
 
