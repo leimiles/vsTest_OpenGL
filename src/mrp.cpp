@@ -31,6 +31,7 @@ void mrp::release_Resource()
     glDeleteVertexArrays(1, &mrp::current_VAO);
     glDeleteBuffers(1, &mrp::current_VBO);
     glDeleteBuffers(1, &mrp::current_EBO);
+    shaderV2::current_Shader->delete_Program();
 }
 
 // set draw mode, GL_TRIANGLES, GL_LINE

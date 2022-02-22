@@ -96,6 +96,11 @@ int main(int argc, char* argv[])
     // init geometry cube
     //geometry geo_Cube(5, 180, data::cube_Example_Attributes);
 
+    // user shader files, check compile, check files
+    //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
+    //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
+    shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true);
+
     model model01(model01_Name);
     // compatiable orientation
     model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
@@ -103,32 +108,26 @@ int main(int argc, char* argv[])
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
 
-    // user shader files, check compile, check files
-    //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
-    //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
-    shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true);
-
     //material redMat(shader_red);
-    //material greenMat(shader_black);
-    material mat_Suit_33(shader_Chicken01);
-    material mat_Gloves_33(shader_Chicken01);
-    material mat_Shoe_33(shader_Chicken01);
+    //material greenMat(shader_black)
+    //material mat_Suit_33(shader_Chicken01);
+    //material mat_Gloves_33(shader_Chicken01);
+    //material mat_Shoe_33(shader_Chicken01);
 
-    model01.set_Material_ForSubMesh(0, mat_Suit_33);
-    model01.set_Material_ForSubMesh(1, mat_Shoe_33);
-    model01.set_Material_ForSubMesh(2, mat_Gloves_33);
+    //model01.set_Material_ForSubMesh(0, mat_Suit_33);
+    //model01.set_Material_ForSubMesh(1, mat_Shoe_33);
+    //model01.set_Material_ForSubMesh(2, mat_Gloves_33);
 
     // set texture data checkBoard01.png
-    texture tex_Suit_Diffuse("Suit_33_D.psd", GL_RGBA, true, true, true);
-    texture tex_Gloves_Diffuse("Gloves_33_D.psd", GL_RGBA, true, true, true);
-    texture tex_Shoe_Diffuse("Shoe_33.psd", GL_RGBA, true, true, true);
-    //texture tex05("checkBoard02.png", GL_R8, true, true);
+    //texture tex_Suit_Diffuse("Suit_33_D.psd", true, true, true);
+    //texture tex_Gloves_Diffuse("Gloves_33_D.psd", true, true, true);
+    //texture tex_Shoe_Diffuse("Shoe_33.psd", true, true, true);
     //texture::set_BoundTextures_2D(3, tex01, tex02, tex03);
 
     //redMat.set_Textures(2, tex04, tex02);
-    mat_Suit_33.set_Texture("surf.diffuse", tex_Suit_Diffuse);
-    mat_Gloves_33.set_Texture("surf.diffuse", tex_Gloves_Diffuse);
-    mat_Shoe_33.set_Texture("surf.diffuse", tex_Shoe_Diffuse);
+    //mat_Suit_33.set_Texture("surf.diffuse", tex_Suit_Diffuse);
+    //mat_Gloves_33.set_Texture("surf.diffuse", tex_Gloves_Diffuse);
+    //mat_Shoe_33.set_Texture("surf.diffuse", tex_Shoe_Diffuse);
 
     // always active shader before setting uniform buffer
     //shader::use_Program();

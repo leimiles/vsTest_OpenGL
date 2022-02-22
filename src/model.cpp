@@ -108,8 +108,83 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
 
     extract_BoneWeightForVertices(vertex_Attributes, meshNode, sceneNode);
 
-    return mesh(vertex_Attributes, vertex_Elements);
+    mesh mesh(vertex_Attributes, vertex_Elements);
+
+    fill_Material(mesh, meshNode);
+
+    return mesh;
 }
+
+
+void model::fill_Textures_Chicken01(material* material)
+{
+
+    texture::textures_Directory = current_Model_Directory;
+    std::cout << "new material [" << material->material_Name << "] looking for textures: " << std::endl;
+    // find diffuse map
+    std::string diffuse_Regex_String = "^" + material->material_Name + "_[D,d]\\.(jpg|png|tga|psd)$";
+    std::regex diffuseMap_Regex(diffuse_Regex_String);
+    std::string normal_Regex_String = "^" + material->material_Name + "_[N,n]\\.(jpg|png|tga|psd)$";
+    std::regex normalMap_Regex(normal_Regex_String);
+    std::string metallic_Regex_String = "^" + material->material_Name + "_[M,m]\\.(jpg|png|tga|psd)$";
+    std::regex metallicMap_Regex(metallic_Regex_String);
+    std::string roughness_Regex_String = "^" + material->material_Name + "_[R,r]\\.(jpg|png|tga|psd)$";
+    std::regex roughtnessMap_Regex(roughness_Regex_String);
+
+    for (const auto& entry : std::filesystem::directory_iterator(current_Model_Directory))
+    {
+        std::string file_Name = entry.path().filename().string();
+        if (std::regex_match(file_Name, diffuseMap_Regex))
+        {
+            std::cout << "\t material [" << material->material_Name << "] found diffuse texture: " << file_Name << std::endl;
+            texture* tex_Diffuse = new texture(file_Name.c_str(), true, true, true);
+            material->set_Texture("surf.diffuse", *tex_Diffuse);
+            continue;
+        }
+        if (std::regex_match(file_Name, normalMap_Regex))
+        {
+            std::cout << "\t material [" << material->material_Name << "] found normal texture: " << file_Name << std::endl;
+            continue;
+        }
+        if (std::regex_match(file_Name, metallicMap_Regex))
+        {
+            std::cout << "\t material [" << material->material_Name << "] found metallic texture: " << file_Name << std::endl;
+            continue;
+        }
+        if (std::regex_match(file_Name, roughtnessMap_Regex))
+        {
+            std::cout << "\t material [" << material->material_Name << "] found roughness texture: " << file_Name << std::endl;
+            continue;
+        }
+    }
+
+}
+
+void model::fill_Material(mesh& mesh, aiMesh* meshNode)
+{
+    if (shaderV2::current_Shader != nullptr)
+    {
+        if (mesh.material == nullptr)
+        {
+            if (meshNode->mMaterialIndex < material::current_Materials.size())
+            {
+                mesh.material = material::current_Materials[meshNode->mMaterialIndex];
+            }
+            else
+            {
+                // where can i delete this heap?
+                material* mat = new material(*shaderV2::current_Shader);
+                mat->material_Name = meshNode->mName.C_Str();
+                mesh.material = mat;
+                fill_Textures_Chicken01(mesh.material);
+            }
+        }
+
+
+    }
+
+}
+
 
 void model::set_Material_ForSubMesh(unsigned int submesh_id, material& material)
 {

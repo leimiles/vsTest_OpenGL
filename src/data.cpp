@@ -101,6 +101,7 @@ std::string data::shader_Chicken01_Frag =
 "struct surface\n"
 "{\n"
 "    sampler2D diffuse;\n"
+"    sampler2D normal;\n"
 "};\n"
 "out vec4 final_Color;\n"
 "in vec2 out_UV;\n"
@@ -109,6 +110,7 @@ std::string data::shader_Chicken01_Frag =
 "void main()\n"
 "{\n"
 "    vec4 diffuse_Color = texture(surf.diffuse, out_UV);\n"
+"    vec4 normal_Color = texture(surf.normal, out_UV);\n"
 "    final_Color = diffuse_Color;\n"
 "}\n"
 ;

@@ -2,10 +2,11 @@
 
 std::vector<material*> material::current_Materials;
 
-material::material(shaderV2 shader_Program)
+material::material(shaderV2& shader_Program)
 {
     shader = &shader_Program;
     current_Materials.push_back(this);
+    this->material_Name = "";
 }
 
 material::~material()
@@ -52,15 +53,15 @@ void material::set_Textures(unsigned int texture_Count, ...)
         glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, va_arg(texture_Pointer, texture).get_TXO());
         */
-        textures.push_back(va_arg(texture_Pointer, texture));
+        textures.push_back(va_arg(texture_Pointer, texture*));
     }
     va_end(texture_Pointer);
 }
 
-void material::set_Texture(const char* texture_ChannelName, texture& texture)
+void material::set_Texture(const char* texture_VariableName, texture& texture)
 {
-    texture.texture_ChannelName = texture_ChannelName;
-    textures.push_back(texture);
+    texture.texture_VariableName = texture_VariableName;
+    textures.push_back(&texture);
 }
 
 void material::use_Textures() const
@@ -68,8 +69,8 @@ void material::use_Textures() const
     for (int i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, textures[i].get_TXO());
-        shader->set_Int(textures[i].texture_ChannelName.c_str(), i);
+        glBindTexture(GL_TEXTURE_2D, textures[i]->get_TXO());
+        shader->set_Int(textures[i]->texture_VariableName.c_str(), i);
     }
 }
 

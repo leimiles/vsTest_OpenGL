@@ -2,6 +2,8 @@
 #define MODEL_H
 #define MODEL_PATH_ROOT "resources/models/"
 #include <vector>
+#include <regex>
+#include <filesystem>
 #include "users/object.h"
 #include "users/material.h"
 #include "assimp/Importer.hpp"
@@ -16,6 +18,8 @@ private:
     void load_Model();
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode);
+    void fill_Material(mesh& mesh, aiMesh* meshNode);
+    void fill_Textures_Chicken01(material* material);
     void extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene);
 public:
     static std::string current_Model_Directory;

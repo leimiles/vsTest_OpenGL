@@ -1,9 +1,11 @@
 #include "users\shaderV2.h"
 
 std::string shaderV2::install_Path = "";
+shaderV2* shaderV2::current_Shader = nullptr;
 
 shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
 {
+    this->shader_Name = "";
     // read and compile vertex shader
     std::string vertex_Shader_String = shaderV2::shader_FileReader(vertex_Shader_FileName, isValidated, install_Path + VERTEX_SHADER_PATH_ROOT);
     const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
@@ -35,10 +37,13 @@ shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shad
         check_ShaderLinkInfo(current_Program);
     }
 
+    shaderV2::current_Shader = this;
+
 }
 
 shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked)
 {
+    this->shader_Name = "";
     // read and compile vertex shader
     const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
     current_VSO = glCreateShader(GL_VERTEX_SHADER);
@@ -68,6 +73,7 @@ shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader
         check_ShaderLinkInfo(current_Program);
     }
 
+    shaderV2::current_Shader = this;
 }
 
 shaderV2::~shaderV2()

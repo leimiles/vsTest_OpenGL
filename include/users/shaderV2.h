@@ -19,7 +19,9 @@ private:
     unsigned int current_FSO;
     unsigned int current_Program;
 public:
+    std::string shader_Name;
     static std::string install_Path;
+    static shaderV2* current_Shader;
     shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated);
     shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked);
     ~shaderV2();
