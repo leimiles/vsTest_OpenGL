@@ -31,10 +31,71 @@ void model::load_Model()
         std::cout << "MODEL::" << model_Path << "::LOAD SUCCESSFULLY\n" << std::endl;
     }
 
+    //sceneNode_Info(sceneNode);
+
     extract_Materials(sceneNode);
 
     process_Node(sceneNode->mRootNode, sceneNode);
 }
+
+void model::print_SceneNode_Keys(const aiScene* sceneNode)
+{
+    // print all scenenode keys
+    if (sceneNode->mMetaData->mNumProperties > 0)
+    {
+        std::cout << "sceneNode Info:" << std::endl;
+        for (int i = 0; i < sceneNode->mMetaData->mNumProperties; i++)
+        {
+            aiString type_String;
+            aiVector3D type_Vector3D;
+            ai_int32 type_Int32;
+            ai_int type_Int;
+            ai_real type_real;
+            std::cout << "\tproperty key:[" << (sceneNode->mMetaData->mKeys + i)->C_Str() << "]\t|\tproperty value:[";
+            if (sceneNode->mMetaData->Get(i, type_String))
+            {
+                std::cout << type_String.C_Str() << "]" << std::endl;
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Vector3D))
+            {
+                std::cout << type_Vector3D.x << ", " << type_Vector3D.y << ", " << type_Vector3D.z << "]" << std::endl;
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Int32))
+            {
+                std::cout << type_Int32 << "]" << std::endl;
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Int))
+            {
+                std::cout << type_Int << "]" << std::endl;
+            }
+            else if (sceneNode->mMetaData->Get(i, type_real))
+            {
+                std::cout << type_real << "]" << std::endl;
+            }
+            else
+            {
+                std::cout << "no type match] " << std::endl;
+            }
+
+        }
+        std::cout << "\n";
+    }
+}
+
+
+void model::print_AiMatrix(aiMatrix4x4& mat)
+{
+    std::cout << " ---- \n";
+
+    std::cout << mat.a1 << "\t" << mat.a2 << "\t" << mat.a3 << "\t" << mat.a4 << std::endl;
+    std::cout << mat.b1 << "\t" << mat.b2 << "\t" << mat.b3 << "\t" << mat.b4 << std::endl;
+    std::cout << mat.c1 << "\t" << mat.c2 << "\t" << mat.c3 << "\t" << mat.c4 << std::endl;
+    std::cout << mat.d1 << "\t" << mat.d2 << "\t" << mat.d3 << "\t" << mat.d4 << std::endl;
+
+    std::cout << " ---- \n";
+}
+
+
 
 void model::process_Node(aiNode* node, const aiScene* sceneNode)
 {

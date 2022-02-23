@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 
     model model01(model01_Name);
     // compatiable orientation
-    model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
+    //model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_1Col3_2Texcoord2, geo_Quad);
     //miles_RenderingPipeline.set_RenderingData(vao_0Pos3_2Texcoord2, geo_Cube);
