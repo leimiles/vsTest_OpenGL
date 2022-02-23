@@ -81,7 +81,7 @@ void mrp::draw_Model_WithMaterial(const model& mdl, bool isDepth_Test)
     for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
     {
 
-        draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld());
+        draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
 
     }
 

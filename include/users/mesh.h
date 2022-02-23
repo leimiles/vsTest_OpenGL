@@ -34,6 +34,7 @@ private:
     void setup_Mesh_FBX();
     void setup_Mesh_Simple();
 public:
+    glm::mat4 matrix_LocalToWorld;
     unsigned int vao;        // vertex attribute object
     material* material;
     std::vector<vertexAttri_Pattern_FBX> vertex_Attributes_FBX;

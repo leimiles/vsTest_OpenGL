@@ -6,6 +6,7 @@ mesh::mesh(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<u
     this->vertex_Elements = vertex_Elements;
     setup_Mesh_FBX();
     this->material = nullptr;
+    this->matrix_LocalToWorld = transform::mat_Identity;
 }
 
 mesh::mesh(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size, unsigned int* elements)
@@ -31,6 +32,7 @@ mesh::mesh(unsigned int stride, unsigned int attributes_Size, float* attributes,
 
     setup_Mesh_Simple();
     this->material = nullptr;
+    this->matrix_LocalToWorld = transform::mat_Identity;
 
     /*
         glGenVertexArrays(1, &vao);

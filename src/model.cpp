@@ -85,14 +85,11 @@ void model::print_SceneNode_Keys(const aiScene* sceneNode)
 
 void model::print_AiMatrix(aiMatrix4x4& mat)
 {
-    std::cout << " ---- \n";
-
-    std::cout << mat.a1 << "\t" << mat.a2 << "\t" << mat.a3 << "\t" << mat.a4 << std::endl;
-    std::cout << mat.b1 << "\t" << mat.b2 << "\t" << mat.b3 << "\t" << mat.b4 << std::endl;
-    std::cout << mat.c1 << "\t" << mat.c2 << "\t" << mat.c3 << "\t" << mat.c4 << std::endl;
-    std::cout << mat.d1 << "\t" << mat.d2 << "\t" << mat.d3 << "\t" << mat.d4 << std::endl;
-
-    std::cout << " ---- \n";
+    std::cout << "\t" << mat.a1 << "\t" << mat.a2 << "\t" << mat.a3 << "\t" << mat.a4 << std::endl;
+    std::cout << "\t" << mat.b1 << "\t" << mat.b2 << "\t" << mat.b3 << "\t" << mat.b4 << std::endl;
+    std::cout << "\t" << mat.c1 << "\t" << mat.c2 << "\t" << mat.c3 << "\t" << mat.c4 << std::endl;
+    std::cout << "\t" << mat.d1 << "\t" << mat.d2 << "\t" << mat.d3 << "\t" << mat.d4 << std::endl;
+    std::cout << "\n";
 }
 
 
@@ -102,7 +99,9 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = sceneNode->mMeshes[node->mMeshes[i]];
-        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode));
+        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &node->mTransformation));
+        //std::cout << "mesh [" << mesh->mName.C_Str() << "] tranformation:" << std::endl;
+        //print_AiMatrix(node->mTransformation);
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -127,7 +126,7 @@ void model::extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& 
 {
 }
 
-mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
+mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix)
 {
     std::vector<vertexAttri_Pattern_FBX> vertex_Attributes;
     std::vector<unsigned int> vertex_Elements;
@@ -186,9 +185,39 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
     mesh mesh(vertex_Attributes, vertex_Elements);
 
     fill_Material(mesh, meshNode);
-    //std::cout << "mesh [" << meshNode->mName.C_Str() << "] has material_" << meshNode->mMaterialIndex << std::endl;
+
+    fill_Matrix(mesh, matrix);
 
     return mesh;
+}
+
+void model::fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix)
+{
+    // asign by column 0
+    mesh.matrix_LocalToWorld[0][0] = matrix->a1;
+    mesh.matrix_LocalToWorld[1][0] = matrix->a2;
+    mesh.matrix_LocalToWorld[2][0] = matrix->a3;
+    mesh.matrix_LocalToWorld[3][0] = matrix->a4;
+    // asign by column 1
+    mesh.matrix_LocalToWorld[0][1] = matrix->b1;
+    mesh.matrix_LocalToWorld[1][1] = matrix->b2;
+    mesh.matrix_LocalToWorld[2][1] = matrix->b3;
+    mesh.matrix_LocalToWorld[3][1] = matrix->b4;
+    // asign by column 2
+    mesh.matrix_LocalToWorld[0][2] = matrix->c1;
+    mesh.matrix_LocalToWorld[1][2] = matrix->c2;
+    mesh.matrix_LocalToWorld[2][2] = matrix->c3;
+    mesh.matrix_LocalToWorld[3][2] = matrix->c4;
+    // asign by column 3
+    mesh.matrix_LocalToWorld[0][3] = matrix->d1;
+    mesh.matrix_LocalToWorld[1][3] = matrix->d2;
+    mesh.matrix_LocalToWorld[2][3] = matrix->d3;
+    mesh.matrix_LocalToWorld[3][3] = matrix->d4;
+}
+
+glm::mat4 model::get_Matrix_LocalToWorld(const mesh& mesh) const
+{
+    return this->object::get_Matrix_LocalToWorld() * mesh.matrix_LocalToWorld;
 }
 
 

@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
         case 2:
             inter.model_View_Mode = -1;
             miles_RenderingPipeline.set_Quad_View_Mode(inter.quad_View_Mode);
-            miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, model01.get_Matrix_LocalToWorld());
+            miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
             break;
         default:
             break;
