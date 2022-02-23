@@ -64,6 +64,11 @@ void material::set_Texture(const char* texture_VariableName, texture& texture)
     textures.push_back(&texture);
 }
 
+unsigned int material::get_TexturesCount()
+{
+    return this->textures.size();
+}
+
 void material::use_Textures() const
 {
     for (int i = 0; i < textures.size(); i++)

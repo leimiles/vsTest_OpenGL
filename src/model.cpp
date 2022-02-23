@@ -31,6 +31,8 @@ void model::load_Model()
         std::cout << "MODEL::" << model_Path << "::LOAD SUCCESSFULLY\n" << std::endl;
     }
 
+    extract_Materials(sceneNode);
+
     process_Node(sceneNode->mRootNode, sceneNode);
 }
 
@@ -46,6 +48,18 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     {
         process_Node(node->mChildren[i], sceneNode);
     }
+}
+
+void model::extract_Materials(const aiScene* sceneNode)
+{
+    for (unsigned int i = 0; i < sceneNode->mNumMaterials; i++)
+    {
+        std::cout << "extract material_" << i << " [" << sceneNode->mMaterials[i]->GetName().C_Str() << "] from fbx file" << std::endl;
+        material* mat = new material(*shaderV2::current_Shader);
+        mat->material_Name = sceneNode->mMaterials[i]->GetName().C_Str();
+    }
+
+    std::cout << "\n";
 }
 
 void model::extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene)
@@ -111,24 +125,26 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode)
     mesh mesh(vertex_Attributes, vertex_Elements);
 
     fill_Material(mesh, meshNode);
+    //std::cout << "mesh [" << meshNode->mName.C_Str() << "] has material_" << meshNode->mMaterialIndex << std::endl;
 
     return mesh;
 }
 
 
-void model::fill_Textures_Chicken01(material* material)
+void model::fill_Textures_Chicken01(material* material, const char* meshName)
 {
 
     texture::textures_Directory = current_Model_Directory;
-    std::cout << "new material [" << material->material_Name << "] looking for textures: " << std::endl;
+    std::cout << "mesh [" << meshName << "] looking for textures: " << std::endl;
+    std::string main_Name = (std::string)meshName;
     // find diffuse map
-    std::string diffuse_Regex_String = "^" + material->material_Name + "_[D,d]\\.(jpg|png|tga|psd)$";
+    std::string diffuse_Regex_String = "^" + main_Name + "_[D,d]\\.(jpg|png|tga|psd)$";
     std::regex diffuseMap_Regex(diffuse_Regex_String);
-    std::string normal_Regex_String = "^" + material->material_Name + "_[N,n]\\.(jpg|png|tga|psd)$";
+    std::string normal_Regex_String = "^" + main_Name + "_[N,n]\\.(jpg|png|tga|psd)$";
     std::regex normalMap_Regex(normal_Regex_String);
-    std::string metallic_Regex_String = "^" + material->material_Name + "_[M,m]\\.(jpg|png|tga|psd)$";
+    std::string metallic_Regex_String = "^" + main_Name + "_[M,m]\\.(jpg|png|tga|psd)$";
     std::regex metallicMap_Regex(metallic_Regex_String);
-    std::string roughness_Regex_String = "^" + material->material_Name + "_[R,r]\\.(jpg|png|tga|psd)$";
+    std::string roughness_Regex_String = "^" + main_Name + "_[R,r]\\.(jpg|png|tga|psd)$";
     std::regex roughtnessMap_Regex(roughness_Regex_String);
 
     for (const auto& entry : std::filesystem::directory_iterator(current_Model_Directory))
@@ -158,6 +174,13 @@ void model::fill_Textures_Chicken01(material* material)
         }
     }
 
+    if (material->get_TexturesCount() == 0)
+    {
+        std::cout << "\t material [" << material->material_Name << "] has no textures." << std::endl;
+    }
+
+    std::cout << "\n";
+
 }
 
 void model::fill_Material(mesh& mesh, aiMesh* meshNode)
@@ -166,6 +189,9 @@ void model::fill_Material(mesh& mesh, aiMesh* meshNode)
     {
         if (mesh.material == nullptr)
         {
+            mesh.material = material::current_Materials[meshNode->mMaterialIndex];
+            fill_Textures_Chicken01(mesh.material, meshNode->mName.C_Str());
+            /*
             if (meshNode->mMaterialIndex < material::current_Materials.size())
             {
                 mesh.material = material::current_Materials[meshNode->mMaterialIndex];
@@ -176,8 +202,9 @@ void model::fill_Material(mesh& mesh, aiMesh* meshNode)
                 material* mat = new material(*shaderV2::current_Shader);
                 mat->material_Name = meshNode->mName.C_Str();
                 mesh.material = mat;
-                fill_Textures_Chicken01(mesh.material);
+                //fill_Textures_Chicken01(mesh.material);
             }
+            */
         }
 
 

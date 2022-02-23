@@ -23,6 +23,7 @@ public:
     void set_Matrix_ViewToPerspectiveProjection(glm::mat4& viewToPerspectiveProjection) const;
     void active() const;
     void set_Texture(const char* texture_VariableName, texture& texture);
+    unsigned int get_TexturesCount();
     void use_Textures() const;
     void release_Textures() const;
 };
