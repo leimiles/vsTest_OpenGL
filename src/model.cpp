@@ -33,9 +33,130 @@ void model::load_Model()
 
     //print_SceneNode_Keys(sceneNode);
 
+    fill_Model_Info(sceneNode);
+
     extract_Materials(sceneNode);
 
     process_Node(sceneNode->mRootNode, sceneNode);
+
+    show_Model_Info();
+}
+
+void model::show_Model_Info()
+{
+    std::cout << "\nFBX File Info:\n";
+    std::cout << "fbx_Version:    \t" << info.fbx_Version << std::endl;
+    std::cout << "model_Name:     \t" << info.model_Name << std::endl;
+    std::cout << "upAxis:         \t" << info.upAxis << std::endl;
+    std::cout << "upAxis_Sign:    \t" << info.upAxis_Sign << std::endl;
+    std::cout << "frontAxis:      \t" << info.frontAxis << std::endl;
+    std::cout << "frontAxis_Sign: \t" << info.frontAxis_Sign << std::endl;
+    std::cout << "scaleFactor:    \t" << info.scaleFactor << std::endl;
+    std::cout << "frameRate:      \t" << info.frameRate << std::endl;
+    std::cout << "timeSpan_Start: \t" << info.timeSpan_Start << std::endl;
+    std::cout << "timeSpan_Stop:  \t" << info.timeSpan_Stop << std::endl;
+
+    std::cout << "has_Material:   \t" << info.has_Material << std::endl;
+    //std::cout << "material_Names: \t" << info.material_Names.size() << std::endl;
+
+    std::cout << "has_Textures:   \t" << info.has_Textures << std::endl;
+    //std::cout << "texture_Name:   \t" << info.texture_Name.size() << std::endl;
+
+    std::cout << "has_Animation:  \t" << info.has_Animation << std::endl;
+    //std::cout << "animation_Names:\t" << info.animation_Names.size() << std::endl;
+
+    std::cout << "has_Mesh:       \t" << info.has_Mesh << std::endl;
+    //std::cout << "mesh_Names:     \t" << info.mesh_Names.size() << std::endl;
+
+    std::cout << "has_Camera:     \t" << info.has_Camera << std::endl;
+    //std::cout << "camera_Names:   \t" << info.camera_Names.size() << std::endl;
+
+    std::cout << "has_Light:      \t" << info.has_Light << std::endl;
+    //std::cout << "light_Names:    \t" << info.light_Names.size() << std::endl;
+
+}
+
+void model::fill_Model_Info(const aiScene* sceneNode)
+{
+    info.model_Name = this->model_Name;
+    if (sceneNode->mMetaData->mNumProperties > 0)
+    {
+        for (int i = 0; i < sceneNode->mMetaData->mNumProperties; i++)
+        {
+            aiString type_String;
+            aiVector3D type_Vector3D;
+            ai_int32 type_Int32;
+            ai_int type_Int;
+            ai_real type_real;
+            // no conversion
+            uint64_t type_Unit64;
+
+            std::string property_Name = (sceneNode->mMetaData->mKeys + i)->C_Str();
+            if (sceneNode->mMetaData->Get(i, type_String))
+            {
+                if (property_Name == "SourceAsset_Generator")
+                {
+                    info.fbx_Version = type_String.C_Str();
+                }
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Vector3D))
+            {
+
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Int32))
+            {
+                if (property_Name == "UpAxis")
+                {
+                    info.upAxis = type_Int32;
+                }
+                if (property_Name == "UpAxisSign")
+                {
+                    info.upAxis_Sign = type_Int32;
+                }
+                if (property_Name == "FrontAxis")
+                {
+                    info.frontAxis = type_Int32;
+                }
+                if (property_Name == "FrontAxisSign")
+                {
+                    info.frontAxis_Sign = type_Int32;
+                }
+                if (property_Name == "FrameRate")
+                {
+                    info.frameRate = type_Int32;
+                }
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Int))
+            {
+
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Unit64))
+            {
+                if (property_Name == "TimeSpanStart")
+                {
+                    info.timeSpan_Start = type_Unit64;
+                }
+                if (property_Name == "TimeSpanStop")
+                {
+                    info.timeSpan_Stop = type_Unit64;
+                }
+            }
+            else if (sceneNode->mMetaData->Get(i, type_real))
+            {
+                if (property_Name == "UnitScaleFactor")
+                {
+                    info.scaleFactor = type_real;
+                }
+            }
+
+        }
+    }
+    info.has_Animation = sceneNode->mNumAnimations;
+    info.has_Textures = sceneNode->mNumTextures;
+    info.has_Material = sceneNode->mNumMaterials;
+    info.has_Mesh = sceneNode->mNumMeshes;
+    info.has_Camera = sceneNode->mNumCameras;
+    info.has_Light = sceneNode->mNumLights;
 }
 
 void model::print_SceneNode_Keys(const aiScene* sceneNode)
@@ -51,26 +172,33 @@ void model::print_SceneNode_Keys(const aiScene* sceneNode)
             ai_int32 type_Int32;
             ai_int type_Int;
             ai_real type_real;
+            // no conversion
+            uint64_t type_Unit64;
+
             std::cout << "\tproperty key:[" << (sceneNode->mMetaData->mKeys + i)->C_Str() << "]\t|\tproperty value:[";
             if (sceneNode->mMetaData->Get(i, type_String))
             {
-                std::cout << type_String.C_Str() << "]" << std::endl;
+                std::cout << type_String.C_Str() << "]" << " | " << "string" << std::endl;
             }
             else if (sceneNode->mMetaData->Get(i, type_Vector3D))
             {
-                std::cout << type_Vector3D.x << ", " << type_Vector3D.y << ", " << type_Vector3D.z << "]" << std::endl;
+                std::cout << type_Vector3D.x << ", " << type_Vector3D.y << ", " << type_Vector3D.z << "]" << " | " << "vec3" << std::endl;
             }
             else if (sceneNode->mMetaData->Get(i, type_Int32))
             {
-                std::cout << type_Int32 << "]" << std::endl;
+                std::cout << type_Int32 << "]" << " | " << "int32" << std::endl;
             }
             else if (sceneNode->mMetaData->Get(i, type_Int))
             {
-                std::cout << type_Int << "]" << std::endl;
+                std::cout << type_Int << "]" << " | " << "int" << std::endl;
+            }
+            else if (sceneNode->mMetaData->Get(i, type_Unit64))
+            {
+                std::cout << type_Unit64 << "]" << " | " << "uint64" << std::endl;
             }
             else if (sceneNode->mMetaData->Get(i, type_real))
             {
-                std::cout << type_real << "]" << std::endl;
+                std::cout << type_real << "]" << " | " << "real" << std::endl;
             }
             else
             {

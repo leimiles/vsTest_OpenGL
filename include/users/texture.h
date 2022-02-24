@@ -8,14 +8,6 @@
 #include "glad/glad.h"
 #define STB_IMAGE_IMPLEMENTATION
 
-struct texture_Pattern
-{
-    std::string texture_Main_Name;
-    std::string texture_Prefix_Name;
-    std::string texture_Postfix_Name;
-    std::string texture_Extend_Name;
-};
-
 class texture
 {
 private:
