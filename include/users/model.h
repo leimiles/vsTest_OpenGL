@@ -23,10 +23,11 @@ private:
     void fill_Material(mesh& mesh, aiMesh* meshNode);
     void fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix);
     void fill_Textures_Chicken01(material* material, const char* meshName);
+    void calculate_FinalTransform(aiNode* node);
+    void reset_FinalTransform();
     void extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene);
     static void print_AiMatrix(aiMatrix4x4& matrix);
     static void print_SceneNode_Keys(const aiScene* sceneNode);
-    static void reset_AiMatrix4x4(aiMatrix4x4& matrix);
 public:
     static std::string current_Model_Directory;
     static std::string remote_Model_Directory;

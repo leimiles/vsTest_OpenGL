@@ -98,15 +98,15 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
 {
     //std::cout << "processing node: " << node->mName.C_Str() << std::endl;
     //print_AiMatrix(node->mTransformation * );
-    final_Transform *= node->mTransformation;
 
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = sceneNode->mMeshes[node->mMeshes[i]];
-        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &node->mTransformation));
+        calculate_FinalTransform(node);
+        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &final_Transform));
+        reset_FinalTransform();
         //std::cout << "mesh [" << mesh->mName.C_Str() << "] has local tranformation:" << std::endl;
         //print_AiMatrix(final_Transform);
-        reset_AiMatrix4x4(final_Transform);
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -115,10 +115,21 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     }
 }
 
-void model::reset_AiMatrix4x4(aiMatrix4x4& matrix)
+void model::reset_FinalTransform()
 {
-    aiMatrix4x4 temp_Transform;
-    matrix = temp_Transform;
+    aiMatrix4x4 temp;
+    this->final_Transform = temp;
+}
+
+void model::calculate_FinalTransform(aiNode* node)
+{
+    std::cout << "node transform after multiplied by : " << node->mName.C_Str() << "\n";
+    final_Transform = node->mTransformation * final_Transform;
+    print_AiMatrix(final_Transform);
+    if (node->mParent)
+    {
+        calculate_FinalTransform(node->mParent);
+    }
 }
 
 void model::extract_Materials(const aiScene* sceneNode)
