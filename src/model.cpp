@@ -103,7 +103,7 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = sceneNode->mMeshes[node->mMeshes[i]];
-        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &final_Transform));
+        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &node->mTransformation));
         //std::cout << "mesh [" << mesh->mName.C_Str() << "] has local tranformation:" << std::endl;
         //print_AiMatrix(final_Transform);
         reset_AiMatrix4x4(final_Transform);
