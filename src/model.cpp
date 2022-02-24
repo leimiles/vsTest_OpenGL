@@ -124,9 +124,9 @@ void model::reset_FinalTransform()
 
 void model::calculate_FinalTransform(aiNode* node)
 {
-    std::cout << "node transform after multiplied by : " << node->mName.C_Str() << "\n";
     final_Transform = node->mTransformation * final_Transform;
-    print_AiMatrix(final_Transform);
+    //std::cout << "Transform after multiplied by : " << node->mName.C_Str() << "\n";
+    //print_AiMatrix(final_Transform);
     if (node->mParent)
     {
         calculate_FinalTransform(node->mParent);
@@ -140,6 +140,7 @@ void model::extract_Materials(const aiScene* sceneNode)
         std::cout << "extract material_" << i << " [" << sceneNode->mMaterials[i]->GetName().C_Str() << "] from fbx file" << std::endl;
         material* mat = new material(*shaderV2::current_Shader);
         mat->material_Name = sceneNode->mMaterials[i]->GetName().C_Str();
+        mat->id = i;
     }
 
     std::cout << "\n";
@@ -206,8 +207,10 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
     extract_BoneWeightForVertices(vertex_Attributes, meshNode, sceneNode);
 
     mesh mesh(vertex_Attributes, vertex_Elements);
+    mesh.mesh_Name = meshNode->mName.C_Str();
+    mesh.material_ID = meshNode->mMaterialIndex;
 
-    fill_Material(mesh, meshNode);
+    fill_Material(mesh);
 
     fill_Matrix(mesh, matrix);
 
@@ -244,20 +247,18 @@ glm::mat4 model::get_Matrix_LocalToWorld(const mesh& mesh) const
 }
 
 
-void model::fill_Textures_Chicken01(material* material, const char* meshName)
+void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 {
 
     texture::textures_Directory = current_Model_Directory;
-    std::cout << "mesh [" << meshName << "] looking for textures: " << std::endl;
-    std::string main_Name = (std::string)meshName;
     // find diffuse map
-    std::string diffuse_Regex_String = "^" + main_Name + "_[D,d]\\.(jpg|png|tga|psd)$";
+    std::string diffuse_Regex_String = "^" + meshName + "_[D,d]\\.(jpg|png|tga|psd)$";
     std::regex diffuseMap_Regex(diffuse_Regex_String);
-    std::string normal_Regex_String = "^" + main_Name + "_[N,n]\\.(jpg|png|tga|psd)$";
+    std::string normal_Regex_String = "^" + meshName + "_[N,n]\\.(jpg|png|tga|psd)$";
     std::regex normalMap_Regex(normal_Regex_String);
-    std::string metallic_Regex_String = "^" + main_Name + "_[M,m]\\.(jpg|png|tga|psd)$";
+    std::string metallic_Regex_String = "^" + meshName + "_[M,m]\\.(jpg|png|tga|psd)$";
     std::regex metallicMap_Regex(metallic_Regex_String);
-    std::string roughness_Regex_String = "^" + main_Name + "_[R,r]\\.(jpg|png|tga|psd)$";
+    std::string roughness_Regex_String = "^" + meshName + "_[R,r]\\.(jpg|png|tga|psd)$";
     std::regex roughtnessMap_Regex(roughness_Regex_String);
 
     for (const auto& entry : std::filesystem::directory_iterator(current_Model_Directory))
@@ -296,15 +297,18 @@ void model::fill_Textures_Chicken01(material* material, const char* meshName)
 
 }
 
-void model::fill_Material(mesh& mesh, aiMesh* meshNode)
+void model::fill_Material(mesh& mesh)
 {
     if (shaderV2::current_Shader != nullptr)
     {
         if (mesh.material == nullptr)
         {
-            mesh.material = material::current_Materials[meshNode->mMaterialIndex];
-            fill_Textures_Chicken01(mesh.material, meshNode->mName.C_Str());
-
+            mesh.material = material::current_Materials[mesh.material_ID];
+            std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
+            if (mesh.material->get_TexturesCount() == 0)
+            {
+                fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
+            }
         }
 
 

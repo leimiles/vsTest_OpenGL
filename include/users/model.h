@@ -20,9 +20,9 @@ private:
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix);
     void extract_Materials(const aiScene* sceneNode);
-    void fill_Material(mesh& mesh, aiMesh* meshNode);
+    void fill_Material(mesh& mesh);
     void fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix);
-    void fill_Textures_Chicken01(material* material, const char* meshName);
+    void fill_Textures_Chicken01(material* material, std::string& meshName);
     void calculate_FinalTransform(aiNode* node);
     void reset_FinalTransform();
     void extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& vertex_Attributes, aiMesh* mesh, const aiScene* scene);

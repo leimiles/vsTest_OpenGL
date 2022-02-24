@@ -7,6 +7,7 @@ material::material(shaderV2& shader_Program)
     shader = &shader_Program;
     current_Materials.push_back(this);
     this->material_Name = "";
+    this->id = current_Materials.size() - 1;
 }
 
 material::~material()
@@ -16,7 +17,6 @@ material::~material()
 void material::active() const
 {
     shader->use_Program();
-    //shader->set_Matrix("mvp", mvp);
 }
 
 void material::set_Matrix_MVP(glm::mat4& mvp) const
