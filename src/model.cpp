@@ -103,6 +103,7 @@ void model::process_Node(aiNode* node, const aiScene* sceneNode)
     {
         aiMesh* mesh = sceneNode->mMeshes[node->mMeshes[i]];
         calculate_FinalTransform(node);
+        mesh->mName = node->mName;
         submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &final_Transform));
         reset_FinalTransform();
         //std::cout << "mesh [" << mesh->mName.C_Str() << "] has local tranformation:" << std::endl;
@@ -303,20 +304,7 @@ void model::fill_Material(mesh& mesh, aiMesh* meshNode)
         {
             mesh.material = material::current_Materials[meshNode->mMaterialIndex];
             fill_Textures_Chicken01(mesh.material, meshNode->mName.C_Str());
-            /*
-            if (meshNode->mMaterialIndex < material::current_Materials.size())
-            {
-                mesh.material = material::current_Materials[meshNode->mMaterialIndex];
-            }
-            else
-            {
-                // where can i delete this heap?
-                material* mat = new material(*shaderV2::current_Shader);
-                mat->material_Name = meshNode->mName.C_Str();
-                mesh.material = mat;
-                //fill_Textures_Chicken01(mesh.material);
-            }
-            */
+
         }
 
 
