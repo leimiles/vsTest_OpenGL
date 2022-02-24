@@ -31,7 +31,7 @@ void model::load_Model()
         std::cout << "MODEL::" << model_Path << "::LOAD SUCCESSFULLY\n" << std::endl;
     }
 
-    //sceneNode_Info(sceneNode);
+    //print_SceneNode_Keys(sceneNode);
 
     extract_Materials(sceneNode);
 
@@ -83,12 +83,12 @@ void model::print_SceneNode_Keys(const aiScene* sceneNode)
 }
 
 
-void model::print_AiMatrix(aiMatrix4x4& mat)
+void model::print_AiMatrix(aiMatrix4x4& matrix)
 {
-    std::cout << "\t" << mat.a1 << "\t" << mat.a2 << "\t" << mat.a3 << "\t" << mat.a4 << std::endl;
-    std::cout << "\t" << mat.b1 << "\t" << mat.b2 << "\t" << mat.b3 << "\t" << mat.b4 << std::endl;
-    std::cout << "\t" << mat.c1 << "\t" << mat.c2 << "\t" << mat.c3 << "\t" << mat.c4 << std::endl;
-    std::cout << "\t" << mat.d1 << "\t" << mat.d2 << "\t" << mat.d3 << "\t" << mat.d4 << std::endl;
+    std::cout << "\t" << matrix.a1 << "\t" << matrix.a2 << "\t" << matrix.a3 << "\t" << matrix.a4 << std::endl;
+    std::cout << "\t" << matrix.b1 << "\t" << matrix.b2 << "\t" << matrix.b3 << "\t" << matrix.b4 << std::endl;
+    std::cout << "\t" << matrix.c1 << "\t" << matrix.c2 << "\t" << matrix.c3 << "\t" << matrix.c4 << std::endl;
+    std::cout << "\t" << matrix.d1 << "\t" << matrix.d2 << "\t" << matrix.d3 << "\t" << matrix.d4 << std::endl;
     std::cout << "\n";
 }
 
@@ -96,19 +96,29 @@ void model::print_AiMatrix(aiMatrix4x4& mat)
 
 void model::process_Node(aiNode* node, const aiScene* sceneNode)
 {
+    //std::cout << "processing node: " << node->mName.C_Str() << std::endl;
+    //print_AiMatrix(node->mTransformation * );
+    final_Transform *= node->mTransformation;
+
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = sceneNode->mMeshes[node->mMeshes[i]];
-        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &node->mTransformation));
-
-        std::cout << "mesh [" << mesh->mName.C_Str() << "] has local tranformation:" << std::endl;
-        print_AiMatrix(node->mTransformation);
+        submeshes.push_back(get_Processed_Mesh(mesh, sceneNode, &final_Transform));
+        //std::cout << "mesh [" << mesh->mName.C_Str() << "] has local tranformation:" << std::endl;
+        //print_AiMatrix(final_Transform);
+        reset_AiMatrix4x4(final_Transform);
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
         process_Node(node->mChildren[i], sceneNode);
     }
+}
+
+void model::reset_AiMatrix4x4(aiMatrix4x4& matrix)
+{
+    aiMatrix4x4 temp_Transform;
+    matrix = temp_Transform;
 }
 
 void model::extract_Materials(const aiScene* sceneNode)
