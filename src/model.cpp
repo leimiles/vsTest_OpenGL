@@ -45,33 +45,33 @@ void model::load_Model()
 void model::show_Model_Info()
 {
     std::cout << "\nFBX File Info:\n";
-    std::cout << "fbx_Version:    \t" << info.fbx_Version << std::endl;
-    std::cout << "model_Name:     \t" << info.model_Name << std::endl;
-    std::cout << "upAxis:         \t" << info.upAxis << std::endl;
-    std::cout << "upAxis_Sign:    \t" << info.upAxis_Sign << std::endl;
-    std::cout << "frontAxis:      \t" << info.frontAxis << std::endl;
-    std::cout << "frontAxis_Sign: \t" << info.frontAxis_Sign << std::endl;
-    std::cout << "scaleFactor:    \t" << info.scaleFactor << std::endl;
-    std::cout << "frameRate:      \t" << info.frameRate << std::endl;
-    std::cout << "timeSpan_Start: \t" << info.timeSpan_Start << std::endl;
-    std::cout << "timeSpan_Stop:  \t" << info.timeSpan_Stop << std::endl;
+    std::cout << "\tfbx_Version:    \t" << info.fbx_Version << std::endl;
+    std::cout << "\tmodel_Name:     \t" << info.model_Name << std::endl;
+    std::cout << "\tupAxis:         \t" << info.upAxis << std::endl;
+    std::cout << "\tupAxis_Sign:    \t" << info.upAxis_Sign << std::endl;
+    std::cout << "\tfrontAxis:      \t" << info.frontAxis << std::endl;
+    std::cout << "\tfrontAxis_Sign: \t" << info.frontAxis_Sign << std::endl;
+    std::cout << "\tscaleFactor:    \t" << info.scaleFactor << std::endl;
+    std::cout << "\tframeRate:      \t" << info.frameRate << std::endl;
+    std::cout << "\ttimeSpan_Start: \t" << info.timeSpan_Start << std::endl;
+    std::cout << "\ttimeSpan_Stop:  \t" << info.timeSpan_Stop << std::endl;
 
-    std::cout << "has_Material:   \t" << info.has_Material << std::endl;
+    std::cout << "\thas_Material:   \t" << info.has_Material << std::endl;
     //std::cout << "material_Names: \t" << info.material_Names.size() << std::endl;
 
-    std::cout << "has_Textures:   \t" << info.has_Textures << std::endl;
+    std::cout << "\thas_Textures:   \t" << info.has_Textures << std::endl;
     //std::cout << "texture_Name:   \t" << info.texture_Name.size() << std::endl;
 
-    std::cout << "has_Animation:  \t" << info.has_Animation << std::endl;
+    std::cout << "\thas_Animation:  \t" << info.has_Animation << std::endl;
     //std::cout << "animation_Names:\t" << info.animation_Names.size() << std::endl;
 
-    std::cout << "has_Mesh:       \t" << info.has_Mesh << std::endl;
+    std::cout << "\thas_Mesh:       \t" << info.has_Mesh << std::endl;
     //std::cout << "mesh_Names:     \t" << info.mesh_Names.size() << std::endl;
 
-    std::cout << "has_Camera:     \t" << info.has_Camera << std::endl;
+    std::cout << "\thas_Camera:     \t" << info.has_Camera << std::endl;
     //std::cout << "camera_Names:   \t" << info.camera_Names.size() << std::endl;
 
-    std::cout << "has_Light:      \t" << info.has_Light << std::endl;
+    std::cout << "\thas_Light:      \t" << info.has_Light << std::endl;
     //std::cout << "light_Names:    \t" << info.light_Names.size() << std::endl;
 
 }
