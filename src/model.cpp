@@ -45,40 +45,51 @@ void model::load_Model()
 void model::show_Model_Info()
 {
     std::cout << "\nFBX File Info:\n";
-    std::cout << "\tfbx_Version:    \t" << info.fbx_Version << std::endl;
-    std::cout << "\tmodel_Name:     \t" << info.model_Name << std::endl;
-    std::cout << "\tupAxis:         \t" << info.upAxis << std::endl;
-    std::cout << "\tupAxis_Sign:    \t" << info.upAxis_Sign << std::endl;
-    std::cout << "\tfrontAxis:      \t" << info.frontAxis << std::endl;
-    std::cout << "\tfrontAxis_Sign: \t" << info.frontAxis_Sign << std::endl;
-    std::cout << "\tscaleFactor:    \t" << info.scaleFactor << std::endl;
-    std::cout << "\tframeRate:      \t" << info.frameRate << std::endl;
-    std::cout << "\ttimeSpan_Start: \t" << info.timeSpan_Start << std::endl;
-    std::cout << "\ttimeSpan_Stop:  \t" << info.timeSpan_Stop << std::endl;
+    std::cout << "\tfbx_Version:    " << model_Info.fbx_Version << std::endl;
+    std::cout << "\tmodel_Name:     " << model_Info.model_Name << std::endl;
+    std::cout << "\tupAxis:         " << model_Info.upAxis << "\t(0 = x, 1 = y, 2 = z) " << std::endl;
+    std::cout << "\tupAxis_Sign:    " << model_Info.upAxis_Sign << std::endl;
+    std::cout << "\tfrontAxis:      " << model_Info.frontAxis << std::endl;
+    std::cout << "\tfrontAxis_Sign: " << model_Info.frontAxis_Sign << std::endl;
+    std::cout << "\tscaleFactor:    " << model_Info.scaleFactor << std::endl;
+    std::cout << "\tframeRate:      " << model_Info.frameRate << std::endl;
+    std::cout << "\ttimeSpan_Start: " << model_Info.timeSpan_Start << std::endl;
+    std::cout << "\ttimeSpan_Stop:  " << model_Info.timeSpan_Stop << std::endl;
 
-    std::cout << "\thas_Material:   \t" << info.has_Material << std::endl;
-    //std::cout << "material_Names: \t" << info.material_Names.size() << std::endl;
+    std::cout << "\thas_Material:   " << model_Info.has_Material << std::endl;
+    //std::cout << "material_Names: " << info.material_Names.size() << std::endl;
 
-    std::cout << "\thas_Textures:   \t" << info.has_Textures << std::endl;
-    //std::cout << "texture_Name:   \t" << info.texture_Name.size() << std::endl;
+    std::cout << "\thas_Textures:   " << model_Info.has_Textures << std::endl;
+    //std::cout << "texture_Name:   " << info.texture_Name.size() << std::endl;
 
-    std::cout << "\thas_Animation:  \t" << info.has_Animation << std::endl;
-    //std::cout << "animation_Names:\t" << info.animation_Names.size() << std::endl;
+    std::cout << "\thas_Animation:  " << model_Info.has_Animation << std::endl;
+    //std::cout << "animation_Names:" << info.animation_Names.size() << std::endl;
 
-    std::cout << "\thas_Mesh:       \t" << info.has_Mesh << std::endl;
-    //std::cout << "mesh_Names:     \t" << info.mesh_Names.size() << std::endl;
+    std::cout << "\thas_Mesh:       " << model_Info.has_Mesh << std::endl;
+    //std::cout << "\tmesh_Infos:   " << model_Infos.mesh_Infos.size() << std::endl;
+    for (int i = 0; i < model_Info.mesh_Infos.size(); i++)
+    {
+        std::cout << "\t\tmesh_Name: " << model_Info.mesh_Infos[i].mesh_Name << " | ";
+        std::cout << "hard vertices: " << model_Info.mesh_Infos[i].vertices_Count << " | ";
+        std::cout << "triangle faces: " << model_Info.mesh_Infos[i].faces_Count << " | ";
+        std::cout << "has_Normal: " << model_Info.mesh_Infos[i].has_Normals << " | ";
+        std::cout << "has_Tangent: " << model_Info.mesh_Infos[i].has_TangentsAndBitangents << " | ";
+        std::cout << "has_UVSets: " << model_Info.mesh_Infos[i].has_UVSets << " | ";
+        std::cout << "has_BoneWeights: " << model_Info.mesh_Infos[i].has_BoneWeights << " | ";
+        std::cout << "has_VertexColor: " << model_Info.mesh_Infos[i].has_VertexColorSets << std::endl;
+    }
 
-    std::cout << "\thas_Camera:     \t" << info.has_Camera << std::endl;
-    //std::cout << "camera_Names:   \t" << info.camera_Names.size() << std::endl;
+    std::cout << "\thas_Camera:     " << model_Info.has_Camera << std::endl;
+    //std::cout << "camera_Names:   " << info.camera_Names.size() << std::endl;
 
-    std::cout << "\thas_Light:      \t" << info.has_Light << std::endl;
-    //std::cout << "light_Names:    \t" << info.light_Names.size() << std::endl;
+    std::cout << "\thas_Light:      " << model_Info.has_Light << std::endl;
+    //std::cout << "light_Names:    " << info.light_Names.size() << std::endl;
 
 }
 
 void model::fill_Model_Info(const aiScene* sceneNode)
 {
-    info.model_Name = this->model_Name;
+    this->model_Info.model_Name = this->model_Name;
     if (sceneNode->mMetaData->mNumProperties > 0)
     {
         for (int i = 0; i < sceneNode->mMetaData->mNumProperties; i++)
@@ -96,7 +107,7 @@ void model::fill_Model_Info(const aiScene* sceneNode)
             {
                 if (property_Name == "SourceAsset_Generator")
                 {
-                    info.fbx_Version = type_String.C_Str();
+                    this->model_Info.fbx_Version = type_String.C_Str();
                 }
             }
             else if (sceneNode->mMetaData->Get(i, type_Vector3D))
@@ -107,23 +118,23 @@ void model::fill_Model_Info(const aiScene* sceneNode)
             {
                 if (property_Name == "UpAxis")
                 {
-                    info.upAxis = type_Int32;
+                    this->model_Info.upAxis = type_Int32;
                 }
                 if (property_Name == "UpAxisSign")
                 {
-                    info.upAxis_Sign = type_Int32;
+                    this->model_Info.upAxis_Sign = type_Int32;
                 }
                 if (property_Name == "FrontAxis")
                 {
-                    info.frontAxis = type_Int32;
+                    this->model_Info.frontAxis = type_Int32;
                 }
                 if (property_Name == "FrontAxisSign")
                 {
-                    info.frontAxis_Sign = type_Int32;
+                    this->model_Info.frontAxis_Sign = type_Int32;
                 }
                 if (property_Name == "FrameRate")
                 {
-                    info.frameRate = type_Int32;
+                    this->model_Info.frameRate = type_Int32;
                 }
             }
             else if (sceneNode->mMetaData->Get(i, type_Int))
@@ -134,29 +145,29 @@ void model::fill_Model_Info(const aiScene* sceneNode)
             {
                 if (property_Name == "TimeSpanStart")
                 {
-                    info.timeSpan_Start = type_Unit64;
+                    this->model_Info.timeSpan_Start = type_Unit64;
                 }
                 if (property_Name == "TimeSpanStop")
                 {
-                    info.timeSpan_Stop = type_Unit64;
+                    this->model_Info.timeSpan_Stop = type_Unit64;
                 }
             }
             else if (sceneNode->mMetaData->Get(i, type_real))
             {
                 if (property_Name == "UnitScaleFactor")
                 {
-                    info.scaleFactor = type_real;
+                    this->model_Info.scaleFactor = type_real;
                 }
             }
 
         }
     }
-    info.has_Animation = sceneNode->mNumAnimations;
-    info.has_Textures = sceneNode->mNumTextures;
-    info.has_Material = sceneNode->mNumMaterials;
-    info.has_Mesh = sceneNode->mNumMeshes;
-    info.has_Camera = sceneNode->mNumCameras;
-    info.has_Light = sceneNode->mNumLights;
+    this->model_Info.has_Animation = sceneNode->mNumAnimations;
+    this->model_Info.has_Textures = sceneNode->mNumTextures;
+    this->model_Info.has_Material = sceneNode->mNumMaterials;
+    this->model_Info.has_Mesh = sceneNode->mNumMeshes;
+    this->model_Info.has_Camera = sceneNode->mNumCameras;
+    this->model_Info.has_Light = sceneNode->mNumLights;
 }
 
 void model::print_SceneNode_Keys(const aiScene* sceneNode)
@@ -280,10 +291,17 @@ void model::extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& 
 
 mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix)
 {
+    mesh_Info mesh_Info;
+    mesh_Info.mesh_Name = meshNode->mName.C_Str();
+    mesh_Info.has_BoneWeights = meshNode->mNumBones;
+    mesh_Info.has_Normals = 0;
+    mesh_Info.has_TangentsAndBitangents = 0;
+    mesh_Info.has_UVSets = 0;
+    mesh_Info.has_VertexColorSets = 0;
+
     std::vector<vertexAttri_Pattern_FBX> vertex_Attributes;
     std::vector<unsigned int> vertex_Elements;
     //std::cout << "vertices: " << meshNode->mNumVertices << std::endl;
-
     for (unsigned int i = 0; i < meshNode->mNumVertices; i++)
     {
         vertexAttri_Pattern_FBX vtx_Attri;
@@ -293,6 +311,7 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
 
         if (meshNode->HasNormals())
         {
+            mesh_Info.has_Normals = 1;
             vtx_Attri.normal_Obj.x = meshNode->mNormals[i].x;
             vtx_Attri.normal_Obj.y = meshNode->mNormals[i].y;
             vtx_Attri.normal_Obj.z = meshNode->mNormals[i].z;
@@ -300,6 +319,7 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
 
         if (meshNode->mTextureCoords[0])
         {
+            mesh_Info.has_UVSets = meshNode->GetNumUVChannels();
             vtx_Attri.texcoords.x = meshNode->mTextureCoords[0][i].x;
             vtx_Attri.texcoords.y = meshNode->mTextureCoords[0][i].y;
         }
@@ -309,8 +329,14 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
             vtx_Attri.texcoords.y = 0.0f;
         }
 
+        if (meshNode->HasVertexColors(0))
+        {
+            mesh_Info.has_VertexColorSets = meshNode->GetNumColorChannels();
+        }
+
         if (meshNode->HasTangentsAndBitangents())
         {
+            mesh_Info.has_TangentsAndBitangents = 1;
             vtx_Attri.tangent_Obj.x = meshNode->mTangents[i].x;
             vtx_Attri.tangent_Obj.y = meshNode->mTangents[i].y;
             vtx_Attri.tangent_Obj.z = meshNode->mTangents[i].z;
@@ -322,6 +348,7 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
         }
         vertex_Attributes.push_back(vtx_Attri);
     }
+    mesh_Info.vertices_Count = vertex_Attributes.size();
 
     for (unsigned int i = 0; i < meshNode->mNumFaces; i++)
     {
@@ -330,13 +357,17 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
         {
             vertex_Elements.push_back(face.mIndices[j]);
         }
+
     }
+    mesh_Info.faces_Count = meshNode->mNumFaces;
 
     extract_BoneWeightForVertices(vertex_Attributes, meshNode, sceneNode);
 
     mesh mesh(vertex_Attributes, vertex_Elements);
     mesh.mesh_Name = meshNode->mName.C_Str();
     mesh.material_ID = meshNode->mMaterialIndex;
+
+    this->model_Info.mesh_Infos.push_back(mesh_Info);
 
     fill_Material(mesh);
 

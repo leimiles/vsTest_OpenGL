@@ -26,6 +26,18 @@ struct vertexAttri_Pattern_Simple
     glm::vec2 texcoords;
 };
 
+struct mesh_Info
+{
+    std::string mesh_Name;
+    unsigned int vertices_Count;
+    unsigned int faces_Count;
+    short has_Normals;
+    short has_TangentsAndBitangents;
+    short has_UVSets;
+    short has_BoneWeights;
+    short has_VertexColorSets;
+};
+
 class mesh
 {
 private:

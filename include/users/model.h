@@ -29,8 +29,11 @@ struct model_Info
     unsigned int has_Textures;
     unsigned int has_Animation;
     unsigned int has_Mesh;
+    std::vector<mesh_Info> mesh_Infos;
+
     unsigned int has_Camera;
     unsigned int has_Light;
+
     /*
         std::vector<std::string> mesh_Names;
         std::vector<std::string> material_Names;
@@ -61,7 +64,7 @@ private:
     static void print_AiMatrix(aiMatrix4x4& matrix);
     static void print_SceneNode_Keys(const aiScene* sceneNode);
 public:
-    model_Info info;
+    model_Info model_Info;
     static std::string current_Model_Directory;
     static std::string remote_Model_Directory;
     const std::string model_Name;
