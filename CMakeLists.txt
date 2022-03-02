@@ -14,6 +14,8 @@ configure_file(MDVConfig.h.in MDVConfig.h)  #工程版本配置文件
 set(EXE_NAME mdv)   #设置可执行程序的名称
 set(INCLUDE include)    #设置包含头文件的目录, 本项目
 
+set(CMAKE_EXE_LINKER_FLAGS -static)
+
 set(TEXTURE_TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/resources")     #图片资源目标目录
 set(TEXTURE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/textures")    #图片资源源目录
 file(COPY ${TEXTURE_SOURCE_DIR} DESTINATION ${TEXTURE_TARGET_DIR})
