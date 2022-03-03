@@ -16,9 +16,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 std::string get_CorrectPath(std::string path);
 
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
 // this function hide the console window
 void hideConsole()
 {
@@ -32,6 +29,10 @@ interactive inter;
 
 int main(int argc, char* argv[])
 {
+
+    int width = 800;
+    int height = 600;
+
     //hideConsole();
     std::cout << argv[0] << " VERSION: " << MDV_VERSION_MAJOR << "." << MDV_VERSION_MINOR << "\n" << std::endl;
 
@@ -51,7 +52,23 @@ int main(int argc, char* argv[])
         //std::cout << "model directory is " << model_Directory << std::endl;
         model01_Name = model_Name;
         model::current_Model_Directory = model_Directory;
-        shaderV2::install_Path = get_CorrectPath(CMAKE_INSTALL);
+    }
+    else if (argc == 3)
+    {
+        std::string model_FullPath = argv[1];
+        int index = model_FullPath.find_last_of('\\') + 1;
+        std::string model_Name = model_FullPath.substr(index, model_FullPath.length() - 1);
+        std::string model_Directory = model_FullPath.substr(0, index);
+        model01_Name = model_Name;
+        model::current_Model_Directory = model_Directory;
+
+        std::string model2_FullPath = argv[2];
+        int index2 = model2_FullPath.find_last_of('\\') + 1;
+        std::string model2_Name = model2_FullPath.substr(index2, model2_FullPath.length() - 1);
+        std::string model2_Directory = model2_FullPath.substr(0, index2);
+        model02_Name = model2_Name;
+        model::remote_Model_Directory = model2_Directory;
+        width = 1600;
     }
 
     // init glfw 
@@ -63,8 +80,9 @@ int main(int argc, char* argv[])
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);		// core profile won't have backwords-compatible feature
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		// needed when on Mac OS
 
+
     // create glfw window object with given parameters
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "慧渊's Model Reviewer By Miles", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "慧渊's Model Reviewer By Miles", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -295,7 +313,7 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+    glViewport(0, 0, width / 2, height / 2);
 }
 
 std::string get_CorrectPath(std::string path)
