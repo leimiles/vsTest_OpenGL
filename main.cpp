@@ -32,42 +32,25 @@ int main(int argc, char* argv[])
 
     int width = 800;
     int height = 600;
+    bool is_SplitView = false;
 
     //hideConsole();
     std::cout << argv[0] << " VERSION: " << MDV_VERSION_MAJOR << "." << MDV_VERSION_MINOR << "\n" << std::endl;
 
-    std::string model01_Name = "Sausage_33.fbx";
-    std::string model02_Name = "";
+    std::string model01_Path = "";
+    std::string model02_Path = "";
 
     // read file from anywhere
     if (argc == 2)
     {
-        // argv[1] contains the full name of the openning file
-        std::string model_FullPath = argv[1];
-        //std::cout << "file name is " << model_FullPath << std::endl;
-        int index = model_FullPath.find_last_of('\\') + 1;
-        std::string model_Name = model_FullPath.substr(index, model_FullPath.length() - 1);
-        std::string model_Directory = model_FullPath.substr(0, index);
-        //std::cout << "model name is " << model_Name << std::endl;
-        //std::cout << "model directory is " << model_Directory << std::endl;
-        model01_Name = model_Name;
-        model::current_Model_Directory = model_Directory;
+        model01_Path = argv[1];
     }
     else if (argc == 3)
     {
-        std::string model_FullPath = argv[1];
-        int index = model_FullPath.find_last_of('\\') + 1;
-        std::string model_Name = model_FullPath.substr(index, model_FullPath.length() - 1);
-        std::string model_Directory = model_FullPath.substr(0, index);
-        model01_Name = model_Name;
-        model::current_Model_Directory = model_Directory;
+        model01_Path = argv[1];
+        model02_Path = argv[2];
 
-        std::string model2_FullPath = argv[2];
-        int index2 = model2_FullPath.find_last_of('\\') + 1;
-        std::string model2_Name = model2_FullPath.substr(index2, model2_FullPath.length() - 1);
-        std::string model2_Directory = model2_FullPath.substr(0, index2);
-        model02_Name = model2_Name;
-        model::remote_Model_Directory = model2_Directory;
+        is_SplitView = true;
         width = 1600;
     }
 
@@ -119,7 +102,8 @@ int main(int argc, char* argv[])
     //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
     shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true);
 
-    model model01(model01_Name);
+    model model01(model01_Path);
+    model model02(model02_Path);
     // compatiable orientation
     //model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -187,12 +171,33 @@ int main(int argc, char* argv[])
         case 1:
             inter.quad_View_Mode = -1;
             miles_RenderingPipeline.set_Model_View_Mode(inter.model_View_Mode);
-            miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+            if (is_SplitView)
+            {
+                glViewport(0, 0, width / 2, height);
+                miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+                glViewport(width / 2, 0, width / 2, height);
+                miles_RenderingPipeline.draw_Model_WithMaterial(model02, true);
+            }
+            else
+            {
+                miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+            }
             break;
         case 2:
             inter.model_View_Mode = -1;
             miles_RenderingPipeline.set_Quad_View_Mode(inter.quad_View_Mode);
-            miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+            if (is_SplitView)
+            {
+                glViewport(0, 0, width / 2, height);
+                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+                glViewport(width / 2, 0, width / 2, height);
+                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+            }
+            else
+            {
+                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+            }
+
             break;
         default:
             break;

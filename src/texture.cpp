@@ -9,7 +9,7 @@ texture::texture(const char* texture_FileName, GLenum color_Mode, bool isFlipV, 
     std::string texture_FileName_String = texture_FileName;
     if (textures_Directory == "")
     {
-        texture_FileName_String = TEXTURE_PATH_ROOT + texture_FileName_String;
+        texture_FileName_String = DEFAULT_TEXTURE_DIR + texture_FileName_String;
     }
     else
     {
@@ -63,7 +63,7 @@ texture::texture(const char* texture_FileName, bool isFlipV, bool isChecked, boo
     std::string texture_FileName_String = texture_FileName;
     if (textures_Directory == "")
     {
-        texture_FileName_String = TEXTURE_PATH_ROOT + texture_FileName_String;
+        texture_FileName_String = DEFAULT_TEXTURE_DIR + texture_FileName_String;
     }
     else
     {

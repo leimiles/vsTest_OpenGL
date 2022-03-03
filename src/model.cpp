@@ -1,15 +1,23 @@
 #include "users/model.h"
 
-std::string model::current_Model_Directory = "";
-std::string model::remote_Model_Directory;
-
-model::model(std::string model_Name) : model_Name(model_Name)
+model::model(std::string model_Full_Path)
 {
-    if (current_Model_Directory == "")
+    if (model_Full_Path == "")
     {
-        current_Model_Directory = MODEL_PATH_ROOT;
+        this->current_Model_Directory = DEFAULT_MODEL_DIR;
+        this->model_Name = DEFAULT_MODEL_NAME;
+        this->model_Path = this->current_Model_Directory + this->model_Name;
     }
-    this->model_Path = current_Model_Directory + model_Name;
+    else
+    {
+        std::cout << model_Full_Path << std::endl;
+        int index = model_Full_Path.find_last_of('\\') + 1;
+        this->model_Name = model_Full_Path.substr(index, model_Full_Path.length() - 1);
+        this->current_Model_Directory = model_Full_Path.substr(0, index);
+        this->model_Path = this->current_Model_Directory + this->model_Name;
+    }
+
+
     load_Model();
 }
 
@@ -409,7 +417,7 @@ glm::mat4 model::get_Matrix_LocalToWorld(const mesh& mesh) const
 void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 {
 
-    texture::textures_Directory = current_Model_Directory;
+    texture::textures_Directory = this->current_Model_Directory == DEFAULT_MODEL_DIR ? DEFAULT_TEXTURE_DIR : this->current_Model_Directory;
     // find diffuse map
     std::string diffuse_Regex_String = "^" + meshName + "_[D,d]\\.(jpg|png|tga|psd)$";
     std::regex diffuseMap_Regex(diffuse_Regex_String);
@@ -420,7 +428,7 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
     std::string roughness_Regex_String = "^" + meshName + "_[R,r]\\.(jpg|png|tga|psd)$";
     std::regex roughtnessMap_Regex(roughness_Regex_String);
 
-    for (const auto& entry : std::filesystem::directory_iterator(current_Model_Directory))
+    for (const auto& entry : std::filesystem::directory_iterator(texture::textures_Directory))
     {
         std::string file_Name = entry.path().filename().string();
         if (std::regex_match(file_Name, diffuseMap_Regex))

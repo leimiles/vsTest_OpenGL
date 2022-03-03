@@ -1,7 +1,7 @@
 #pragma once
 #ifndef TEXTURE_H
 #define TEXTURE_H
-#define TEXTURE_PATH_ROOT "./resources/textures/"
+#define DEFAULT_TEXTURE_DIR "./resources/textures/"
 #include <string>
 #include <iostream>
 #include <cstdarg>

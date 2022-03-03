@@ -1,6 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
-#define MODEL_PATH_ROOT "resources/models/"
+#define DEFAULT_MODEL_DIR "resources/models/"
+#define DEFAULT_MODEL_NAME "Sausage_33.fbx"
+#define DEFAULT_TEXTURE_DIR "./resources/textures/"
 #include <vector>
 #include <regex>
 #include <filesystem>
@@ -65,11 +67,10 @@ private:
     static void print_SceneNode_Keys(const aiScene* sceneNode);
 public:
     model_Info model_Info;
-    static std::string current_Model_Directory;
-    static std::string remote_Model_Directory;
-    const std::string model_Name;
+    std::string current_Model_Directory;
+    std::string model_Name;
     std::vector<mesh> submeshes;
-    model(std::string model_Name);
+    model(std::string model_Full_Path);
     ~model();
     void set_Material_ForSubMesh(unsigned int submesh_id, material& material);
     glm::mat4 get_Matrix_LocalToWorld(const mesh& mesh) const;
