@@ -174,13 +174,13 @@ int main(int argc, char* argv[])
             if (is_SplitView)
             {
                 glViewport(0, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+                miles_RenderingPipeline.draw_Model(model01, true);
                 glViewport(width / 2, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Model_WithMaterial(model02, true);
+                miles_RenderingPipeline.draw_Model(model02, true);
             }
             else
             {
-                miles_RenderingPipeline.draw_Model_WithMaterial(model01, true);
+                miles_RenderingPipeline.draw_Model(model01, true);
             }
             break;
         case 2:

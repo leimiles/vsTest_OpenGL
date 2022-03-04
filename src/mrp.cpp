@@ -17,7 +17,7 @@ mrp::~mrp()
 }
 
 // set(clear) color buffer with specified color
-void mrp::clear_Buffer()
+void mrp::clear_Buffer() const
 {
     // set clear color  value
     glClearColor(0.21f, 0.35f, 0.35f, 1.0f);
@@ -73,7 +73,7 @@ int mrp::get_MaxVertex_Attributes()
     return numberOfAttributes;
 }
 
-void mrp::draw_Model_WithMaterial(const model& mdl, bool isDepth_Test)
+void mrp::draw_Model(const model& mdl, bool isDepth_Test)
 {
     if (mdl.submeshes.size() == 0) {
         return;
