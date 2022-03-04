@@ -1,5 +1,19 @@
 # vsTest_OpenGL
 
+## 十一，开发日志 2022/03/04
+### 1，主要特性
+>* 增加了对作为 fork 外部 Diff 工具的支持
+>>* 打开 fork -> file -> preference -> integration 找到 External Diff Tool 选项
+>>* Diff Tool 设置为 Custom
+>>* Diff Tool Path 设置为 mdv.exe 所在的路径
+>>* Arguments 设置为 $LOCAL (本地) $REMOTE (远端)
+>>* 配置完成后，查看 fork 提交记录时，右键点击本地文件，选择 External Diff 即可启动
+<div align = center>
+<img src="./Pics/pic15.gif" width = 50%>
+</div>
+
+---
+
 ## 十，开发日志 2022/02/23
 ### 1， 主要特性
 >* 修复了模型加载后，部分网格因为没有继承局部变换而位置错误的问题
