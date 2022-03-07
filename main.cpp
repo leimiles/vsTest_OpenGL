@@ -168,6 +168,7 @@ int main(int argc, char* argv[])
 
         // draw mode
         //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         switch (inter.draw_Mode)
         {
@@ -274,8 +275,10 @@ void processInput(GLFWwindow* window)
 // key press event
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    inter.reset_View();
     if (key == GLFW_KEY_1 && action == GLFW_PRESS)
     {
+
         if (inter.draw_Mode == 1)
         {
             inter.draw_Mode_Press_Times++;
@@ -288,6 +291,7 @@ void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
     if (key == GLFW_KEY_2 && action == GLFW_PRESS)
     {
+
         if (inter.draw_Mode == 2)
         {
             inter.draw_Mode_Press_Times++;
@@ -329,7 +333,7 @@ void mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
     }
     if (button == GLFW_MOUSE_BUTTON_MIDDLE && action == GLFW_PRESS)
     {
-        inter.reset();
+        inter.reset_View();
     }
 }
 

@@ -34,7 +34,7 @@ public:
     float targetHeightSpeed;
     interactive();
     ~interactive();
-    void reset();
+    void reset_View();
     void set_DeltaTime(double time);
     //void set_DrawMode(int mode);
     void set_ET(double time);

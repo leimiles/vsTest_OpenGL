@@ -87,7 +87,7 @@ void interactive::set_Acceleration()
 }
 
 
-void interactive::reset()
+void interactive::reset_View()
 {
     zoom = 240.0f;
     E = 90.0f;

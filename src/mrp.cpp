@@ -46,17 +46,6 @@ void mrp::set_Draw_Mode(unsigned int draw_Mode)
 
 }
 
-/*
-void mrp::set_Model_View_Mode(unsigned int mode)
-{
-    this->model_View_Mode = (mode + 2) % 2;
-}
-
-void mrp::set_Quad_View_Mode(unsigned int mode)
-{
-    this->quad_View_Mode = (mode + material::current_Materials.size()) % material::current_Materials.size();
-}
-*/
 
 // get max supported attribute
 int mrp::get_MaxVertex_Attributes()
@@ -84,7 +73,6 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
 {
     if (material == nullptr)
     {
-        //std::cout << "submesh index " << i << " has no material assigned, skip." << std::endl;
         return;
     }
     if (isDepth_Test)
@@ -103,12 +91,7 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
     material->set_Matrix_Eye(matrix_Eye);
     material->set_Matrix_ViewToPerspectiveProjection(matrix_ViewToPerspectiveProjection);
 
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     material->use_Textures();
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    //material->release_Textures();
 
     glBindVertexArray(mesh.vao);
     glDrawElements(GL_TRIANGLES, mesh.vertex_Elements.size(), GL_UNSIGNED_INT, 0);
@@ -116,15 +99,4 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
 
 }
 
-/*
-void mrp::draw_Mesh(const mesh& mesh, std::vector<material*> materials, bool isDepth_Test, glm::mat4 localToWorld) const
-{
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    if (materials.size() > 0)
-    {
-        int i = 0;
-        draw_Mesh(mesh, materials[i], isDepth_Test, localToWorld);
-    }
-}
-*/
 
