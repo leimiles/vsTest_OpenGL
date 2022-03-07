@@ -22,6 +22,7 @@ private:
     cam* camera;
 public:
     material* overide_Material;
+    material* wireframe_Material;
     mrp(cam& camera);
     ~mrp();
     glm::mat4 mvp;

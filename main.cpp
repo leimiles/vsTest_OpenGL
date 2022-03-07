@@ -101,8 +101,8 @@ int main(int argc, char* argv[])
     //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
     //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
     shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true, "chicken01");
-    shaderV2 shader_Preview(data::shader_Preview_Vert, data::shader_Preview_Frag, true, "preview");
-    material material_Preview(shader_Preview);
+    shaderV2 shader_Wireframe(data::shader_Wireframe_Vert, data::shader_Wireframe_Frag, true, "preview");
+    material material_Wireframe(shader_Wireframe);
 
     model model01(model01_Path, shader_Chicken01);
     model model02(model02_Path, shader_Chicken01);
@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
 
     // init render pipeline
     mrp miles_RenderingPipeline(ca);
-
+    miles_RenderingPipeline.wireframe_Material = &material_Wireframe;
 
     // help quad
     mesh quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
@@ -179,7 +179,7 @@ int main(int argc, char* argv[])
                 glViewport(0, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Model(model01, true, fill_Mode);
                 glViewport(width / 2, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Model(model02, true);
+                miles_RenderingPipeline.draw_Model(model02, true, fill_Mode);
             }
             else
             {
