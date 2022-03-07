@@ -55,8 +55,21 @@ int mrp::get_MaxVertex_Attributes()
     return numberOfAttributes;
 }
 
-void mrp::draw_Model(const model& mdl, bool isDepth_Test)
+void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode)
 {
+    switch (fill_Mode)
+    {
+    case 0:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        break;
+    case 1:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        break;
+    default:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        break;
+    }
+
     if (mdl.submeshes.size() == 0) {
         return;
     }

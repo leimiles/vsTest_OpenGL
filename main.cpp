@@ -175,17 +175,20 @@ int main(int argc, char* argv[])
         case 1:
             if (is_SplitView)
             {
+                int fill_Mode = (inter.draw_Mode_Press_Times + 3) % 3;
                 glViewport(0, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Model(model01, true);
+                miles_RenderingPipeline.draw_Model(model01, true, fill_Mode);
                 glViewport(width / 2, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Model(model02, true);
             }
             else
             {
-                miles_RenderingPipeline.draw_Model(model01, true);
+                int fill_Mode = (inter.draw_Mode_Press_Times + 3) % 3;
+                miles_RenderingPipeline.draw_Model(model01, true, fill_Mode);
             }
             break;
         case 2:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             if (is_SplitView)
             {
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
