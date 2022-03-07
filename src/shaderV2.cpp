@@ -2,9 +2,9 @@
 
 std::string shaderV2::install_Path = "";
 
-shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
+shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated, std::string shader_Name)
 {
-    this->shader_Name = "";
+    this->shader_Name = shader_Name;
     // read and compile vertex shader
     std::string vertex_Shader_String = shaderV2::shader_FileReader(vertex_Shader_FileName, isValidated, install_Path + VERTEX_SHADER_PATH_ROOT);
     const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
@@ -39,9 +39,9 @@ shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shad
 
 }
 
-shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked)
+shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader_String, bool isChecked, std::string shader_Name)
 {
-    this->shader_Name = "";
+    this->shader_Name = shader_Name;
     // read and compile vertex shader
     const char* vertex_Shader_Pointer = vertex_Shader_String.c_str();
     current_VSO = glCreateShader(GL_VERTEX_SHADER);
@@ -118,11 +118,11 @@ void shaderV2::check_ShaderCompileInfo(unsigned int shaderID)
     if (!success)
     {
         glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::COMPILATION::FAILED !!!\n" << infoLog << std::endl;
+        std::cout << "SHADER [" << this->shader_Name << "] COMPILATION FAILED!\n" << infoLog << std::endl;
     }
     else
     {
-        std::cout << "SHADER::COMPILATION::LOOKS::GREAT\n" << std::endl;
+        std::cout << "SHADER [" << this->shader_Name << "] COMPILATION SUCCESFULLY!\n" << std::endl;
     }
 }
 
@@ -134,11 +134,11 @@ void shaderV2::check_ShaderLinkInfo(unsigned int programID)
     if (!success)
     {
         glGetProgramInfoLog(programID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::LINK::FAILED !!!\n" << infoLog << std::endl;
+        std::cout << "SHADER [" << this->shader_Name << "] LINK FAILED!\n" << infoLog << std::endl;
     }
     else
     {
-        std::cout << "SHADER::PROGRAM::LINK::LOOKS::GREAT\n" << std::endl;
+        std::cout << "SHADER [" << this->shader_Name << "] LINK SUCCESFULLY!\n" << std::endl;
     }
 
 }

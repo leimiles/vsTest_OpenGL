@@ -2,6 +2,10 @@
 
 model::model(std::string model_Full_Path, shaderV2& shader)
 {
+    if (model_Full_Path == "NULL")
+    {
+        return;
+    }
     if (model_Full_Path == "")
     {
         this->current_Model_Directory = DEFAULT_MODEL_DIR;
@@ -48,7 +52,7 @@ void model::load_Model()
 
     process_Node(sceneNode->mRootNode, sceneNode);
 
-    show_Model_Info();
+    //show_Model_Info();
 }
 
 void model::show_Model_Info()
@@ -289,6 +293,7 @@ void model::extract_Materials(const aiScene* sceneNode)
         material* mat = new material(*this->preview_Shader);
         mat->material_Name = sceneNode->mMaterials[i]->GetName().C_Str();
         mat->id = i;
+        preview_Materials.push_back(mat);
     }
 
     std::cout << "\n";
@@ -378,7 +383,7 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
 
     this->model_Info.mesh_Infos.push_back(mesh_Info);
 
-    bind_Material(mesh);
+    bind_Material(mesh, meshNode->mMaterialIndex);
 
     fill_Matrix(mesh, matrix);
 
@@ -465,9 +470,10 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 
 }
 
-void model::bind_Material(mesh& mesh)
+void model::bind_Material(mesh& mesh, unsigned int preview_Material_ID)
 {
 
+    /*
     if (mesh.material == nullptr)
     {
         mesh.material = material::current_Materials[mesh.material_ID];
@@ -477,7 +483,13 @@ void model::bind_Material(mesh& mesh)
             fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
         }
     }
-
+    */
+    if (preview_Material_ID < this->preview_Materials.size())
+    {
+        mesh.material = this->preview_Materials[preview_Material_ID];
+        std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
+        fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
+    }
 
 
 

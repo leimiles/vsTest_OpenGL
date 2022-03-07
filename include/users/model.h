@@ -52,11 +52,12 @@ private:
     shaderV2* preview_Shader;
     std::string model_Path;
     aiMatrix4x4 final_Transform;
+    std::vector<material*> preview_Materials;
     void load_Model();
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix);
     void extract_Materials(const aiScene* sceneNode);
-    void bind_Material(mesh& mesh);
+    void bind_Material(mesh& mesh, unsigned int preview_Material_ID);
     void fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix);
     void fill_Textures_Chicken01(material* material, std::string& meshName);
     void calculate_FinalTransform(aiNode* node);
