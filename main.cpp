@@ -102,9 +102,10 @@ int main(int argc, char* argv[])
     //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
     shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true, "chicken01");
     shaderV2 shader_Preview(data::shader_Preview_Vert, data::shader_Preview_Frag, true, "preview");
+    material material_Preview(shader_Preview);
 
     model model01(model01_Path, shader_Chicken01);
-    model model02(model02_Path, shader_Preview);
+    model model02(model02_Path, shader_Chicken01);
     // compatiable orientation
     //model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -144,6 +145,7 @@ int main(int argc, char* argv[])
 
     // init render pipeline
     mrp miles_RenderingPipeline(ca);
+
 
     // help quad
     mesh quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
@@ -190,13 +192,13 @@ int main(int argc, char* argv[])
             if (is_SplitView)
             {
                 glViewport(0, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials, true, transform::mat_Identity);
                 glViewport(width / 2, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(quad, model02.preview_Materials, true, transform::mat_Identity);
             }
             else
             {
-                miles_RenderingPipeline.draw_Mesh(quad, material::current_Materials, true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials, true, transform::mat_Identity);
             }
 
             break;

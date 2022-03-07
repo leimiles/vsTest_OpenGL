@@ -1,13 +1,10 @@
 #include "users/material.h"
 
-std::vector<material*> material::current_Materials;
-
 material::material(shaderV2& shader_Program)
 {
     shader = &shader_Program;
-    current_Materials.push_back(this);
     this->material_Name = "";
-    this->id = current_Materials.size() - 1;
+    this->id = -1;
 }
 
 material::~material()

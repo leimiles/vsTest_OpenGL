@@ -52,7 +52,6 @@ private:
     shaderV2* preview_Shader;
     std::string model_Path;
     aiMatrix4x4 final_Transform;
-    std::vector<material*> preview_Materials;
     void load_Model();
     void process_Node(aiNode* node, const aiScene* sceneNode);
     mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix);
@@ -68,6 +67,7 @@ private:
     static void print_AiMatrix(aiMatrix4x4& matrix);
     static void print_SceneNode_Keys(const aiScene* sceneNode);
 public:
+    std::vector<material*> preview_Materials;
     model_Info model_Info;
     std::string current_Model_Directory;
     std::string model_Name;

@@ -56,7 +56,7 @@ void mrp::set_Model_View_Mode(unsigned int mode)
 
 void mrp::set_Quad_View_Mode(unsigned int mode)
 {
-    this->quad_View_Mode = (mode + material::current_Materials.size()) % material::current_Materials.size();
+    //this->quad_View_Mode = (mode + material::current_Materials.size()) % material::current_Materials.size();
 }
 
 // get max supported attribute

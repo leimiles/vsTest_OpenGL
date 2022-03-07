@@ -23,6 +23,7 @@ private:
     int model_View_Mode;
     int quad_View_Mode;
 public:
+    material* overide_Material;
     mrp(cam& camera);
     ~mrp();
     glm::mat4 mvp;

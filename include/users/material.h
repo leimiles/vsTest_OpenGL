@@ -13,7 +13,6 @@ private:
     void set_Textures(unsigned int texture_Count, ...);
 public:
     unsigned int id;
-    static std::vector<material*> current_Materials;
     std::string material_Name;
     material(shaderV2& shader_Program);
     ~material();
