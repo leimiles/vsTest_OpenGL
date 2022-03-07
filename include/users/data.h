@@ -15,6 +15,8 @@ public:
     static glm::vec3 some_Positions[10];
     static std::string shader_Chicken01_Vert;
     static std::string shader_Chicken01_Frag;
+    static std::string shader_Preview_Vert;
+    static std::string shader_Preview_Frag;
     data();
     ~data();
 };
