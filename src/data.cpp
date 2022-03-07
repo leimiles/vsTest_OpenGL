@@ -129,7 +129,7 @@ std::string data::shader_Preview_Frag =
 "out vec4 final_Color;\n"
 "void main()\n"
 "{\n"
-"    final_Color = vec4(0.75, 0.75, 0.0, 1.0f);\n"
+"    final_Color = vec4(1, 0.3, 0.0, 1.0f);\n"
 "}\n"
 ;
 
