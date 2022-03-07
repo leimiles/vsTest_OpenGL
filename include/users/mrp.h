@@ -20,8 +20,6 @@ class mrp
 {
 private:
     cam* camera;
-    int model_View_Mode;
-    int quad_View_Mode;
 public:
     material* overide_Material;
     mrp(cam& camera);
@@ -35,7 +33,7 @@ public:
     void set_Quad_View_Mode(unsigned int mode);
     void draw_Model(const model& mdl, bool isDepth_Test);
     void draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const;
-    void draw_Mesh(const mesh& mesh, std::vector<material*> materials, bool isDepth_Test, glm::mat4 localToWorld) const;
+    //void draw_Mesh(const mesh& mesh, std::vector<material*> materials, bool isDepth_Test, glm::mat4 localToWorld) const;
 };
 
 #endif

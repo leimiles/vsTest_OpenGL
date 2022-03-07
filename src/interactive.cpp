@@ -18,8 +18,9 @@ interactive::interactive()
     zoomSpeed = 30.0f;
     ET_Speed = 15.0f;
     draw_Mode = 1;
-    model_View_Mode = 0;
-    quad_View_Mode = 0;
+    draw_Mode_Press_Times = 0;
+    //model_View_Mode = 0;
+    //quad_View_Mode = 0;
     E = 90.0f;
     T = 0.0f;
     frameCount = 0;
@@ -100,6 +101,7 @@ void interactive::set_DeltaTime(double time)
     lastFrameTime = time;
 }
 
+/*
 void interactive::set_DrawMode(int mode)
 {
     draw_Mode = mode;
@@ -116,6 +118,7 @@ void interactive::set_DrawMode(int mode)
         break;
     }
 }
+*/
 
 void interactive::show_FPS(double time)
 {

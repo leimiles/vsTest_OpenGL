@@ -172,8 +172,6 @@ int main(int argc, char* argv[])
         switch (inter.draw_Mode)
         {
         case 1:
-            inter.quad_View_Mode = -1;
-            miles_RenderingPipeline.set_Model_View_Mode(inter.model_View_Mode);
             if (is_SplitView)
             {
                 glViewport(0, 0, width / 2, height);
@@ -187,18 +185,18 @@ int main(int argc, char* argv[])
             }
             break;
         case 2:
-            inter.model_View_Mode = -1;
-            miles_RenderingPipeline.set_Quad_View_Mode(inter.quad_View_Mode);
             if (is_SplitView)
             {
+                int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
                 glViewport(0, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials, true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials[index], true, transform::mat_Identity);
                 glViewport(width / 2, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, model02.preview_Materials, true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(quad, model02.preview_Materials[index], true, transform::mat_Identity);
             }
             else
             {
-                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials, true, transform::mat_Identity);
+                int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
+                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials[index], true, transform::mat_Identity);
             }
 
             break;
@@ -278,11 +276,27 @@ void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
     if (key == GLFW_KEY_1 && action == GLFW_PRESS)
     {
-        inter.set_DrawMode(1);
+        if (inter.draw_Mode == 1)
+        {
+            inter.draw_Mode_Press_Times++;
+        }
+        else
+        {
+            inter.draw_Mode = 1;    // change to material view
+            inter.draw_Mode_Press_Times = 0;
+        }
     }
     if (key == GLFW_KEY_2 && action == GLFW_PRESS)
     {
-        inter.set_DrawMode(2);
+        if (inter.draw_Mode == 2)
+        {
+            inter.draw_Mode_Press_Times++;
+        }
+        else
+        {
+            inter.draw_Mode = 2;    // change to material view
+            inter.draw_Mode_Press_Times = 0;
+        }
     }
 }
 
