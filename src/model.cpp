@@ -1,6 +1,6 @@
 #include "users/model.h"
 
-model::model(std::string model_Full_Path)
+model::model(std::string model_Full_Path, shaderV2& shader)
 {
     if (model_Full_Path == "")
     {
@@ -17,6 +17,7 @@ model::model(std::string model_Full_Path)
         this->model_Path = this->current_Model_Directory + this->model_Name;
     }
 
+    this->preview_Shader = &shader;
 
     load_Model();
 }
@@ -285,7 +286,7 @@ void model::extract_Materials(const aiScene* sceneNode)
     for (unsigned int i = 0; i < sceneNode->mNumMaterials; i++)
     {
         std::cout << "extract material_" << i << " [" << sceneNode->mMaterials[i]->GetName().C_Str() << "] from fbx file" << std::endl;
-        material* mat = new material(*shaderV2::current_Shader);
+        material* mat = new material(*this->preview_Shader);
         mat->material_Name = sceneNode->mMaterials[i]->GetName().C_Str();
         mat->id = i;
     }
@@ -377,7 +378,7 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
 
     this->model_Info.mesh_Infos.push_back(mesh_Info);
 
-    fill_Material(mesh);
+    bind_Material(mesh);
 
     fill_Matrix(mesh, matrix);
 
@@ -464,22 +465,22 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 
 }
 
-void model::fill_Material(mesh& mesh)
+void model::bind_Material(mesh& mesh)
 {
-    if (shaderV2::current_Shader != nullptr)
+
+    if (mesh.material == nullptr)
     {
-        if (mesh.material == nullptr)
+        mesh.material = material::current_Materials[mesh.material_ID];
+        std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
+        if (mesh.material->get_TexturesCount() == 0)
         {
-            mesh.material = material::current_Materials[mesh.material_ID];
-            std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
-            if (mesh.material->get_TexturesCount() == 0)
-            {
-                fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
-            }
+            fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
         }
-
-
     }
+
+
+
+
 
 }
 

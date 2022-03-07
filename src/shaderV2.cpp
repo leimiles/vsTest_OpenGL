@@ -1,7 +1,6 @@
 #include "users\shaderV2.h"
 
 std::string shaderV2::install_Path = "";
-shaderV2* shaderV2::current_Shader = nullptr;
 
 shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shader_FileName, bool isChecked, bool isValidated)
 {
@@ -37,7 +36,6 @@ shaderV2::shaderV2(const char* vertex_Shader_FileName, const char* fragment_Shad
         check_ShaderLinkInfo(current_Program);
     }
 
-    shaderV2::current_Shader = this;
 
 }
 
@@ -73,7 +71,6 @@ shaderV2::shaderV2(std::string vertex_Shader_String, std::string fragment_Shader
         check_ShaderLinkInfo(current_Program);
     }
 
-    shaderV2::current_Shader = this;
 }
 
 shaderV2::~shaderV2()

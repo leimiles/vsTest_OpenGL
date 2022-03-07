@@ -1,10 +1,5 @@
 #include "users/mrp.h"
 
-// init static members
-unsigned int mrp::current_VAO;
-unsigned int mrp::current_VBO;
-unsigned int mrp::current_EBO;
-
 mrp::mrp(cam& camera)
 {
     this->camera = &camera;
@@ -28,10 +23,9 @@ void mrp::clear_Buffer() const
 // release everything
 void mrp::release_Resource()
 {
-    glDeleteVertexArrays(1, &mrp::current_VAO);
-    glDeleteBuffers(1, &mrp::current_VBO);
-    glDeleteBuffers(1, &mrp::current_EBO);
-    shaderV2::current_Shader->delete_Program();
+    //glDeleteVertexArrays(1, &mrp::current_VAO);
+    //glDeleteBuffers(1, &mrp::current_VBO);
+    //glDeleteBuffers(1, &mrp::current_EBO);
 }
 
 // set draw mode, GL_TRIANGLES, GL_LINE

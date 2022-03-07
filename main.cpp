@@ -101,9 +101,10 @@ int main(int argc, char* argv[])
     //shaderV2 shader_red("shd_simple_v2.vert", "shd_simple_v3.frag", true, true);
     //shaderV2 shader_black("shd_simple_v2.vert", "shd_simple_v2.frag", true, true);
     shaderV2 shader_Chicken01(data::shader_Chicken01_Vert, data::shader_Chicken01_Frag, true);
+    shaderV2 shader_Preview(data::shader_Preview_Vert, data::shader_Preview_Frag, true);
 
-    model model01(model01_Path);
-    model model02(model02_Path);
+    model model01(model01_Path, shader_Chicken01);
+    model model02(model02_Path, shader_Chicken01);
     // compatiable orientation
     //model01.set_Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
 

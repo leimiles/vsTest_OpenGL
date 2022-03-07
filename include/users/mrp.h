@@ -19,9 +19,6 @@ enum vao_Mode {
 class mrp
 {
 private:
-    static unsigned int current_VAO;        // vertex attribute object
-    static unsigned int current_VBO;        // vertex buffer object
-    static unsigned int current_EBO;        // vertex element object
     cam* camera;
     int model_View_Mode;
     int quad_View_Mode;
