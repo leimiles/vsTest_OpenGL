@@ -303,7 +303,7 @@ void model::extract_BoneWeightForVertices(std::vector<vertexAttri_Pattern_FBX>& 
 {
 }
 
-mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix)
+mesh* model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix)
 {
     mesh_Info mesh_Info;
     mesh_Info.mesh_Name = meshNode->mName.C_Str();
@@ -377,9 +377,9 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
 
     extract_BoneWeightForVertices(vertex_Attributes, meshNode, sceneNode);
 
-    mesh mesh(vertex_Attributes, vertex_Elements);
-    mesh.mesh_Name = meshNode->mName.C_Str();
-    mesh.material_ID = meshNode->mMaterialIndex;
+    mesh* mesh = new mesh_FBX(vertex_Attributes, vertex_Elements);
+    mesh->mesh_Name = meshNode->mName.C_Str();
+    mesh->material_ID = meshNode->mMaterialIndex;
 
     this->model_Info.mesh_Infos.push_back(mesh_Info);
 
@@ -390,33 +390,33 @@ mesh model::get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const
     return mesh;
 }
 
-void model::fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix)
+void model::fill_Matrix(mesh* mesh, const aiMatrix4x4* matrix)
 {
     // asign by column 0
-    mesh.matrix_LocalToWorld[0][0] = matrix->a1;
-    mesh.matrix_LocalToWorld[1][0] = matrix->a2;
-    mesh.matrix_LocalToWorld[2][0] = matrix->a3;
-    mesh.matrix_LocalToWorld[3][0] = matrix->a4;
+    mesh->matrix_LocalToWorld[0][0] = matrix->a1;
+    mesh->matrix_LocalToWorld[1][0] = matrix->a2;
+    mesh->matrix_LocalToWorld[2][0] = matrix->a3;
+    mesh->matrix_LocalToWorld[3][0] = matrix->a4;
     // asign by column 1
-    mesh.matrix_LocalToWorld[0][1] = matrix->b1;
-    mesh.matrix_LocalToWorld[1][1] = matrix->b2;
-    mesh.matrix_LocalToWorld[2][1] = matrix->b3;
-    mesh.matrix_LocalToWorld[3][1] = matrix->b4;
+    mesh->matrix_LocalToWorld[0][1] = matrix->b1;
+    mesh->matrix_LocalToWorld[1][1] = matrix->b2;
+    mesh->matrix_LocalToWorld[2][1] = matrix->b3;
+    mesh->matrix_LocalToWorld[3][1] = matrix->b4;
     // asign by column 2
-    mesh.matrix_LocalToWorld[0][2] = matrix->c1;
-    mesh.matrix_LocalToWorld[1][2] = matrix->c2;
-    mesh.matrix_LocalToWorld[2][2] = matrix->c3;
-    mesh.matrix_LocalToWorld[3][2] = matrix->c4;
+    mesh->matrix_LocalToWorld[0][2] = matrix->c1;
+    mesh->matrix_LocalToWorld[1][2] = matrix->c2;
+    mesh->matrix_LocalToWorld[2][2] = matrix->c3;
+    mesh->matrix_LocalToWorld[3][2] = matrix->c4;
     // asign by column 3
-    mesh.matrix_LocalToWorld[0][3] = matrix->d1;
-    mesh.matrix_LocalToWorld[1][3] = matrix->d2;
-    mesh.matrix_LocalToWorld[2][3] = matrix->d3;
-    mesh.matrix_LocalToWorld[3][3] = matrix->d4;
+    mesh->matrix_LocalToWorld[0][3] = matrix->d1;
+    mesh->matrix_LocalToWorld[1][3] = matrix->d2;
+    mesh->matrix_LocalToWorld[2][3] = matrix->d3;
+    mesh->matrix_LocalToWorld[3][3] = matrix->d4;
 }
 
-glm::mat4 model::get_Matrix_LocalToWorld(const mesh& mesh) const
+glm::mat4 model::get_Matrix_LocalToWorld(const mesh* mesh) const
 {
-    return this->object::get_Matrix_LocalToWorld() * mesh.matrix_LocalToWorld;
+    return this->object::get_Matrix_LocalToWorld() * mesh->matrix_LocalToWorld;
 }
 
 
@@ -470,29 +470,15 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 
 }
 
-void model::bind_Material(mesh& mesh, unsigned int preview_Material_ID)
+void model::bind_Material(mesh* mesh, unsigned int preview_Material_ID)
 {
 
-    /*
-    if (mesh.material == nullptr)
-    {
-        mesh.material = material::current_Materials[mesh.material_ID];
-        std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
-        if (mesh.material->get_TexturesCount() == 0)
-        {
-            fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
-        }
-    }
-    */
     if (preview_Material_ID < this->preview_Materials.size())
     {
-        mesh.material = this->preview_Materials[preview_Material_ID];
-        std::cout << "mesh [" << mesh.mesh_Name << "] using material_" << mesh.material_ID << " [" << mesh.material->material_Name << "]" << std::endl;
-        fill_Textures_Chicken01(mesh.material, mesh.mesh_Name);
+        mesh->material = this->preview_Materials[preview_Material_ID];
+        std::cout << "mesh [" << mesh->mesh_Name << "] using material_" << mesh->material_ID << " [" << mesh->material->material_Name << "]" << std::endl;
+        fill_Textures_Chicken01(mesh->material, mesh->mesh_Name);
     }
-
-
-
 
 }
 
@@ -501,7 +487,7 @@ void model::set_Material_ForSubMesh(unsigned int submesh_id, material& material)
 {
     if (submesh_id < this->submeshes.size() && submesh_id >= 0)
     {
-        this->submeshes[submesh_id].material = &material;
+        this->submeshes[submesh_id]->material = &material;
     }
     else
     {

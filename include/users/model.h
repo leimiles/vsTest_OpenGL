@@ -54,10 +54,10 @@ private:
     aiMatrix4x4 final_Transform;
     void load_Model();
     void process_Node(aiNode* node, const aiScene* sceneNode);
-    mesh get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix);
+    mesh* get_Processed_Mesh(aiMesh* meshNode, const aiScene* sceneNode, const aiMatrix4x4* matrix);
     void extract_Materials(const aiScene* sceneNode);
-    void bind_Material(mesh& mesh, unsigned int preview_Material_ID);
-    void fill_Matrix(mesh& mesh, const aiMatrix4x4* matrix);
+    void bind_Material(mesh* mesh, unsigned int preview_Material_ID);
+    void fill_Matrix(mesh* mesh, const aiMatrix4x4* matrix);
     void fill_Textures_Chicken01(material* material, std::string& meshName);
     void calculate_FinalTransform(aiNode* node);
     void reset_FinalTransform();
@@ -71,11 +71,11 @@ public:
     model_Info model_Info;
     std::string current_Model_Directory;
     std::string model_Name;
-    std::vector<mesh> submeshes;
+    std::vector<mesh*> submeshes;
     model(std::string model_Full_Path, shaderV2& shader);
     ~model();
     void set_Material_ForSubMesh(unsigned int submesh_id, material& material);
-    glm::mat4 get_Matrix_LocalToWorld(const mesh& mesh) const;
+    glm::mat4 get_Matrix_LocalToWorld(const mesh* mesh) const;
 };
 
 #endif

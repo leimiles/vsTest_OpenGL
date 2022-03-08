@@ -33,7 +33,7 @@ public:
     void set_Model_View_Mode(unsigned int mode);
     void set_Quad_View_Mode(unsigned int mode);
     void draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode = 0);
-    void draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const;
+    void draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const;
     void draw_SplitLine() const;
     //void draw_Mesh(const mesh& mesh, std::vector<material*> materials, bool isDepth_Test, glm::mat4 localToWorld) const;
 };

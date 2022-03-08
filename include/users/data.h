@@ -7,7 +7,7 @@
 struct data
 {
     static float help_Quad_Attributes[32];
-    static float help_SplitLine_Attributes[];
+    static float help_SplitLine_Attributes[12];
     static unsigned int help_Quad_Indices[6];
     static float cube_Example_Attributes[180];
     static glm::vec3 some_Positions[10];
@@ -15,6 +15,8 @@ struct data
     static std::string shader_Chicken01_Frag;
     static std::string shader_Wireframe_Vert;
     static std::string shader_Wireframe_Frag;
+    static std::string shader_NDC_Vert;
+    static std::string shader_NDC_Frag;
 };
 
 #endif

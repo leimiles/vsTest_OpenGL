@@ -1,15 +1,15 @@
 #include "users/mesh.h"
 
-mesh::mesh(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<unsigned int> vertex_Elements)
+mesh_FBX::mesh_FBX(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<unsigned int> vertex_Elements)
 {
     this->vertex_Attributes_FBX = vertex_Attributes;
     this->vertex_Elements = vertex_Elements;
-    setup_Mesh_FBX();
+    setup_Mesh();
     this->material = nullptr;
     this->matrix_LocalToWorld = transform::mat_Identity;
 }
 
-mesh::mesh(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size, unsigned int* elements)
+mesh_Simple::mesh_Simple(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size, unsigned int* elements)
 {
     for (unsigned int i = 0; i < attributes_Size; i += stride)
     {
@@ -30,42 +30,27 @@ mesh::mesh(unsigned int stride, unsigned int attributes_Size, float* attributes,
         vertex_Elements.push_back(elements[i]);
     }
 
-    setup_Mesh_Simple();
+    setup_Mesh();
     this->material = nullptr;
     this->matrix_LocalToWorld = transform::mat_Identity;
 
-    /*
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * attributes_Size, attributes, GL_STATIC_DRAW);
-
-        if (elements_Size > 0) {
-            glGenBuffers(1, &ebo);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * elements_Size, elements, GL_STATIC_DRAW);
-        }
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * stride, (void*)0);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * stride, (void*)(sizeof(float) * 3));
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * stride, (void*)(sizeof(float) * 6));
-        glEnableVertexAttribArray(2);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-    */
 }
 
+mesh::mesh()
+{
+}
 mesh::~mesh()
 {
 }
+mesh_Simple::~mesh_Simple()
+{
+}
+mesh_FBX::~mesh_FBX()
+{
+}
 
-void mesh::setup_Mesh_FBX()
+
+void mesh_FBX::setup_Mesh()
 {
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
@@ -112,7 +97,7 @@ void mesh::setup_Mesh_FBX()
 
 }
 
-void mesh::setup_Mesh_Simple()
+void mesh_Simple::setup_Mesh()
 {
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);

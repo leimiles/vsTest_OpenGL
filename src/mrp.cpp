@@ -64,7 +64,7 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode
         for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
         {
 
-            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
+            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i]->material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
 
         }
         break;
@@ -85,7 +85,7 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode
         for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
         {
 
-            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
+            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i]->material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
 
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -104,7 +104,7 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode
 
 }
 
-void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const
+void mrp::draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const
 {
     if (material == nullptr)
     {
@@ -128,8 +128,8 @@ void mrp::draw_Mesh(const mesh& mesh, const material* material, bool isDepth_Tes
 
     material->use_Textures();
 
-    glBindVertexArray(mesh.vao);
-    glDrawElements(GL_TRIANGLES, mesh.vertex_Elements.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(mesh->vao);
+    glDrawElements(GL_TRIANGLES, mesh->vertex_Elements.size(), GL_UNSIGNED_INT, 0);
     material->release_Textures();
 
 }

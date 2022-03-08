@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
     miles_RenderingPipeline.wireframe_Material = &material_Wireframe;
 
     // help quad
-    mesh quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
+    mesh_Simple quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
 
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
@@ -193,14 +193,14 @@ int main(int argc, char* argv[])
             {
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
                 glViewport(0, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials[index], true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(&quad, model01.preview_Materials[index], true, transform::mat_Identity);
                 glViewport(width / 2, 0, width / 2, height);
-                miles_RenderingPipeline.draw_Mesh(quad, model02.preview_Materials[index], true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(&quad, model02.preview_Materials[index], true, transform::mat_Identity);
             }
             else
             {
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
-                miles_RenderingPipeline.draw_Mesh(quad, model01.preview_Materials[index], true, transform::mat_Identity);
+                miles_RenderingPipeline.draw_Mesh(&quad, model01.preview_Materials[index], true, transform::mat_Identity);
             }
 
             break;

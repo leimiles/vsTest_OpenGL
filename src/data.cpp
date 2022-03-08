@@ -114,6 +114,14 @@ std::string data::shader_Wireframe_Vert =
 "}\n"
 ;
 
+std::string data::shader_NDC_Vert =
+"#version 330\n"
+"layout (location = 0) in vec3 pos_NDC;\n"
+"void main() {\n"
+"    gl_Position = vec4(pos_NDC, 1.0f);\n"
+"}\n"
+;
+
 std::string data::shader_Chicken01_Frag =
 "#version 330\n"
 "struct surface\n"
@@ -134,6 +142,16 @@ std::string data::shader_Chicken01_Frag =
 ;
 
 std::string data::shader_Wireframe_Frag =
+"#version 330\n"
+"out vec4 final_Color;\n"
+"uniform vec4 color;\n"
+"void main()\n"
+"{\n"
+"    final_Color = color;\n"
+"}\n"
+;
+
+std::string data::shader_NDC_Frag =
 "#version 330\n"
 "out vec4 final_Color;\n"
 "uniform vec4 color;\n"

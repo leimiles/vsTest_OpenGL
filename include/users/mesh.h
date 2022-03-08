@@ -40,23 +40,37 @@ struct mesh_Info
 
 class mesh
 {
-private:
+protected:
     unsigned int vbo;        // vertex buffer object
     unsigned int ebo;        // vertex element object
-    void setup_Mesh_FBX();
-    void setup_Mesh_Simple();
 public:
+    virtual void setup_Mesh() = 0;
     std::string mesh_Name;
     unsigned int material_ID;
     glm::mat4 matrix_LocalToWorld;
     unsigned int vao;        // vertex attribute object
     material* material;
-    std::vector<vertexAttri_Pattern_FBX> vertex_Attributes_FBX;
-    std::vector<vertexAttri_Pattern_Simple> vertex_Attributes_Simple;
     std::vector<unsigned int> vertex_Elements;
-    mesh(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<unsigned int> vertex_Elements);
-    mesh(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size = 0, unsigned int* elements = nullptr);
+    mesh();
     ~mesh();
+};
+
+class mesh_Simple : public mesh
+{
+public:
+    std::vector<vertexAttri_Pattern_Simple> vertex_Attributes_Simple;
+    mesh_Simple(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size = 0, unsigned int* elements = nullptr);
+    ~mesh_Simple();
+    virtual void setup_Mesh() override;
+};
+
+class mesh_FBX : public mesh
+{
+public:
+    std::vector<vertexAttri_Pattern_FBX> vertex_Attributes_FBX;
+    mesh_FBX(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<unsigned int> vertex_Elements);
+    ~mesh_FBX();
+    virtual void setup_Mesh() override;
 };
 
 #endif
