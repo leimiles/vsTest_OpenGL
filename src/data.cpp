@@ -15,6 +15,14 @@ float data::help_Quad_Attributes[] = {
     0.0f, 1.0f              // uv
 };
 
+float data::help_SplitLine_Attributes[] = {
+    0.0f, 1.0f, 0.0f,   // position ndc
+    0.0f, 1.0f, 0.0f,   // color
+
+    0.0f, -1.0f, 0.0f,
+    0.0f, 1.0f, 0.0f
+};
+
 // not clock-wise ???
 unsigned int data::help_Quad_Indices[] = {
     0, 1, 3,    // 1st triangle

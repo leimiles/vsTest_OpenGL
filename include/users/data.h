@@ -4,12 +4,10 @@
 #include "glm/glm.hpp"
 #include <string>
 
-class data
+struct data
 {
-private:
-    /* data */
-public:
     static float help_Quad_Attributes[32];
+    static float help_SplitLine_Attributes[];
     static unsigned int help_Quad_Indices[6];
     static float cube_Example_Attributes[180];
     static glm::vec3 some_Positions[10];
@@ -17,8 +15,6 @@ public:
     static std::string shader_Chicken01_Frag;
     static std::string shader_Wireframe_Vert;
     static std::string shader_Wireframe_Frag;
-    data();
-    ~data();
 };
 
 #endif
