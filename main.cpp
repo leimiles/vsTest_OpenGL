@@ -278,7 +278,6 @@ void processInput(GLFWwindow* window)
 // key press event
 void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    inter.reset_View();
     if (key == GLFW_KEY_1 && action == GLFW_PRESS)
     {
 
