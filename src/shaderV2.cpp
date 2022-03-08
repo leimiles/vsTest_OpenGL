@@ -174,3 +174,23 @@ void shaderV2::set_Int(const char* parameter_Name, int value)
 {
     glUniform1i(get_ParameterLocation(parameter_Name), value);
 }
+
+void shaderV2::set_Float(const char* parameter_Name, float value)
+{
+    glUniform1f(get_ParameterLocation(parameter_Name), value);
+}
+
+void shaderV2::set_Vector4(const char* parameter_Name, float x, float y, float z, float w)
+{
+    glUniform4f(get_ParameterLocation(parameter_Name), x, y, z, w);
+}
+
+void shaderV2::set_Vector3(const char* parameter_Name, float x, float y, float z)
+{
+    glUniform3f(get_ParameterLocation(parameter_Name), x, y, z);
+}
+
+void shaderV2::set_Vector2(const char* parameter_Name, float x, float y)
+{
+    glUniform2f(get_ParameterLocation(parameter_Name), x, y);
+}

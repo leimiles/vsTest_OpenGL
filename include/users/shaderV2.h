@@ -29,6 +29,9 @@ public:
     void delete_Program();
     void use_Program();
     void set_Float(const char* parameter_Name, float value);
+    void set_Vector4(const char* parameter_Name, float x, float y, float z, float w);
+    void set_Vector3(const char* parameter_Name, float x, float y, float z);
+    void set_Vector2(const char* parameter_Name, float x, float y);
     void set_Int(const char* parameter_Name, int value);
     void set_Matrix(const char* paramter_Name, glm::mat4 mat);
     unsigned int get_ParameterLocation(const char* parameter_Name);

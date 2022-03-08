@@ -81,6 +81,13 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode
         }
         break;
     case 2:
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
+        {
+
+            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
+
+        }
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
         {
@@ -88,13 +95,6 @@ void mrp::draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode
             {
                 draw_Mesh(mdl.submeshes[i], this->wireframe_Material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
             }
-        }
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        for (unsigned int i = 0; i < mdl.submeshes.size(); i++)
-        {
-
-            draw_Mesh(mdl.submeshes[i], mdl.submeshes[i].material, isDepth_Test, mdl.get_Matrix_LocalToWorld(mdl.submeshes[i]));
-
         }
         break;
     default:
