@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
 
     std::string model01_Path = "";
     std::string model02_Path = "NULL";
+    std::string configure_Path = "";
 
     // read file from anywhere
     if (argc == 2)
@@ -49,6 +50,17 @@ int main(int argc, char* argv[])
     {
         model01_Path = argv[1];
         model02_Path = argv[2];
+
+        is_SplitView = true;
+        width = 1600;
+    }
+    else if (argc == 4)
+    {
+        model01_Path = argv[1];
+        model02_Path = argv[2];
+
+        configure_Path = argv[3];
+        std::cout << "configure path: " << configure_Path << std::endl;
 
         is_SplitView = true;
         width = 1600;
@@ -147,8 +159,14 @@ int main(int argc, char* argv[])
     material material_Wireframe(shader_Wireframe);
     miles_RenderingPipeline.wireframe_Material = &material_Wireframe;
 
+    shaderV2 shader_NDC(data::shader_NDC_Vert, data::shader_NDC_Frag, true, "ndc");
+    material material_NDC(shader_NDC);
+    miles_RenderingPipeline.material_NDC = &material_NDC;
+
     // help quad
     mesh_Simple quad(8, 32, data::help_Quad_Attributes, 6, data::help_Quad_Indices);
+    // help screen line
+    mesh_NDC screenLine(6, 12, data::help_SplitLine_Attributes, 2, data::help_SplitLine_Indices);
 
     // this where the while loop ( render loop ) begins, iteration of the render loop is also called a frame
     while (!glfwWindowShouldClose(window))
@@ -172,7 +190,7 @@ int main(int argc, char* argv[])
         //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-        miles_RenderingPipeline.draw_ScreenMesh();
+        miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
         switch (inter.draw_Mode)
         {
         case 1:
@@ -194,7 +212,6 @@ int main(int argc, char* argv[])
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             if (is_SplitView)
             {
-                miles_RenderingPipeline.draw_ScreenMesh();
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
                 glViewport(0, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Mesh(&quad, model01.preview_Materials[index], true, transform::mat_Identity);

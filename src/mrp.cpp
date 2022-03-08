@@ -3,14 +3,10 @@
 mrp::mrp(cam& camera)
 {
     this->camera = &camera;
-    this->init();
 }
 
 mrp::~mrp()
 {
-    delete this->screen_Mesh;
-    delete this->shader_NDC;
-    delete this->material_NDC;
 }
 
 // set(clear) color buffer with specified color
@@ -117,15 +113,14 @@ void mrp::draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Tes
 
 }
 
-void mrp::draw_ScreenMesh() const
+void mrp::draw_ScreenLine(const mesh_NDC* mesh, bool isDepth_Test) const
 {
-    draw_Mesh(this->screen_Mesh, this->material_NDC, false, transform::mat_Identity);
+    if (this->material_NDC)
+    {
+        this->material_NDC->active();
+        glBindVertexArray(mesh->vao);
+        glDrawElements(GL_LINES, mesh->vertex_Elements.size(), GL_UNSIGNED_INT, 0);
+    }
 }
 
-void mrp::init()
-{
-    this->screen_Mesh = new mesh_NDC(6, 18, data::help_SplitLine_Attributes, 3, data::help_SplitLine_Indices);
-    this->shader_NDC = new shaderV2(data::shader_NDC_Vert, data::shader_NDC_Frag, true, "ndc");
-    this->material_NDC = new material(*this->shader_NDC);
-}
 

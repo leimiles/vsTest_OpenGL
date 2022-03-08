@@ -27,14 +27,11 @@ float data::help_SplitLine_Attributes[] = {
 
     0.0f, 0.5f, 0.0f,   // ndc top left
     0.8f, 0.3f, 0.3f,   // color
-
-    0.5f, 0.0f, 0.0f,
-    0.8f, 0.3f, 0.3f,
 };
 
 // must be clock-wise
 unsigned int data::help_SplitLine_Indices[] = {
-    0, 2, 1
+    0, 1
 };
 
 

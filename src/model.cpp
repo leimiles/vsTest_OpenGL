@@ -24,6 +24,8 @@ model::model(std::string model_Full_Path, shaderV2& shader)
     this->preview_Shader = &shader;
 
     load_Model();
+
+    //std::cout << "current path: " << std::filesystem::current_path() << std::endl;
 }
 
 model::~model()
@@ -424,6 +426,8 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 {
 
     texture::textures_Directory = this->current_Model_Directory == DEFAULT_MODEL_DIR ? DEFAULT_TEXTURE_DIR : this->current_Model_Directory;
+    //std::cout << "texture directory: " << texture::textures_Directory << std::endl;
+
     // find diffuse map
     std::string diffuse_Regex_String = "^" + meshName + "_[D,d]\\.(jpg|png|tga|psd)$";
     std::regex diffuseMap_Regex(diffuse_Regex_String);
