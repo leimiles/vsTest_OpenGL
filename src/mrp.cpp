@@ -117,7 +117,7 @@ void mrp::draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Tes
 
 }
 
-void mrp::draw_SplitLine() const
+void mrp::draw_ScreenMesh() const
 {
     draw_Mesh(this->screen_Mesh, this->material_NDC, false, transform::mat_Identity);
 }

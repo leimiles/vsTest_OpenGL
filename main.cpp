@@ -165,12 +165,14 @@ int main(int argc, char* argv[])
 
         // clear target
         miles_RenderingPipeline.clear_Buffer();
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
 
         // draw mode
         //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-        miles_RenderingPipeline.draw_SplitLine();
+        miles_RenderingPipeline.draw_ScreenMesh();
         switch (inter.draw_Mode)
         {
         case 1:
@@ -192,7 +194,7 @@ int main(int argc, char* argv[])
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             if (is_SplitView)
             {
-                miles_RenderingPipeline.draw_SplitLine();
+                miles_RenderingPipeline.draw_ScreenMesh();
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
                 glViewport(0, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Mesh(&quad, model01.preview_Materials[index], true, transform::mat_Identity);

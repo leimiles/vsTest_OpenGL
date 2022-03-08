@@ -17,8 +17,8 @@ float data::help_Quad_Attributes[] = {
 
 // not clock-wise ???
 unsigned int data::help_Quad_Indices[] = {
-    0, 1, 3,    // 1st triangle
-    1, 2, 3     // 2nd triangle
+    0, 3, 1,    // 1st triangle
+    1, 3, 2     // 2nd triangle
 };
 
 float data::help_SplitLine_Attributes[] = {
@@ -32,8 +32,9 @@ float data::help_SplitLine_Attributes[] = {
     0.8f, 0.3f, 0.3f,
 };
 
+// must be clock-wise
 unsigned int data::help_SplitLine_Indices[] = {
-    0, 1, 2
+    0, 2, 1
 };
 
 
