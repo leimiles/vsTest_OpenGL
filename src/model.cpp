@@ -461,7 +461,7 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
         }
     }
 
-    if (material->get_TexturesCount() == 0)
+    if (material->textures.size() == 0)
     {
         std::cout << "\t material [" << material->material_Name << "] has no textures." << std::endl;
     }

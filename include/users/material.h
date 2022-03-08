@@ -9,13 +9,14 @@ class material
 {
 private:
     shaderV2* shader;
-    std::vector<texture*> textures;
     void set_Textures(unsigned int texture_Count, ...);
 public:
     unsigned int id;
+    std::vector<texture*> textures;
     std::string material_Name;
     material(shaderV2& shader_Program);
     ~material();
+    void set_Vector4(const char* vec4_VariableName, float x, float y, float z, float w) const;
     void set_Matrix_MVP(glm::mat4& mvp) const;
     void set_Matrix_LocalToWorld(glm::mat4& localToWorld) const;
     void set_Matrix_WorldToView(glm::mat4& worldToView) const;
@@ -23,7 +24,6 @@ public:
     void set_Matrix_ViewToPerspectiveProjection(glm::mat4& viewToPerspectiveProjection) const;
     void active() const;
     void set_Texture(const char* texture_VariableName, texture& texture);
-    unsigned int get_TexturesCount();
     void use_Textures() const;
     void release_Textures() const;
 };

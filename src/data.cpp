@@ -102,8 +102,7 @@ std::string data::shader_Wireframe_Vert =
 "layout (location = 1) in vec3 normal_Obj;\n"
 "uniform mat4 matrix_MVP;\n"
 "void main() {\n"
-"    vec3 new_Pos_Obj = pos_Obj + normal_Obj * 0.05;\n"
-"    gl_Position = matrix_MVP * vec4(new_Pos_Obj, 1.0f);\n"
+"    gl_Position = matrix_MVP * vec4(pos_Obj, 1.0f);\n"
 "}\n"
 ;
 
@@ -129,9 +128,10 @@ std::string data::shader_Chicken01_Frag =
 std::string data::shader_Wireframe_Frag =
 "#version 330\n"
 "out vec4 final_Color;\n"
+"uniform vec4 color;\n"
 "void main()\n"
 "{\n"
-"    final_Color = vec4(1, 0.3, 0.0, 1.0f);\n"
+"    final_Color = color;\n"
 "}\n"
 ;
 

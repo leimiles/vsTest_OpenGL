@@ -61,11 +61,6 @@ void material::set_Texture(const char* texture_VariableName, texture& texture)
     textures.push_back(&texture);
 }
 
-unsigned int material::get_TexturesCount()
-{
-    return this->textures.size();
-}
-
 void material::use_Textures() const
 {
     for (int i = 0; i < textures.size(); i++)
@@ -84,5 +79,10 @@ void material::release_Textures() const
         glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+}
+
+void material::set_Vector4(const char* vec4_VariableName, float x, float y, float z, float w) const
+{
+    shader->set_Vector4(vec4_VariableName, x, y, z, w);
 }
 
