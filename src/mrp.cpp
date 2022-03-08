@@ -3,10 +3,14 @@
 mrp::mrp(cam& camera)
 {
     this->camera = &camera;
+    this->init();
 }
 
 mrp::~mrp()
 {
+    delete this->screen_Mesh;
+    delete this->shader_NDC;
+    delete this->material_NDC;
 }
 
 // set(clear) color buffer with specified color
@@ -25,27 +29,6 @@ void mrp::release_Resource()
     //glDeleteBuffers(1, &mrp::current_VBO);
     //glDeleteBuffers(1, &mrp::current_EBO);
 }
-
-// set draw mode, GL_TRIANGLES, GL_LINE
-void mrp::set_Draw_Mode(unsigned int draw_Mode)
-{
-    switch (draw_Mode)
-    {
-    case 1:
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        break;
-    case 2:
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        break;
-    case 3:
-        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-        break;
-    default:
-        break;
-    }
-
-}
-
 
 // get max supported attribute
 int mrp::get_MaxVertex_Attributes()
@@ -134,4 +117,15 @@ void mrp::draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Tes
 
 }
 
+void mrp::draw_SplitLine() const
+{
+    draw_Mesh(this->screen_Mesh, this->material_NDC, false, transform::mat_Identity);
+}
+
+void mrp::init()
+{
+    this->screen_Mesh = new mesh_NDC(6, 18, data::help_SplitLine_Attributes, 3, data::help_SplitLine_Indices);
+    this->shader_NDC = new shaderV2(data::shader_NDC_Vert, data::shader_NDC_Frag, true, "ndc");
+    this->material_NDC = new material(*this->shader_NDC);
+}
 

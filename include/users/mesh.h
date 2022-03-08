@@ -26,6 +26,12 @@ struct vertexAttri_Pattern_Simple
     glm::vec2 texcoords;
 };
 
+struct vertexAttri_Pattern_NDC
+{
+    glm::vec3 position_NDC;
+    glm::vec3 color;
+};
+
 struct mesh_Info
 {
     std::string mesh_Name;
@@ -70,6 +76,15 @@ public:
     std::vector<vertexAttri_Pattern_FBX> vertex_Attributes_FBX;
     mesh_FBX(std::vector<vertexAttri_Pattern_FBX> vertex_Attributes, std::vector<unsigned int> vertex_Elements);
     ~mesh_FBX();
+    virtual void setup_Mesh() override;
+};
+
+class mesh_NDC : public mesh
+{
+public:
+    std::vector<vertexAttri_Pattern_NDC> vertex_Attributes_NDC;
+    mesh_NDC(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size = 0, unsigned int* elements = nullptr);
+    ~mesh_NDC();
     virtual void setup_Mesh() override;
 };
 

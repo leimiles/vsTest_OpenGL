@@ -15,19 +15,27 @@ float data::help_Quad_Attributes[] = {
     0.0f, 1.0f              // uv
 };
 
-float data::help_SplitLine_Attributes[] = {
-    0.0f, 1.0f, 0.0f,   // position ndc
-    0.0f, 1.0f, 0.0f,   // color
-
-    0.0f, -1.0f, 0.0f,
-    0.0f, 1.0f, 0.0f
-};
-
 // not clock-wise ???
 unsigned int data::help_Quad_Indices[] = {
     0, 1, 3,    // 1st triangle
     1, 2, 3     // 2nd triangle
 };
+
+float data::help_SplitLine_Attributes[] = {
+    -0.5f, 0.0f, 0.0f,   // ndc bottom left
+    0.8f, 0.3f, 0.3f,   // color
+
+    0.0f, 0.5f, 0.0f,   // ndc top left
+    0.8f, 0.3f, 0.3f,   // color
+
+    0.5f, 0.0f, 0.0f,
+    0.8f, 0.3f, 0.3f,
+};
+
+unsigned int data::help_SplitLine_Indices[] = {
+    0, 1, 2
+};
+
 
 // this is a cube
 float data::cube_Example_Attributes[] = {
@@ -100,7 +108,7 @@ std::string data::shader_Chicken01_Vert =
 "uniform mat4 matrix_Eye;\n"
 "void main() {\n"
 "    out_UV = texcoords;\n"
-"    gl_Position = matrix_MVP * vec4(pos_Obj, 1.0f);\n"
+"    gl_Position = matrix_MVP * vec4(pos_Obj, 1.0);\n"
 "}\n"
 ;
 
@@ -110,15 +118,18 @@ std::string data::shader_Wireframe_Vert =
 "layout (location = 1) in vec3 normal_Obj;\n"
 "uniform mat4 matrix_MVP;\n"
 "void main() {\n"
-"    gl_Position = matrix_MVP * vec4(pos_Obj, 1.0f);\n"
+"    gl_Position = matrix_MVP * vec4(pos_Obj, 1.0);\n"
 "}\n"
 ;
 
 std::string data::shader_NDC_Vert =
 "#version 330\n"
 "layout (location = 0) in vec3 pos_NDC;\n"
+"layout (location = 1) in vec3 color;\n"
+"out vec4 vertex_Color;\n"
 "void main() {\n"
-"    gl_Position = vec4(pos_NDC, 1.0f);\n"
+"   vertex_Color = vec4(color, 1.0);\n"
+"   gl_Position = vec4(pos_NDC, 1.0);\n"
 "}\n"
 ;
 
@@ -154,10 +165,10 @@ std::string data::shader_Wireframe_Frag =
 std::string data::shader_NDC_Frag =
 "#version 330\n"
 "out vec4 final_Color;\n"
-"uniform vec4 color;\n"
+"in vec4 vertex_Color;\n"
 "void main()\n"
 "{\n"
-"    final_Color = color;\n"
+"    final_Color = vertex_Color;\n"
 "}\n"
 ;
 

@@ -20,18 +20,18 @@ class mrp
 {
 private:
     cam* camera;
+    mesh_NDC* screen_Mesh;
+    shaderV2* shader_NDC;
+    material* material_NDC;
+    void init();
 public:
     material* overide_Material;
     material* wireframe_Material;
     mrp(cam& camera);
     ~mrp();
-    glm::mat4 mvp;
     void clear_Buffer() const;
     void release_Resource();
     int get_MaxVertex_Attributes();
-    void set_Draw_Mode(unsigned int draw_Mode);
-    void set_Model_View_Mode(unsigned int mode);
-    void set_Quad_View_Mode(unsigned int mode);
     void draw_Model(const model& mdl, bool isDepth_Test, unsigned int fill_Mode = 0);
     void draw_Mesh(const mesh* mesh, const material* material, bool isDepth_Test, glm::mat4 localToWorld) const;
     void draw_SplitLine() const;

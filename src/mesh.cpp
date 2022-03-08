@@ -36,6 +36,30 @@ mesh_Simple::mesh_Simple(unsigned int stride, unsigned int attributes_Size, floa
 
 }
 
+mesh_NDC::mesh_NDC(unsigned int stride, unsigned int attributes_Size, float* attributes, unsigned int elements_Size, unsigned int* elements)
+{
+    for (unsigned int i = 0; i < attributes_Size; i += stride)
+    {
+        vertexAttri_Pattern_NDC vertex_Attribute_NDC;
+        vertex_Attribute_NDC.position_NDC.x = attributes[i];
+        vertex_Attribute_NDC.position_NDC.y = attributes[i + 1];
+        vertex_Attribute_NDC.position_NDC.z = attributes[i + 2];
+        vertex_Attribute_NDC.color.x = attributes[i + 3];
+        vertex_Attribute_NDC.color.y = attributes[i + 4];
+        vertex_Attribute_NDC.color.z = attributes[i + 5];
+        vertex_Attributes_NDC.push_back(vertex_Attribute_NDC);
+    }
+
+    for (unsigned int i = 0; i < elements_Size; i++)
+    {
+        vertex_Elements.push_back(elements[i]);
+    }
+
+    setup_Mesh();
+    this->material = nullptr;
+    this->matrix_LocalToWorld = transform::mat_Identity;
+}
+
 mesh::mesh()
 {
 }
@@ -48,7 +72,10 @@ mesh_Simple::~mesh_Simple()
 mesh_FBX::~mesh_FBX()
 {
 }
+mesh_NDC::~mesh_NDC()
+{
 
+}
 
 void mesh_FBX::setup_Mesh()
 {
@@ -127,4 +154,32 @@ void mesh_Simple::setup_Mesh()
     // make it free
     glBindVertexArray(0);
 
+}
+
+void mesh_NDC::setup_Mesh()
+{
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
+
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, vertex_Attributes_NDC.size() * sizeof(vertexAttri_Pattern_NDC), &vertex_Attributes_NDC[0], GL_STATIC_DRAW);
+
+    if (vertex_Elements.size() > 0)
+    {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertex_Elements.size() * sizeof(unsigned int), &vertex_Elements[0], GL_STATIC_DRAW);
+    }
+
+    // position
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertexAttri_Pattern_NDC), (void*)0);
+    // color
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertexAttri_Pattern_NDC), (void*)offsetof(vertexAttri_Pattern_NDC, color));
+
+    // make it free
+    glBindVertexArray(0);
 }
