@@ -22,11 +22,12 @@ unsigned int data::help_Quad_Indices[] = {
 };
 
 float data::help_SplitLine_Attributes[] = {
-    -0.5f, 0.0f, 0.0f,   // ndc bottom left
-    0.8f, 0.3f, 0.3f,   // color
+    -0.999f, -1.0f, 0.0f,   // ndc bottom left
+    0.3f, 0.3f, 0.8f,   // color
 
-    0.0f, 0.5f, 0.0f,   // ndc top left
-    0.8f, 0.3f, 0.3f,   // color
+    -0.999f, 1.0f, 0.0f,   // ndc top left
+    0.8f, 0.3f, 0.5f   // color
+
 };
 
 // must be clock-wise

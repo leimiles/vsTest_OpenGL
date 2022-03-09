@@ -216,13 +216,14 @@ int main(int argc, char* argv[])
         // draw mode
         //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        material_Wireframe.set_Vector4("color", 0.65, 0.6, 0.28, 1.0);
 
-        //miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
         switch (inter.draw_Mode)
         {
         case 1:
             if (is_SplitView)
             {
+                miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
                 int fill_Mode = (inter.draw_Mode_Press_Times + 3) % 3;
                 glViewport(0, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Model(model01, true, fill_Mode);
@@ -239,6 +240,7 @@ int main(int argc, char* argv[])
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             if (is_SplitView)
             {
+                miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
                 int index = (inter.draw_Mode_Press_Times + model01.preview_Materials.size()) % model01.preview_Materials.size();
                 glViewport(0, 0, width / 2, height);
                 miles_RenderingPipeline.draw_Mesh(&quad, model01.preview_Materials[index], true, transform::mat_Identity);
