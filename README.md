@@ -1,5 +1,16 @@
 # vsTest_OpenGL
 
+## 十二，开发日志 2022/03/09
+### 1，主要特性
+>* 优化了 diff 的模块
+>* 添加了配置文件 mdv.txt 的支持，用来制定寻找贴图的路径，格式为: texture_Folder_Path "贴图文件夹的路径"
+>>* 例如我的 mdv.txt 中第一行的内容是 [texture_Folder_Path C:\Asset\Textures] (注意中间有一个空格)
+>>* 需要在 fork 中将配置文件 (mdv.txt)，的绝对路径配置到 external diff tool arguments 的第三个参数中，例如[$LOCAL $REMOTE C:\mdv.txt]
+### 2，待开发
+>* 显示坐标轴，基础光照模型，显示骨骼，使用 UI 显示模型信息，自动计算模型视角
+
+---
+
 ## 十一，开发日志 2022/03/04
 ### 1，主要特性
 >* 增加了对作为 fork 外部 Diff 工具的支持
