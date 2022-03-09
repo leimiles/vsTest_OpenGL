@@ -16,6 +16,8 @@ set(IMGUI_INCLUDE
     ${PROJECT_SOURCE_DIR}/thirdParty/imgui/backends
 )
 
+SET(CMAKE_BUILD_TYPE Release)
+
 add_library(mylib
     interactive.cpp
     texture.cpp

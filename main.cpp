@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 
 
     // create glfw window object with given parameters
-    GLFWwindow* window = glfwCreateWindow(width, height, "慧渊's Model Reviewer By Miles", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "慧渊's Model Reviewer By Miles (dev)", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;

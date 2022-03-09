@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.21.3)  #cmake 最小版本
 
+SET(CMAKE_BUILD_TYPE Release)   #The build configurations generated do not contain the active build configuration.
+
 project(MDV VERSION 0.12) #工程当前版本
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+#SET(CMAKE_BUILD_TYPE Release)
+#message("cmake build type: " ${CMAKE_BUILD_TYPE})
 
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/install" CACHE PATH "..." FORCE)        #设置安装目录
 
@@ -81,5 +86,7 @@ add_subdirectory(thirdParty/glad)   #构建时包含第三方库下的 glad 文�
 add_subdirectory(thirdParty/assimp)   #构建时包含第三方库下的 glad 文件夹，若文件夹内包含 CMakeLists.txt 文件，则会执行
 target_link_libraries(${EXE_NAME} glfw glad mylib)    #构建时链接指定的库
 
-install(TARGETS ${EXE_NAME} DESTINATION ./)        #安装在项目目录的 mdv 文件夹下
+install(
+    TARGETS ${EXE_NAME} 
+    DESTINATION ./)        #安装在项目目录的 mdv 文件夹下
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resources DESTINATION ./)    #安装在项目目录的 mdv 文件夹下
