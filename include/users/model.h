@@ -15,7 +15,7 @@
 
 struct resource_Config
 {
-    std::map<std::string, std::string> configs_KV_Pairs;
+    std::map<std::string, std::string> configs_Pairs;
 };
 
 struct model_Info

@@ -424,7 +424,7 @@ glm::mat4 model::get_Matrix_LocalToWorld(const mesh* mesh) const
 
 void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 {
-    if (!std::filesystem::is_directory(texture::textures_Directory))
+    if (texture::textures_Directory == "")
     {
         texture::textures_Directory = this->current_Model_Directory == DEFAULT_MODEL_DIR ? DEFAULT_TEXTURE_DIR : this->current_Model_Directory;
     }

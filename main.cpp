@@ -72,15 +72,21 @@ int main(int argc, char* argv[])
                 int index = line_Content.find_first_of(' ');
                 std::string key = line_Content.substr(0, index);
                 std::string value = line_Content.substr(index + 1, line_Content.length() - 1);
-                configs.configs_KV_Pairs[key] = value;
+                configs.configs_Pairs[key] = value;
             }
 
-            if (configs.configs_KV_Pairs.count("texture_Folder_Path"))
+            if (configs.configs_Pairs.count("texture_Folder_Path"))
             {
-                texture::textures_Directory = configs.configs_KV_Pairs["texture_Folder_Path"];
+
+                if (configs.configs_Pairs["texture_Folder_Path"].length() > 9 && std::filesystem::is_directory(configs.configs_Pairs["texture_Folder_Path"]))
+                {
+                    texture::textures_Directory = configs.configs_Pairs["texture_Folder_Path"];
+                }
+
                 //std::cout << "bb" << configs.configs_KV_Pairs["texture_Folder_Path"] << "cc" << std::endl;
             }
         }
+
 
         is_SplitView = true;
         width = 1600;
