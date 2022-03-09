@@ -84,6 +84,7 @@ int main(int argc, char* argv[])
 
         is_SplitView = true;
         width = 1600;
+
     }
 
     // init glfw 

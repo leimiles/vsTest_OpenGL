@@ -433,15 +433,33 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
     // find diffuse map
     std::string diffuse_Regex_String = "^" + meshName + "_[D,d]\\.(jpg|png|tga|psd)$";
     std::regex diffuseMap_Regex(diffuse_Regex_String);
+
     std::string normal_Regex_String = "^" + meshName + "_[N,n]\\.(jpg|png|tga|psd)$";
     std::regex normalMap_Regex(normal_Regex_String);
+
     std::string metallic_Regex_String = "^" + meshName + "_[M,m]\\.(jpg|png|tga|psd)$";
     std::regex metallicMap_Regex(metallic_Regex_String);
+
     std::string roughness_Regex_String = "^" + meshName + "_[R,r]\\.(jpg|png|tga|psd)$";
     std::regex roughtnessMap_Regex(roughness_Regex_String);
 
     for (const auto& entry : std::filesystem::recursive_directory_iterator(texture::textures_Directory))
     {
+        // skip
+        if (!entry.path().has_extension())
+        {
+            continue;
+        }
+        // skip
+        if (entry.path().extension().string() != ".jpg"
+            && entry.path().extension().string() != ".png"
+            && entry.path().extension().string() != ".tga"
+            && entry.path().extension().string() != ".psd")
+        {
+            continue;
+        }
+        //std::cout << "extention: " << entry.path().extension().string() << std::endl;
+
         std::string file_Name = entry.path().filename().string();
         if (std::regex_match(file_Name, diffuseMap_Regex))
         {
