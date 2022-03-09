@@ -21,6 +21,7 @@ public:
     static std::string textures_Directory;
     texture(const char* texture_FileName, GLenum color_Mode, bool isFlipV, bool isChecked, bool isMipmap);
     texture(const char* texture_FileName, bool isFlipV, bool isChecked, bool isMipmap);
+    texture(std::string texture_Absolute_Path, bool isFlipV, bool isChecked, bool isMipmap);
     ~texture();
     void set_TextureMode_2D();
     unsigned int get_TXO() const;

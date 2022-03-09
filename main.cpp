@@ -60,7 +60,27 @@ int main(int argc, char* argv[])
         model02_Path = argv[2];
 
         configure_Path = argv[3];
+
         std::cout << "configure path: " << configure_Path << std::endl;
+        std::ifstream config_File(configure_Path.c_str());
+        if (config_File.good())
+        {
+            resource_Config configs;
+            std::string line_Content;
+            while (std::getline(config_File, line_Content))
+            {
+                int index = line_Content.find_first_of(' ');
+                std::string key = line_Content.substr(0, index);
+                std::string value = line_Content.substr(index + 1, line_Content.length() - 1);
+                configs.configs_KV_Pairs[key] = value;
+            }
+
+            if (configs.configs_KV_Pairs.count("texture_Folder_Path"))
+            {
+                texture::textures_Directory = configs.configs_KV_Pairs["texture_Folder_Path"];
+                //std::cout << "bb" << configs.configs_KV_Pairs["texture_Folder_Path"] << "cc" << std::endl;
+            }
+        }
 
         is_SplitView = true;
         width = 1600;
@@ -190,7 +210,7 @@ int main(int argc, char* argv[])
         //miles_RenderingPipeline.set_DrawMode(inter.draw_Mode);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-        miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
+        //miles_RenderingPipeline.draw_ScreenLine(&screenLine, false);
         switch (inter.draw_Mode)
         {
         case 1:

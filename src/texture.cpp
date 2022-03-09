@@ -117,6 +117,56 @@ texture::texture(const char* texture_FileName, bool isFlipV, bool isChecked, boo
     texture::count++;
 }
 
+texture::texture(std::string texture_Absolute_Path, bool isFlipV, bool isChecked, bool isMipmap)
+{
+    // this is for opengl which 0.0 is at bottom
+    stbi_set_flip_vertically_on_load(isFlipV);
+    unsigned char* texture_Data = stbi_load(texture_Absolute_Path.c_str(), &width, &height, &number_OfChannels, 0);
+    if (isChecked)
+    {
+        if (!texture_Data)
+        {
+            std::cout << "\t\tTEXTURE::" << texture_Absolute_Path << "::LOAD::FAILED !!!" << std::endl;
+            return;
+        }
+        else
+        {
+            std::cout << "\t\tTEXTURE::" << texture_Absolute_Path << "::LOAD::SUCCESFULLY" << std::endl;
+        }
+    }
+    glGenTextures(1, &TXO);
+    glBindTexture(GL_TEXTURE_2D, TXO);
+    set_TextureMode_2D();
+
+    switch (number_OfChannels)
+    {
+    case 1:
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, texture_Data);
+        break;
+    case 2:
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RG, width, height, 0, GL_RG, GL_UNSIGNED_BYTE, texture_Data);
+        break;
+    case 3:
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture_Data);
+        break;
+    case 4:
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_Data);
+        break;
+
+    default:
+        break;
+    }
+
+    if (isMipmap)
+    {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+
+    // free memory after setting texutre data on gpu side
+    stbi_image_free(texture_Data);
+    texture::count++;
+}
+
 void texture::set_TextureMode_2D()
 {
     // wrap mode

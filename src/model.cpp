@@ -424,9 +424,11 @@ glm::mat4 model::get_Matrix_LocalToWorld(const mesh* mesh) const
 
 void model::fill_Textures_Chicken01(material* material, std::string& meshName)
 {
-
-    texture::textures_Directory = this->current_Model_Directory == DEFAULT_MODEL_DIR ? DEFAULT_TEXTURE_DIR : this->current_Model_Directory;
-    //std::cout << "texture directory: " << texture::textures_Directory << std::endl;
+    if (!std::filesystem::is_directory(texture::textures_Directory))
+    {
+        texture::textures_Directory = this->current_Model_Directory == DEFAULT_MODEL_DIR ? DEFAULT_TEXTURE_DIR : this->current_Model_Directory;
+    }
+    //std::cout << "texture directory oh: " << texture::textures_Directory << std::endl;
 
     // find diffuse map
     std::string diffuse_Regex_String = "^" + meshName + "_[D,d]\\.(jpg|png|tga|psd)$";
@@ -438,13 +440,13 @@ void model::fill_Textures_Chicken01(material* material, std::string& meshName)
     std::string roughness_Regex_String = "^" + meshName + "_[R,r]\\.(jpg|png|tga|psd)$";
     std::regex roughtnessMap_Regex(roughness_Regex_String);
 
-    for (const auto& entry : std::filesystem::directory_iterator(texture::textures_Directory))
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(texture::textures_Directory))
     {
         std::string file_Name = entry.path().filename().string();
         if (std::regex_match(file_Name, diffuseMap_Regex))
         {
             std::cout << "\t material [" << material->material_Name << "] found diffuse texture: " << file_Name << std::endl;
-            texture* tex_Diffuse = new texture(file_Name.c_str(), true, true, true);
+            texture* tex_Diffuse = new texture(entry.path().string(), true, true, true);
             material->set_Texture("surf.diffuse", *tex_Diffuse);
             continue;
         }

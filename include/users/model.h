@@ -13,6 +13,11 @@
 #include "assimp/postprocess.h"
 #include "users/mesh.h"
 
+struct resource_Config
+{
+    std::map<std::string, std::string> configs_KV_Pairs;
+};
+
 struct model_Info
 {
     std::string fbx_Version;    // property: SourceAsset_Generator
